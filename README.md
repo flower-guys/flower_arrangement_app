@@ -1,3 +1,3 @@
 # flower_arrangement_app
 
-J + TY + JS = ?!
+J + TY + JS = 기똥참!
