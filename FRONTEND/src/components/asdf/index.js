@@ -9,8 +9,8 @@ const FlowerImage = (props) => {
       image={image} 
       x={props.x}
       y={props.y}
-      width={300}
-      height={300}
+      width={150}
+      height={150}
       draggable={true}
     />
   )
