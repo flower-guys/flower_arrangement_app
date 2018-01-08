@@ -23,7 +23,7 @@ const Canvas = props => {
         ref={node => {this.stageRef = node}}
       >
         <Layer>
-          <FlowerImage flower={'test'}/>
+          {/* <FlowerImage flower={'test'}/> */}
         </Layer>
       </Stage>
     </div>
