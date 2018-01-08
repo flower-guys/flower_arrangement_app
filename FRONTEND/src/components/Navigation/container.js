@@ -22,14 +22,7 @@ class Container extends Component {
 
     _handleSelectButton = flower => {
         const { selectFlower } = this.props
-        this.setState( prevState => {
-            const { selectedFlowers } = prevState
-            selectedFlowers.push(flower)
-            return {
-                selectedFlowers: selectedFlowers
-            }
-        })
-        selectFlower(this.state.selectedFlowers)
+        selectFlower(flower)
     }
 }
 
