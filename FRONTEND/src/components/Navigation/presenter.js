@@ -7,7 +7,7 @@ const SearchBar = props => {
             here is a searchbar
             <button onClick={props.handleListButton}>꽃 목록</button>
             {props.flowerList && <RenderList {...props} />}
-            {props.basket && <span>꽃바구니: {props.basket.map(flower => `${flower.name} `)}</span>}
+            {props.selectedFlowers && <span>꽃바구니: {props.selectedFlowers.map(flower => `${flower.name} `)}</span>}
         </header>
     )
 }

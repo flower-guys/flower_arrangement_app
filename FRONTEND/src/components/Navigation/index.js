@@ -7,8 +7,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         fetchFirebaseFlowers: () => {
             dispatch(flowersActions.fetchFirebaseFlowers())
         },
-        selectFlower: (basketArray) => {
-            dispatch(flowersActions.selectFlower(basketArray))
+        selectFlower: (selectedFlowers) => {
+            dispatch(flowersActions.selectFlower(selectedFlowers))
         }
     }
 }
@@ -17,7 +17,7 @@ const mapStateToProps = (state, ownProps) => {
     const { flowers } = state
     return { 
         flowerList: flowers.flowerList,
-        basket: flowers.basket
+        selectedFlowers: flowers.selectedFlowers
     }
 }
 

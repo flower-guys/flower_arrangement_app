@@ -3,7 +3,9 @@ import Container from './container'
 
 const mapStateToProps = (state, ownProps) => {
     const { flowers } = state
-    return { basket: flowers.basket }
+    return {
+        selectedFlowers: flowers.selectedFlowers
+    }
 }
 
-export default connect(mapStateToProps)(Container)
+export default connect(mapStateToProps, null)(Container);

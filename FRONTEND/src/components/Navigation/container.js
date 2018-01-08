@@ -3,12 +3,12 @@ import Navigation from './presenter'
 
 class Container extends Component {
     state= {
-        basket: []
+        selectedFlowers: []
     }
     render() {
         return (
                 <Navigation
-                    basket={this.state.basket}
+                    selectedFlowers={this.props.selectedFlowers}
                     flowerList={this.props.flowerList}
                     handleListButton={this._handleListButton}
                     handleSelectButton={this._handleSelectButton}    
@@ -21,12 +21,15 @@ class Container extends Component {
     }
 
     _handleSelectButton = flower => {
-        const basketArray = this.state.basket
-        basketArray.push(flower)
-        this.setState({
-            basket: basketArray
+        const { selectFlower } = this.props
+        this.setState( prevState => {
+            const { selectedFlowers } = prevState
+            selectedFlowers.push(flower)
+            return {
+                selectedFlowers: selectedFlowers
+            }
         })
-        console.log(this.state)
+        selectFlower(this.state.selectedFlowers)
     }
 }
 

@@ -16,10 +16,10 @@ function fetchFlowers (snapshot) {
     }
 }
 
-function selectFlower (flower) {
+function selectFlower (selectedFlowers) {
     return {
         type: SELECT_FLOWER,
-        selectedFlower: flower
+        selectedFlowers
     }
 }
 // API actions
@@ -32,10 +32,11 @@ function fetchFirebaseFlowers () {
 }
 
 
+
 // initial state
 const initialState = {
     flowerList: {},
-    basket: []
+    selectedFlowers: [{ id: 1, name: "rose", outline: "M 125,5 L 228.92305,65.000003 L 228.92305,185 L 125,245 L 21.07695,185 L 21.076953,64.999997 L 125,5 z"}]
 }
 // reducer
 function reducer(state = initialState, action) {
@@ -58,15 +59,16 @@ function applyFetchFlowers(state, action) {
 }
 
 function applySelectFlower(state, action) {
-    const { selectedFlower } = action
+    const { selectedFlowers } = action
     return {
         ...state,
-        basket: selectedFlower
+        selectedFlowers
     }
 }
 // exports
 const actionCreators = {
-    fetchFirebaseFlowers
+    fetchFirebaseFlowers,
+    selectFlower
 }
 
 export { actionCreators }

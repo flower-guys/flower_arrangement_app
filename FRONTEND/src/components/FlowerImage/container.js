@@ -2,18 +2,15 @@ import React, { Component } from 'react'
 import FlowerImage from './presenter'
 
 export default class Container extends Component {
-    state = {
-        basket : this.props.basket
-    }
+
     renderFlowers () {
-        return this.state.basket.map( flower => {
-            return <FlowerImage selectedFlower={flower} key={flower.id} />
+        return this.props.selectedFlowers.map(( flower, key ) => {
+            return <FlowerImage selectedFlower={flower} key={key} />
         })
     }
 
     render() {
-        return (
-                this.renderFlowers()
-        )
+        console.log(this.props.selectedFlowers)
+        return this.renderFlowers()
     }
 }
