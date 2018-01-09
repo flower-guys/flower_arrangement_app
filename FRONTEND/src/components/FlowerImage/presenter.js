@@ -15,6 +15,7 @@ const FlowerImage = props => {
                 fillPatternOffset={{ x: 110, y: 70 }}
                 stroke="transparent"
                 strokeWidth={1}
+                onDblClick={props.handleDblClick}
             />
         </Layer>
     )

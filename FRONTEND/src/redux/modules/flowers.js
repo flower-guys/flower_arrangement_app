@@ -22,6 +22,13 @@ function selectFlower (selectedFlower) {
         selectedFlower
     }
 }
+
+function deselectFlower (deselectedIndex) {
+    return {
+        type: DESELECT_FLOWER,
+        deselectedIndex
+    }
+}
 // API actions
 function fetchFirebaseFlowers () {
     return dispatch => {
@@ -45,6 +52,8 @@ function reducer(state = initialState, action) {
             return applyFetchFlowers(state, action)
         case SELECT_FLOWER:
             return applySelectFlower(state, action)
+        case DESELECT_FLOWER:
+            return applyDeselectFlower(state, action)
         default:
             return state
     }
@@ -65,10 +74,22 @@ function applySelectFlower(state, action) {
         selectedFlowers: [...state.selectedFlowers, selectedFlower]
     }
 }
+
+function applyDeselectFlower(state, action) {
+    const { deselectedIndex } = action
+    return {
+        ...state,
+        selectedFlowers: [
+            ...state.selectedFlowers.slice(0, deselectedIndex),
+            ...state.selectedFlowers.slice(deselectedIndex + 1)
+        ]
+    }
+}
 // exports
 const actionCreators = {
     fetchFirebaseFlowers,
-    selectFlower
+    selectFlower,
+    deselectFlower
 }
 
 export { actionCreators }

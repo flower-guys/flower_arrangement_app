@@ -5,7 +5,7 @@ export default class Container extends Component {
 
     renderFlowers () {
         return this.props.selectedFlowers.map(( flower, key ) => {
-            return <FlowerImage selectedFlower={flower} key={key} />
+            return <FlowerImage selectedFlower={flower} key={key} handleDblClick={() => this.props.deselectFlower(key)}/>
         })
     }
 

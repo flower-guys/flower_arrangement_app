@@ -22,9 +22,7 @@ const Canvas = props => {
         height={window.innerHeight}
         ref={node => {this.stageRef = node}}
       >
-
-          <FlowerImage />
-
+        <FlowerImage />
       </Stage>
     </div>
   )
