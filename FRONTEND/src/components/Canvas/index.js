@@ -19,7 +19,9 @@ class Canvas extends Component {
     link.click()
     document.body.removeChild(link)
   }
-
+  refresh = () => {
+    this.stageRef.getStage().batchDraw()
+  }
   render() {
     return (
       <div>
@@ -35,6 +37,7 @@ class Canvas extends Component {
             <RenderImages 
               selectedImages={this.props.selectedImages}
               deselectImage={this.props.deselectImage}
+              refresh={this.refresh}
             />
           </Layer>
         </Stage>
@@ -51,6 +54,8 @@ class RenderImages extends Component {
       const nodeName = `imageNode${key}`
       image.onload = () => {
         this.refs[nodeName].getLayer().batchDraw()
+        this.refs[nodeName].cache()
+        this.refs[nodeName].drawHitFromCache()
       }
       return (
           <Image
@@ -61,31 +66,25 @@ class RenderImages extends Component {
             scale={{x:0.5, y:0.5}}
             onClick={() => {
               this.refs[nodeName].moveToTop()
-              this.refs[nodeName].getLayer().getChildren().strokeEnabled(false)
-              this.refs[nodeName].strokeEnabled(true)
-              this.refs[nodeName].stroke('black')
-              this.refs[nodeName].strokeWidth(1)
-              this.refs[nodeName].dash([10, 20, 0.001, 20])
+              this.refs[nodeName].getLayer().batchDraw()
+            }}
+            onDragStart={() => {
               this.refs[nodeName].getLayer().batchDraw()
             }}
             onDragEnd={() => {
-              this.refs[nodeName].getLayer().getChildren().strokeEnabled(false)
               this.refs[nodeName].getLayer().batchDraw()
             }}
             onTap={() => {
               this.refs[nodeName].moveToTop()
-              this.refs[nodeName].getLayer().getChildren().strokeEnabled(false)
-              this.refs[nodeName].strokeEnabled(true)
-              this.refs[nodeName].stroke('black')
-              this.refs[nodeName].strokeWidth(1)
-              this.refs[nodeName].dash([10, 20, 0.001, 20])
               this.refs[nodeName].getLayer().batchDraw()
             }}
             onDblClick={() => {
               this.props.deselectImage(key)
+              this.props.refresh()
             }}
             onDblTap={() => {
               this.props.deselectImage(key)
+              this.props.refresh()
             }}
             onMouseOver={() => document.body.style.cursor='pointer'}
             onMouseOut={() => document.body.style.cursor='default'}
