@@ -27,11 +27,11 @@ class Canvas extends Component {
         <Stage
           width={window.innerWidth}
           height={window.innerHeight * 0.9}
-          ref={node => {
-            this.stageRef = node;
-          }}
+          ref={node => this.stageRef = node}
         >
-          <Layer>
+          <Layer 
+            ref={node => this.layerRef = node}
+          >
             <RenderImages 
               selectedImages={this.props.selectedImages}
               deselectImage={this.props.deselectImage}
@@ -61,9 +61,32 @@ class RenderImages extends Component {
             scale={{x:0.5, y:0.5}}
             onClick={() => {
               this.refs[nodeName].moveToTop()
+              this.refs[nodeName].getLayer().getChildren().strokeEnabled(false)
+              this.refs[nodeName].strokeEnabled(true)
+              this.refs[nodeName].stroke('black')
+              this.refs[nodeName].strokeWidth(1)
+              this.refs[nodeName].dash([10, 20, 0.001, 20])
               this.refs[nodeName].getLayer().batchDraw()
             }}
-            onDblClick={() => this.props.deselectImage(key)}
+            onDragStart={() => {
+              this.refs[nodeName].getLayer().getChildren().strokeEnabled(false)
+              this.refs[nodeName].getLayer().batchDraw()
+            }}
+            onTap={() => {
+              this.refs[nodeName].moveToTop()
+              this.refs[nodeName].getLayer().getChildren().strokeEnabled(false)
+              this.refs[nodeName].strokeEnabled(true)
+              this.refs[nodeName].stroke('black')
+              this.refs[nodeName].strokeWidth(1)
+              this.refs[nodeName].dash([10, 20, 0.001, 20])
+              this.refs[nodeName].getLayer().batchDraw()
+            }}
+            onDblClick={() => {
+              this.props.deselectImage(key)
+            }}
+            onDblTap={() => {
+              this.props.deselectImage(key)
+            }}
             onMouseOver={() => document.body.style.cursor='pointer'}
             onMouseOut={() => document.body.style.cursor='default'}
           />
