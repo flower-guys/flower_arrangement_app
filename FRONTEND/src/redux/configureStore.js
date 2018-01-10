@@ -5,7 +5,7 @@ import createHistory from 'history/createBrowserHistory'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { i18nState } from 'redux-i18n'
 import user from 'redux/modules/user'
-import flowers from 'redux/modules/flowers'
+import images from 'redux/modules/images'
 
 const env = process.env.NODE_ENV
 
@@ -24,7 +24,7 @@ if(env === 'development') {
 
 const reducer = combineReducers({
     user,
-    flowers,
+    images,
     routing: routerReducer,
     i18nState
 })

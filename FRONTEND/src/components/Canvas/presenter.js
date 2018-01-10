@@ -1,6 +1,5 @@
 import React from 'react'
-import { Stage, Layer } from 'react-konva'
-import FlowerImage from 'components/FlowerImage'
+import { Stage, Layer, Image } from 'react-konva'
 
 const Canvas = props => {
   const handleExport = () => {
@@ -19,10 +18,12 @@ const Canvas = props => {
       <button onClick={handleExport}>Save as image</button>
       <Stage
         width={window.innerWidth}
-        height={window.innerHeight}
+        height={window.innerHeight * 0.9}
         ref={node => {this.stageRef = node}}
       >
-        <FlowerImage />
+        <Layer>
+          <Image />
+        </Layer>
       </Stage>
     </div>
   )

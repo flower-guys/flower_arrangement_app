@@ -6,17 +6,17 @@ const SearchBar = props => {
         <header>
             here is a searchbar
             <button onClick={props.handleListButton}>꽃 목록</button>
-            {props.flowerList && <RenderList {...props} />}
-            {props.selectedFlowers && <span>꽃바구니: {props.selectedFlowers.map(flower => `${flower.name} `)}</span>}
+            {props.imageList && <RenderList {...props} />}
+            {props.selectedImages && <span>꽃바구니: {props.selectedImages.map(image => `${image.name} `)}</span>}
         </header>
     )
 }
 
-const RenderList = props => _.map(props.flowerList, (flower, key) => {
+const RenderList = props => _.map(props.imageList, (image, key) => {
     return (
     <div key={key}>
-        <li>{flower.name}</li>
-        <button onClick={() => props.handleSelectButton(flower)}>선택</button>
+        <li>{image.name}</li>
+        <button onClick={() => props.handleSelectButton(image)}>선택</button>
     </div>
     )
 })
