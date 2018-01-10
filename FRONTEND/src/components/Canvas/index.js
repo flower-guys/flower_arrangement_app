@@ -68,7 +68,7 @@ class RenderImages extends Component {
               this.refs[nodeName].dash([10, 20, 0.001, 20])
               this.refs[nodeName].getLayer().batchDraw()
             }}
-            onDragStart={() => {
+            onDragEnd={() => {
               this.refs[nodeName].getLayer().getChildren().strokeEnabled(false)
               this.refs[nodeName].getLayer().batchDraw()
             }}
