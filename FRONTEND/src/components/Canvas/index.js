@@ -31,10 +31,12 @@ class Canvas extends Component {
             this.stageRef = node;
           }}
         >
-          <RenderImages 
-            selectedImages={this.props.selectedImages}
-            deselectImage={this.props.deselectImage}
-          />
+          <Layer>
+            <RenderImages 
+              selectedImages={this.props.selectedImages}
+              deselectImage={this.props.deselectImage}
+            />
+          </Layer>
         </Stage>
       </div>
     )
@@ -50,20 +52,21 @@ class RenderImages extends Component {
       image.onload = () => {
         this.refs[nodeName].getLayer().batchDraw()
       }
-      console.log(this.refs)
       return (
-        <Layer key={key}>
           <Image
+            key={key}
             image={image}
             ref={nodeName}
             draggable={true}
             scale={{x:0.5, y:0.5}}
-
+            onClick={() => {
+              this.refs[nodeName].moveToTop()
+              this.refs[nodeName].getLayer().batchDraw()
+            }}
             onDblClick={() => this.props.deselectImage(key)}
             onMouseOver={() => document.body.style.cursor='pointer'}
             onMouseOut={() => document.body.style.cursor='default'}
           />
-        </Layer>
       )
     })
   }
