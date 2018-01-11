@@ -1,18 +1,18 @@
 import React from 'react'
 import _ from 'lodash'
 
-const SearchBar = props => {
+const Navigation = props => {
     return (
         <header>
-            here is a searchbar
+            here is a Navigation
             <button onClick={props.handleListButton}>꽃 목록</button>
-            {props.imageList && <RenderList {...props} />}
-            {props.selectedImages && <span>꽃바구니: {props.selectedImages.map(image => `${image.name} `)}</span>}
+            {props.fetchedImageList && <RenderList {...props} />}
+            {props.refinedList && <span>꽃바구니: {props.refinedList.map(image => `${image.name} x ${image.count} `)}</span>}
         </header>
     )
 }
 
-const RenderList = props => _.map(props.imageList, (image, key) => {
+const RenderList = props => _.map(props.fetchedImageList, (image, key) => {
     return (
     <div key={key}>
         <li>{image.name}</li>
@@ -21,4 +21,4 @@ const RenderList = props => _.map(props.imageList, (image, key) => {
     )
 })
 
-export default SearchBar
+export default Navigation

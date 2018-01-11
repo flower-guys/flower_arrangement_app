@@ -3,10 +3,9 @@ import { Stage, Layer, Image } from 'react-konva'
 import { connect } from "react-redux";
 import { actionCreators as imagesActions } from 'redux/modules/images'
 
-
 class Canvas extends Component {
   state = {
-    selectedImages: this.props.selectedImages
+    currentSelectedImages: this.props.currentSelectedImages
   }
 
   handleExport = () => {
@@ -35,7 +34,7 @@ class Canvas extends Component {
             ref={node => this.layerRef = node}
           >
             <RenderImages 
-              entry={this.props.entry}
+              wholeSelectedImages={this.props.wholeSelectedImages}
               deselectImage={this.props.deselectImage}
               refresh={this.refresh}
             />
@@ -49,8 +48,7 @@ class Canvas extends Component {
 class RenderImages extends Component {
 
   render() {
-    return this.props.entry.map( (renderImage, key) => {
-      console.log(renderImage)
+    return this.props.wholeSelectedImages.map( (renderImage, key) => {
       const image = new window.Image()
       image.src = require(`images/${renderImage.name}.png`)
       const hash = Math.random()
@@ -87,8 +85,9 @@ class RenderImages extends Component {
               this.props.refresh()
               this.props.deselectImage(event.target.attrs.id)
             }}
-            onDblTap={() => {
-              this.props.deselectImage(key)
+            onDblTap={ event => {
+              event.target.destroy()
+              this.props.deselectImage(event.target.attrs.id)
               this.props.refresh()
             }}
             onMouseOver={ event => {
@@ -115,7 +114,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const mapStateToProps = (state, ownProps) => {
   const { images } = state;
   return {
-    entry: images.entry,
+    wholeSelectedImages: images.wholeSelectedImages,
     selectedImage: images.selectedImage,
     deselectedImage: images.deselectedImage
   };

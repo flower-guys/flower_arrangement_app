@@ -7,8 +7,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         fetchFirebaseImages: () => {
             dispatch(imagesActions.fetchFirebaseImages())
         },
-        selectImage: (selectedImages) => {
-            dispatch(imagesActions.selectImage(selectedImages))
+        selectImage: (selectedImage) => {
+            dispatch(imagesActions.selectImage(selectedImage))
+        },
+        refineList: (currentSelectedImages) => {
+            dispatch(imagesActions.refineList(currentSelectedImages))
         }
     }
 }
@@ -16,8 +19,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const mapStateToProps = (state, ownProps) => {
     const { images } = state
     return { 
-        imageList: images.imageList,
-        selectedImages: images.selectedImages
+        fetchedImageList: images.fetchedImageList,
+        currentSelectedImages: images.currentSelectedImages,
+        refinedList: images.refinedList
     }
 }
 

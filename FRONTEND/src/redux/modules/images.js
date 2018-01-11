@@ -1,9 +1,11 @@
 import { database } from 'redux/firebase'
+
 // imports
 
 const FETCH_IMAGES = 'FETCH_IMAGES'
 const SELECT_IMAGE = 'SELECT_IMAGE'
 const DESELECT_IMAGE = 'DESELECT_IMAGE'
+const REFINE_LIST = 'REFINE_LIST'
 // actions
 
 // action creators
@@ -27,6 +29,13 @@ function deselectImage (deselectedId) {
         deselectedId
     }
 }
+
+function refineList (currentSelectedImages) {
+    return {
+        type: REFINE_LIST,
+        currentSelectedImages
+    }
+}
 // API actions
 function fetchFirebaseImages () {
     return dispatch => {
@@ -40,10 +49,9 @@ function fetchFirebaseImages () {
 
 // initial state
 const initialState = {
-    entry: [],
-    selectedImages: [],
-    selectedImage: {},
-    deselectedImage: ''
+    wholeSelectedImages: [],
+    currentSelectedImages: [],
+    refinedList: [],
 }
 // reducer
 function reducer(state = initialState, action) {
@@ -54,6 +62,8 @@ function reducer(state = initialState, action) {
             return applySelectImage(state, action)
         case DESELECT_IMAGE:
             return applyDeselectImage(state, action)
+        case REFINE_LIST:
+            return applyRefineList(state, action)
         default:
             return state
     }
@@ -63,38 +73,73 @@ function applyFetchImages(state, action) {
     const { images } = action
     return {
         ...state,
-        imageList: images
+        fetchedImageList: images
     }
 }
 
 function applySelectImage(state, action) {
     const { selectedImage } = action
+    
     return {
         ...state,
-        entry: [...state.entry, selectedImage],
-        selectedImages: [...state.selectedImages, selectedImage],
-        selectedImage: selectedImage
+        wholeSelectedImages: [...state.wholeSelectedImages, selectedImage],
+        currentSelectedImages: [...state.currentSelectedImages, selectedImage],
     }
 }
 
 function applyDeselectImage(state, action) {
     const { deselectedId } = action
-    const actionIndex = state.selectedImages.findIndex( x => x.id == deselectedId)
-    console.log(actionIndex)
+    const actionIndex = state.currentSelectedImages.findIndex( x => x.id === deselectedId)
     return {
         ...state,
-        selectedImages: [
-            ...state.selectedImages.slice(0, actionIndex),
-            ...state.selectedImages.slice(actionIndex + 1)
+        currentSelectedImages: [
+            ...state.currentSelectedImages.slice(0, actionIndex),
+            ...state.currentSelectedImages.slice(actionIndex + 1)
         ],
-        deselectedImage: deselectedId
     }
 }
+
+function applyRefineList(state, action) {
+    const { currentSelectedImages } = action
+    const comparison = (a, b) => {
+        const [idA, idB] = [a.id, b.id];
+        let type = 0;
+        if (idA > idB) {
+            type = 1;
+        } else if (idA < idB) {
+            type = -1;
+        }
+        return type;
+    };
+    const arrangedArray = currentSelectedImages.slice().sort(comparison)
+    const refinedList = []
+    var tempCount = 1
+    for (let i = 0; i < arrangedArray.length; i++) {       
+        if (arrangedArray.length > 1) {
+            if (arrangedArray[i] === arrangedArray[i+1]) {
+                tempCount = tempCount + 1
+            } else if (arrangedArray[i] !== arrangedArray[i+1]) {
+                arrangedArray[i].count = tempCount
+                refinedList.push(arrangedArray[i])
+                tempCount = 1
+            }
+        } else if (arrangedArray.length <= 1) {
+            arrangedArray[0].count = 1
+            refinedList.push(arrangedArray[0])
+        }
+    }
+    return {
+        ...state,
+        refinedList: refinedList
+    }
+}
+
 // exports
 const actionCreators = {
     fetchFirebaseImages,
     selectImage,
-    deselectImage
+    deselectImage,
+    refineList
 }
 
 export { actionCreators }
