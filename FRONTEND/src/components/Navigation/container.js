@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import Navigation from './presenter'
 
 class Container extends Component {
+    state = {
+        selectedImages: this.props.selectedImages,
+
+    }
     render() {
         return (
                 <Navigation
@@ -12,6 +16,10 @@ class Container extends Component {
                 />
         ) 
     }
+    _selectedImagesFilter = () => {
+        
+    }
+
     _handleListButton = () => {
         const { fetchFirebaseImages } = this.props
         fetchFirebaseImages()

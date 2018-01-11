@@ -35,7 +35,7 @@ class Canvas extends Component {
             ref={node => this.layerRef = node}
           >
             <RenderImages 
-              selectedImages={this.props.selectedImages}
+              entry={this.props.entry}
               deselectImage={this.props.deselectImage}
               refresh={this.refresh}
             />
@@ -47,47 +47,56 @@ class Canvas extends Component {
 }
 
 class RenderImages extends Component {
+
   render() {
-    return this.props.selectedImages.map( (selectedImage, key) => {
+    return this.props.entry.map( (renderImage, key) => {
+      console.log(renderImage)
       const image = new window.Image()
-      image.src = require(`images/${selectedImage.name}.png`)
-      const nodeName = `imageNode${key}`
+      image.src = require(`images/${renderImage.name}.png`)
+      const hash = Math.random()
+      const nodeName = `imageNode-${hash}`
       image.onload = () => {
-        this.refs[nodeName].getLayer().batchDraw()
+        this.props.refresh()
         this.refs[nodeName].cache()
         this.refs[nodeName].drawHitFromCache()
       }
       return (
           <Image
+            id={renderImage.id}
             key={key}
             image={image}
             ref={nodeName}
             draggable={true}
             scale={{x:0.5, y:0.5}}
-            onClick={() => {
-              this.refs[nodeName].moveToTop()
-              this.refs[nodeName].getLayer().batchDraw()
+            onClick={ event => {
+              event.target.moveToTop()
+              event.target.getLayer().batchDraw()
             }}
-            onDragStart={() => {
-              this.refs[nodeName].getLayer().batchDraw()
+            onDragStart={ event => {
+              event.target.getLayer().batchDraw()
             }}
-            onDragEnd={() => {
-              this.refs[nodeName].getLayer().batchDraw()
+            onDragEnd={ event => {
+              event.target.getLayer().batchDraw()
             }}
-            onTap={() => {
-              this.refs[nodeName].moveToTop()
-              this.refs[nodeName].getLayer().batchDraw()
+            onTap={ event => {
+              event.target.moveToTop()
+              event.target.getLayer().batchDraw()
             }}
-            onDblClick={() => {
-              this.props.deselectImage(key)
+            onDblClick={ event => {
+              event.target.destroy()
               this.props.refresh()
+              this.props.deselectImage(event.target.attrs.id)
             }}
             onDblTap={() => {
               this.props.deselectImage(key)
               this.props.refresh()
             }}
-            onMouseOver={() => document.body.style.cursor='pointer'}
-            onMouseOut={() => document.body.style.cursor='default'}
+            onMouseOver={ event => {
+              document.body.style.cursor='move'
+            }}
+            onMouseOut={ event => {
+              document.body.style.cursor='default'}
+            }
           />
       )
     })
@@ -106,8 +115,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const mapStateToProps = (state, ownProps) => {
   const { images } = state;
   return {
-    imageList: images.imageList,
-    selectedImages: images.selectedImages,
+    entry: images.entry,
     selectedImage: images.selectedImage,
     deselectedImage: images.deselectedImage
   };

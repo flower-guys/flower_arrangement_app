@@ -21,10 +21,10 @@ function selectImage (selectedImage) {
     }
 }
 
-function deselectImage (deselectedIndex) {
+function deselectImage (deselectedId) {
     return {
         type: DESELECT_IMAGE,
-        deselectedIndex
+        deselectedId
     }
 }
 // API actions
@@ -40,6 +40,7 @@ function fetchFirebaseImages () {
 
 // initial state
 const initialState = {
+    entry: [],
     selectedImages: [],
     selectedImage: {},
     deselectedImage: ''
@@ -70,20 +71,23 @@ function applySelectImage(state, action) {
     const { selectedImage } = action
     return {
         ...state,
+        entry: [...state.entry, selectedImage],
         selectedImages: [...state.selectedImages, selectedImage],
         selectedImage: selectedImage
     }
 }
 
 function applyDeselectImage(state, action) {
-    const { deselectedIndex } = action
+    const { deselectedId } = action
+    const actionIndex = state.selectedImages.findIndex( x => x.id == deselectedId)
+    console.log(actionIndex)
     return {
         ...state,
         selectedImages: [
-            ...state.selectedImages.slice(0, deselectedIndex),
-            ...state.selectedImages.slice(deselectedIndex + 1)
+            ...state.selectedImages.slice(0, actionIndex),
+            ...state.selectedImages.slice(actionIndex + 1)
         ],
-        deselectedImage: deselectedIndex
+        deselectedImage: deselectedId
     }
 }
 // exports
