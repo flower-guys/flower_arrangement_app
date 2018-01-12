@@ -2,7 +2,6 @@ import React from 'react'
 import styles from './styles.scss'
 
 const Footer = props => {
-    console.log(props)
     return (
         <footer className={styles.footer}>
             {props.refinedList 

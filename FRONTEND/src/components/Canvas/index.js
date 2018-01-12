@@ -87,7 +87,7 @@ class RenderImages extends Component {
             draggable={true}
             scale={{x:0.5, y:0.5}}
             onClick={ event => {
-              event.target.moveToTop()
+              this.refs[groupName].moveToTop()
               event.target.getLayer().batchDraw()
             }}
             onDragStart={ event => {
@@ -97,7 +97,7 @@ class RenderImages extends Component {
               event.target.getLayer().batchDraw()
             }}
             onTap={ event => {
-              event.target.moveToTop()
+              this.refs[groupName].moveToTop()
               event.target.getLayer().batchDraw()
             }}
             onMouseOver={ event => {
