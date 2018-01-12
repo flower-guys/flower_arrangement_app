@@ -150,6 +150,13 @@ class RenderImage extends Component {
               this.setState({ needMenu: true })
               event.target.getLayer().batchDraw()
             }}
+            onMouseOver={ event => {
+              document.body.style.cursor = 'move'
+              
+            }}
+            onMouseOut={ event => {
+              document.body.style.cursor = 'default'
+            }}
             onTap={event => {
               this.props.disactiveMenu()
               this.refs[groupName].moveToTop()
@@ -163,32 +170,28 @@ class RenderImage extends Component {
               this.setState({ needMenu: true })
               event.target.getLayer().batchDraw()
             }}
-            onMouseOver={ event => {
-              document.body.style.cursor = 'move'
-              
-            }}
-            onMouseOut={ event => {
-              document.body.style.cursor = 'default'
-            }}
           />
           <Text name={'deleteButton'}
             x={240} y={40}
             text={'X'} fontSize={20} fill={'tomato'} 
-            onClick={ evnet => {
+            onClick={ event => {
               this.props.deselectImage(this.refs[groupName].children[0].attrs.id)
               this.refs[groupName].destroy()
               this.props.refresh()
             }}
             onMouseOver={ event => {
-                  document.body.style.cursor = 'pointer'
+              document.body.style.cursor = 'pointer'
             }} 
             onMouseOut={event => {
               document.body.style.cursor = 'default'
             }}   
+            onTap={ eventt => {
+              this.props.deselectImage(this.refs[groupName].children[0].attrs.id)
+              this.refs[groupName].destroy()
+              this.props.refresh()
+            }}
           />
-
-
-            <Circle name={'topLeft'} 
+          <Circle name={'topLeft'} 
             x={0} y={0}
             fill={'tomato'} strokeWidth={2} radius={8}
             draggable={true} dragOnTop={false}
@@ -205,9 +208,7 @@ class RenderImage extends Component {
               event.target.getLayer().batchDraw()
             }}
           />
-
-
-            <Circle name={'topRight'}
+          <Circle name={'topRight'}
             x={50} y={0}
             fill={'tomato'} strokeWidth={2} radius={8}
             draggable={true} dragOnTop={false}
@@ -215,11 +216,8 @@ class RenderImage extends Component {
               this.update(event.target)
               event.target.getLayer().batchDraw()
             }}
-            onClick={ event => console.log(this.refs[groupName].getChildren()[0].getClientRect().width)}
           />
-
-
-            <Circle name={'bottomLeft'}
+          <Circle name={'bottomLeft'}
             x={0} y={300}
             fill={'tomato'} strokeWidth={2} radius={8}
             draggable={true} dragOnTop={false}
@@ -228,9 +226,7 @@ class RenderImage extends Component {
               event.target.getLayer().batchDraw()
             }}
           />
-
-
-            <Circle name={'bottomRight'}
+          <Circle name={'bottomRight'}
             x={100} y={300}
             fill={'tomato'} strokeWidth={2} radius={8}
             draggable={true} dragOnTop={false}
@@ -239,7 +235,6 @@ class RenderImage extends Component {
               event.target.getLayer().batchDraw()
             }}
           />
-
         </Group>
       )
     }
