@@ -1,0 +1,20 @@
+@import '../../config/_variables.scss';
+
+.header {
+    height: 7vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $font-color;
+    color: $bg-color;
+    button {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    ul {
+        display: flex;
+        flex-direction: row;
+    }
+}
