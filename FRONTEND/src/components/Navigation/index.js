@@ -21,7 +21,6 @@ const mapStateToProps = (state, ownProps) => {
     return { 
         fetchedImageList: images.fetchedImageList,
         currentSelectedImages: images.currentSelectedImages,
-        refinedList: images.refinedList
     }
 }
 

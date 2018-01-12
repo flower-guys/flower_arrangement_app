@@ -2,12 +2,17 @@ import React, { Component } from 'react'
 import Footer from './presenter'
 
 class Container extends Component {
-    state = {
-
+    componentDidMount() {
+        this.props.refineList(this.props.currentSelectedImages)
     }
 
+    componentWillUpdate(nextProps) {
+        if (this.props.currentSelectedImages !== nextProps.currentSelectedImages) {
+            this.props.refineList(nextProps.currentSelectedImages)
+        }
+    }
     render() {
-        return <Footer />
+        return <Footer refinedList={this.props.refinedList} />
     }
 }
 

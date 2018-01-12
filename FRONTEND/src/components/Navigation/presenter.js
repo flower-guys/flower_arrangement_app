@@ -1,23 +1,19 @@
 import React from 'react'
 import _ from 'lodash'
+import styles from './styles.scss'
 
 const Navigation = props => {
     return (
-        <header>
-            here is a Navigation
+        <header className={styles.header}>
             <button onClick={props.handleListButton}>꽃 목록</button>
-            {props.fetchedImageList && <RenderList {...props} />}
-            {props.refinedList && <span>꽃바구니: {props.refinedList.map(image => `${image.name} x ${image.count} `)}</span>}
+            <ul>{props.fetchedImageList && <RenderList {...props} />}</ul>
         </header>
     )
 }
 
 const RenderList = props => _.map(props.fetchedImageList, (image, key) => {
     return (
-    <div key={key}>
-        <li>{image.name}</li>
-        <button onClick={() => props.handleSelectButton(image)}>선택</button>
-    </div>
+        <li key={key} >{image.name}<button onClick={() => props.handleSelectButton(image)}>선택</button></li>
     )
 })
 
