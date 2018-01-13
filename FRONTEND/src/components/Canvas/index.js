@@ -4,9 +4,6 @@ import { connect } from "react-redux";
 import { actionCreators as imagesActions } from 'redux/modules/images'
 
 class Canvas extends Component {
-  state = {
-    isLoaded: false
-  }
 
   disactiveMenu = () => {
     if (this.layerRef.getChildren().length > 0) {
@@ -23,7 +20,7 @@ class Canvas extends Component {
 
   handleExport = () => {
     const uri = this.stageRef.getStage().toDataURL()
-    const name = "temp.png"
+    const name = "temp.jpg"
     let link = document.createElement("a")
     link.download = name
     link.href = uri
@@ -37,15 +34,21 @@ class Canvas extends Component {
   render() {
     return (
       <div>
-        <button onClick={this.handleExport}>Save as image</button>
+        <button onClick={ () => { // 비동기 공부해서 코드 수정할 것!!!!
+            this.disactiveMenu()
+            setTimeout(() => {this.handleExport()}, 100);
+        }}>
+          이미지로 저장
+        </button>
         <Stage
           width={window.innerWidth}
           height={window.innerHeight * 0.7}
-          ref={node => this.stageRef = node}   
+          ref={node => this.stageRef = node}
         >
           <Layer>
             <Rect width={window.innerWidth} height={window.innerHeight} 
-              onClick={ () => this.disactiveMenu()}
+              onClick={ () => this.disactiveMenu()} onTap={ () => this.disactiveMenu()}
+              fill={'white'}
             />
           </Layer>
           <Layer ref={node => this.layerRef = node}>
@@ -53,7 +56,6 @@ class Canvas extends Component {
               return (
                 <RenderImage
                   key={key}
-                  isLoaded={this.state.isLoaded}
                   renderImage={image}
                   deselectImage={this.props.deselectImage}
                   refresh={this.refresh}
@@ -125,8 +127,8 @@ class RenderImage extends Component {
       const nodeName = `imageNode-${hash}`
       image.onload = () => {
         this.props.refresh()
-        // this.refs[nodeName].cache()
-        // this.refs[nodeName].drawHitFromCache()
+        this.refs[nodeName].cache()
+        this.refs[nodeName].drawHitFromCache()
       }
       const groupName = `groupNod-${hash}`
 
@@ -137,7 +139,7 @@ class RenderImage extends Component {
             image={image}
             ref={nodeName}
             scale={{ x: 0.5, y: 0.5 }}
-            onClick={event => {
+            onClick={ event => {
               this.props.disactiveMenu()
               this.refs[groupName].moveToTop()
               !this.state.needMenu &&
@@ -245,19 +247,18 @@ class RenderImage extends Component {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     deselectImage: deselectImage => {
-      dispatch(imagesActions.deselectImage(deselectImage));
+      dispatch(imagesActions.deselectImage(deselectImage))
     }
-  };
-};
+  }
+}
 
 const mapStateToProps = (state, ownProps) => {
-  const { images } = state;
+  const { images } = state
   return {
     wholeSelectedImages: images.wholeSelectedImages,
     selectedImage: images.selectedImage,
     deselectedImage: images.deselectedImage
-  };
-};
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Canvas);
-
