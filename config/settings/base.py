@@ -55,6 +55,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     # custom users app
     'fitflowers.users.apps.UsersConfig',
+    'fitflowers.flowers.apps.FlowersConfig'
     # Your stuff: custom apps go here
 ]
 
