@@ -74,66 +74,24 @@ class RenderImage extends Component {
   state = {
     neenMenu: false
   }
-  update = activeAnchor => {
-    const group = activeAnchor.getParent()
-    const deleteButton = group.get('.deleteButton')[0]
-    const topLeft = group.get('.topLeft')[0]
-    const topRight = group.get('.topRight')[0]
-    const bottomLeft = group.get('.bottomLeft')[0]
-    const bottomRight = group.get('.bottomRight')[0]
-    const image = group.get('Image')[0]
 
-    let anchorX = activeAnchor.getX()
-    let anchorY = activeAnchor.getY()
-
-    switch (activeAnchor.getName()) {
-      case 'topLeft':
-        topRight.setY(anchorY)
-        bottomLeft.setX(anchorX)
-        break
-      case 'topRight':
-        topLeft.setY(anchorY)
-        bottomRight.setX(anchorX)
-        break
-      case 'bottomLeft':
-        topLeft.setX(anchorX)
-        bottomRight.setY(anchorY)
-        topLeft.setX(anchorX)
-        break
-      case 'bottomRight':
-        bottomLeft.setY(anchorY)
-        topRight.setX(anchorX)
-        break
-      default:
-        break
-    }
-    image.position(topLeft.position())
-    let buttonX = topLeft.getX() + (topRight.getX() - topLeft.getX()) * 0.5
-    let buttonY = topLeft.getY() - 50
-    deleteButton.setX(buttonX)
-    deleteButton.setY(buttonY)
-
-    let width = topRight.getX() - topLeft.getX()
-    let height = bottomLeft.getY() - topLeft.getY()
-    if (width && height) {
-      image.width(width)
-      image.height(height)
-    }
-  }
   render() {
       const image = new window.Image()
       image.src = require(`images/${this.props.renderImage.name}.png`)
+
       const hash = Math.random()
       const nodeName = `imageNode-${hash}`
       image.onload = () => {
-        this.props.refresh()
+        this.refs[nodeName].offsetX(this.refs[nodeName].width() / 2)
+        this.refs[nodeName].offsetY(this.refs[nodeName].height() / 2)
         this.refs[nodeName].cache()
         this.refs[nodeName].drawHitFromCache()
+        this.props.refresh()
       }
       const groupName = `groupNod-${hash}`
 
       return (
-        <Group ref={groupName} draggable={true}>
+        <Group ref={groupName} draggable={true} >
           <Image
             id={this.props.renderImage.id}
             image={image}
@@ -147,8 +105,6 @@ class RenderImage extends Component {
               event.target.getParent().getChildren()[1].show()
               event.target.getParent().getChildren()[2].show()
               event.target.getParent().getChildren()[3].show()
-              event.target.getParent().getChildren()[4].show()
-              event.target.getParent().getChildren()[5].show()
               this.setState({ needMenu: true })
               event.target.getLayer().batchDraw()
             }}
@@ -167,14 +123,12 @@ class RenderImage extends Component {
               event.target.getParent().getChildren()[1].show()
               event.target.getParent().getChildren()[2].show()
               event.target.getParent().getChildren()[3].show()
-              event.target.getParent().getChildren()[4].show()
-              event.target.getParent().getChildren()[5].show()
               this.setState({ needMenu: true })
               event.target.getLayer().batchDraw()
             }}
           />
           <Text name={'deleteButton'}
-            x={240} y={40}
+            x={75} y={-50}
             text={'X'} fontSize={20} fill={'tomato'} 
             onClick={ event => {
               this.props.deselectImage(this.refs[groupName].children[0].attrs.id)
@@ -196,44 +150,16 @@ class RenderImage extends Component {
           <Circle name={'topLeft'} 
             x={0} y={0}
             fill={'tomato'} strokeWidth={2} radius={8}
-            draggable={true} dragOnTop={false}
-            onDragMove={ event => {
-              this.update(event.target)
-              event.target.getLayer().batchDraw()
-            }}
-            onMouseDown={ event => {
-              this.refs[groupName].setDraggable(false)
-              this.refs[groupName].moveToTop()
-            }}
-            onDragEnd={ event => {
-              this.refs[groupName].setDraggable(true)
-              event.target.getLayer().batchDraw()
+            onClick={event => {
+              this.refs[nodeName].rotate(-15)
+              event.target.getLayer().batchDraw()            
             }}
           />
           <Circle name={'topRight'}
-            x={50} y={0}
+            x={150} y={0}
             fill={'tomato'} strokeWidth={2} radius={8}
-            draggable={true} dragOnTop={false}
-            onDragMove={ event => {
-              this.update(event.target)
-              event.target.getLayer().batchDraw()
-            }}
-          />
-          <Circle name={'bottomLeft'}
-            x={0} y={300}
-            fill={'tomato'} strokeWidth={2} radius={8}
-            draggable={true} dragOnTop={false}
-            onDragMove={ event => {
-              this.update(event.target)
-              event.target.getLayer().batchDraw()
-            }}
-          />
-          <Circle name={'bottomRight'}
-            x={100} y={300}
-            fill={'tomato'} strokeWidth={2} radius={8}
-            draggable={true} dragOnTop={false}
-            onDragMove={ event => {
-              this.update(event.target)
+            onClick={event => {
+              this.refs[nodeName].rotate(15)
               event.target.getLayer().batchDraw()
             }}
           />
@@ -241,8 +167,6 @@ class RenderImage extends Component {
       )
     }
   }
-
-    
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
