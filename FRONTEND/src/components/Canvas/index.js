@@ -38,7 +38,7 @@ class Canvas extends Component {
       <div className={styles.canvas}>
         <Stage
           width={window.innerWidth}
-          height={window.innerHeight * 0.7}
+          height={window.innerHeight * 0.8}
           ref={node => this.stageRef = node}
         >
           <Layer>
@@ -82,6 +82,7 @@ class RenderImage extends Component {
   state = {
     needMenu: false,
   }
+
   imageX
   imageY
   imageWidth
@@ -139,7 +140,11 @@ class RenderImage extends Component {
           }}
         />
         {this.state.needMenu && 
-        <PopupMenu {...this.props} mainImageX={this.imageX} mainImageY={this.imageY} mainImageWidth={this.imageWidth} mainImageHeight={this.imageHeight} />}
+          <PopupMenu {...this.props} 
+            mainImageX={this.imageX} mainImageY={this.imageY} 
+            mainImageWidth={this.imageWidth} mainImageHeight={this.imageHeight} 
+          />
+        }
       </Group>
     )
   }
@@ -183,15 +188,37 @@ class PopupMenu extends Component {
     moveDown.onload = () => {
       this.props.refresh()
     }
+
     const { mainImageX, mainImageY, mainImageWidth, mainImageHeight } = this.props
     const positions = {
-      moveToTop: { x: mainImageX - 70, y: mainImageY - (mainImageHeight * 0.3) },
-      moveUp: { x: mainImageX - 35, y: mainImageY - (mainImageHeight * 0.3) },
-      deleteButton: { x: mainImageX, y: mainImageY - (mainImageHeight * 0.3) },
-      moveDown: { x: mainImageX + 35, y: mainImageY - (mainImageHeight * 0.3) },
-      moveToBottom: { x: mainImageX + 70, y: mainImageY - (mainImageHeight * 0.3) },
-      leftRotationArrow: { x: mainImageX - (mainImageWidth * 0.4), y: mainImageY - (mainImageHeight * 0.25)},
-      rightRotationArrow: { x: mainImageX + (mainImageWidth * 0.4), y: mainImageY - (mainImageHeight * 0.25)},
+      moveToTop: { 
+        x: mainImageX - 70,
+        y: mainImageY + mainImageHeight * 0.3
+      },
+      moveUp: { 
+        x: mainImageX - 35, 
+        y: mainImageY + mainImageHeight * 0.3
+      },
+      deleteButton: { 
+        x: mainImageX, 
+        y: mainImageY + mainImageHeight * 0.3 
+      },
+      moveDown: { 
+        x: mainImageX + 35, 
+        y: mainImageY + mainImageHeight * 0.3 
+      },
+      moveToBottom: {
+        x: mainImageX + 70, 
+        y: mainImageY + mainImageHeight * 0.3
+      },
+      leftRotationArrow: { 
+        x: mainImageX - (mainImageWidth * 0.5), 
+        y: mainImageY - (mainImageHeight * 0.25)
+      },
+      rightRotationArrow: { 
+        x: mainImageX + (mainImageWidth * 0.5), 
+        y: mainImageY - (mainImageHeight * 0.25)
+      },
       borderBox: { 
         points: [
           (mainImageX - mainImageWidth * 0.3), (mainImageY - mainImageHeight * 0.25),
@@ -203,7 +230,7 @@ class PopupMenu extends Component {
       }
     }
     return (
-      <Group>
+      <Group ref={ node => this.popupMenuGroup = node }>
         <Image name={'moveToTop'}
           x={positions.moveToTop.x - 12} y={positions.moveToTop.y - 12} width={24} height={24}
           image={moveToTop}
