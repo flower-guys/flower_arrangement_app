@@ -17,6 +17,11 @@ class Bouquet(TimeStampedModel):
     caption = models.TextField()
     creator = models.ForeignKey(user_models.User, null=True)
 
+class Like(TimeStampedModel):
+    """ Like Model """
+    creator = models.ForeignKey(user_models.User, null=True)
+    bouquet = models.ForeignKey(Bouquet, null=True)
+
 
 class Comment(TimeStampedModel):
     """ Comment Model """
@@ -24,12 +29,8 @@ class Comment(TimeStampedModel):
     creator = models.ForeignKey(user_models.User, null=True)
     bouquet = models.ForeignKey(Bouquet, null=True)
 
-class Like(TimeStampedModel):
-    """ Like Model """
-    creator = models.ForeignKey(user_models.User, null=True)
-    bouquet = models.ForeignKey(Bouquet, null=True)
 
-class Bunch():
-    creator = models.ForeignKey(Bouquet, null=True)
+class Bunch(TimeStampedModel):
+    creator = models.ForeignKey(user_models.User, null=True)
     bouquet = models.ForeignKey(Bouquet, null=True)
 
