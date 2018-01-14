@@ -72,7 +72,7 @@ class Canvas extends Component {
 
 class RenderImage extends Component {
   state = {
-    neenMenu: false
+    needMenu: false
   }
 
   render() {
@@ -94,18 +94,18 @@ class RenderImage extends Component {
         <Group ref={groupName} draggable={true} >
           <Image
             id={this.props.renderImage.id}
+            x={100} y={100}
             image={image}
             ref={nodeName}
             scale={{ x: 0.5, y: 0.5 }}
             onClick={ event => {
               this.props.disactiveMenu()
               this.refs[groupName].moveToTop()
-              !this.state.needMenu &&
-              event.target.getParent().getChildren()[0].show()
-              event.target.getParent().getChildren()[1].show()
-              event.target.getParent().getChildren()[2].show()
-              event.target.getParent().getChildren()[3].show()
               this.setState({ needMenu: true })
+              if (this.state.needMenu === true && event.target.parent.children.length > 0) {
+                event.target.getParent().getChildren()[1].show()
+                event.target.getLayer().batchDraw()
+              }
               event.target.getLayer().batchDraw()
             }}
             onMouseOver={ event => {
@@ -127,46 +127,56 @@ class RenderImage extends Component {
               event.target.getLayer().batchDraw()
             }}
           />
-          <Text name={'deleteButton'}
-            x={75} y={-50}
-            text={'X'} fontSize={20} fill={'tomato'} 
-            onClick={ event => {
-              this.props.deselectImage(this.refs[groupName].children[0].attrs.id)
-              this.refs[groupName].destroy()
-              this.props.refresh()
-            }}
-            onMouseOver={ event => {
-              document.body.style.cursor = 'pointer'
-            }} 
-            onMouseOut={event => {
-              document.body.style.cursor = 'default'
-            }}   
-            onTap={ eventt => {
-              this.props.deselectImage(this.refs[groupName].children[0].attrs.id)
-              this.refs[groupName].destroy()
-              this.props.refresh()
-            }}
-          />
-          <Circle name={'topLeft'} 
-            x={0} y={0}
-            fill={'tomato'} strokeWidth={2} radius={8}
-            onClick={event => {
-              this.refs[nodeName].rotate(-15)
-              event.target.getLayer().batchDraw()            
-            }}
-          />
-          <Circle name={'topRight'}
-            x={150} y={0}
-            fill={'tomato'} strokeWidth={2} radius={8}
-            onClick={event => {
-              this.refs[nodeName].rotate(15)
-              event.target.getLayer().batchDraw()
-            }}
-          />
+          {this.state.needMenu && 
+          <PopupMenu {...this.props} />}
         </Group>
       )
     }
   }
+
+const PopupMenu = props => {
+  
+  return (
+    <Group>
+      <Text name={'deleteButton'}
+        x={75} y={-50}
+        text={'X'} fontSize={20} fill={'tomato'}
+        onClick={event => {
+          props.deselectImage(event.target.getParent().getParent().getChildren()[0].attrs.id)
+          event.target.getParent().getParent().destroy()
+          props.refresh()
+        }}
+        onMouseOver={ event => {
+          document.body.style.cursor = 'pointer'
+        }}
+        onMouseOut={ event => {
+          document.body.style.cursor = 'default'
+        }}
+        onTap={ event => {
+          props.deselectImage(event.target.getParent().getParent().getChildren()[0].attrs.id)
+          event.target.getParent().getParent().destroy()
+          props.refresh()
+        }}
+      />
+      <Circle name={'topLeft'}
+        x={0} y={0}
+        fill={'tomato'} strokeWidth={2} radius={8}
+        onClick={ event => {
+          event.target.getParent().getParent().getChildren()[0].rotate(-10)
+          event.target.getLayer().batchDraw()
+        }}
+      />
+      <Circle name={'topRight'}
+        x={150} y={0}
+        fill={'tomato'} strokeWidth={2} radius={8}
+        onClick={event => {
+          event.target.getParent().getParent().getChildren()[0].rotate(10)
+          event.target.getLayer().batchDraw()
+        }}
+      />
+    </Group>
+  )
+}
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
