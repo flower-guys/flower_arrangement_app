@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Stage, Layer, Group, Image, Rect } from 'react-konva'
+import { Stage, Layer, Group, Image, Rect, Line } from 'react-konva'
 import { connect } from "react-redux";
 import { actionCreators as imagesActions } from 'redux/modules/images'
+import styles from './styles.scss'
 
 class Canvas extends Component {
   disactiveMenu = () => {
@@ -34,13 +35,7 @@ class Canvas extends Component {
 
   render() {
     return (
-      <div>
-        <button onClick={ () => { // 비동기 공부해서 코드 수정할 것!!!!  
-            this.disactiveMenu()
-            setTimeout(() => {this.handleExport()}, 100);
-        }}>
-          이미지로 저장
-        </button>
+      <div className={styles.canvas}>
         <Stage
           width={window.innerWidth}
           height={window.innerHeight * 0.7}
@@ -52,7 +47,6 @@ class Canvas extends Component {
                 this.disactiveMenu()
               }}
               onTap={ () => this.disactiveMenu()}
-              fill={'white'}
             />
           </Layer>
           <Layer ref={node => this.layerRef = node}>
@@ -69,6 +63,16 @@ class Canvas extends Component {
             })}
           </Layer>
         </Stage>
+        <div className={styles.tools}>
+          <button className={styles.saveButton}
+            onClick={() => { // 비동기 공부해서 코드 수정할 것!!!!  
+              this.disactiveMenu()
+              setTimeout(() => { this.handleExport() }, 100);
+            }}
+          >
+            이미지로 저장
+            </button>
+        </div>
       </div>
     )
   } 
@@ -101,28 +105,28 @@ class RenderImage extends Component {
       }
     return (
       <Group ref={ node => this.wholeGroup = node } draggable={true} >
-        <Image
-          id={this.props.renderImage.id}
-          x={100} y={300}
-          image={image}
-          ref={imageNodeName}
-          scale={{ x: 0.5, y: 0.5 }}
+        <Image image={image}
+          imageId={this.props.renderImage.id} ref={imageNodeName}
+          x={100} y={300} scale={{ x: 0.5, y: 0.5 }}
+
           onClick={ event => {
             this.props.disactiveMenu()
             this.setState({ needMenu: true })
             if (this.state.needMenu === true && event.target.parent.children.length > 0) {
-              event.target.getParent().getChildren()[1].show()
-              event.target.getLayer().batchDraw()
-            }
-            event.target.getLayer().batchDraw()
+                event.target.getParent().getChildren()[1].show()
+                event.target.getParent().getChildren()[1].moveToTop()
+                event.target.getLayer().batchDraw()
+              }
+            this.props.refresh()
           }}
           onMouseOver={ event => {
             document.body.style.cursor = 'move'
-            
           }}
+
           onMouseOut={ event => {
             document.body.style.cursor = 'default'
           }}
+
           onTap={event => {
             this.props.disactiveMenu()
             this.wholeGroup.moveToTop()
@@ -179,19 +183,28 @@ class PopupMenu extends Component {
     moveDown.onload = () => {
       this.props.refresh()
     }
+    const { mainImageX, mainImageY, mainImageWidth, mainImageHeight } = this.props
     const positions = {
-      moveToTop: { x: this.props.mainImageX - 70, y: this.props.mainImageY - (this.props.mainImageHeight * 0.3) },
-      moveUp: { x: this.props.mainImageX - 35, y: this.props.mainImageY - (this.props.mainImageHeight * 0.3) },
-      deleteButton: { x: this.props.mainImageX, y: this.props.mainImageY - (this.props.mainImageHeight * 0.3) },
-      moveDown: { x: this.props.mainImageX + 35, y: this.props.mainImageY - (this.props.mainImageHeight * 0.3) },
-      moveToBottom: { x: this.props.mainImageX + 70, y: this.props.mainImageY - (this.props.mainImageHeight * 0.3) },
-      leftRotationArrow: { x: this.props.mainImageX - (this.props.mainImageWidth * 0.4), y: this.props.mainImageY - (this.props.mainImageHeight * 0.25)},
-      rightRotationArrow: { x: this.props.mainImageX + (this.props.mainImageWidth * 0.4), y: this.props.mainImageY - (this.props.mainImageHeight * 0.25)}
+      moveToTop: { x: mainImageX - 70, y: mainImageY - (mainImageHeight * 0.3) },
+      moveUp: { x: mainImageX - 35, y: mainImageY - (mainImageHeight * 0.3) },
+      deleteButton: { x: mainImageX, y: mainImageY - (mainImageHeight * 0.3) },
+      moveDown: { x: mainImageX + 35, y: mainImageY - (mainImageHeight * 0.3) },
+      moveToBottom: { x: mainImageX + 70, y: mainImageY - (mainImageHeight * 0.3) },
+      leftRotationArrow: { x: mainImageX - (mainImageWidth * 0.4), y: mainImageY - (mainImageHeight * 0.25)},
+      rightRotationArrow: { x: mainImageX + (mainImageWidth * 0.4), y: mainImageY - (mainImageHeight * 0.25)},
+      borderBox: { 
+        points: [
+          (mainImageX - mainImageWidth * 0.3), (mainImageY - mainImageHeight * 0.25),
+          (mainImageX + mainImageWidth * 0.3), (mainImageY - mainImageHeight * 0.25),
+          (mainImageX + mainImageWidth * 0.3), (mainImageY + mainImageHeight * 0.25),
+          (mainImageX - mainImageWidth * 0.3), (mainImageY + mainImageHeight * 0.25),
+          (mainImageX - mainImageWidth * 0.3), (mainImageY - mainImageHeight * 0.25)
+        ]
+      }
     }
     return (
       <Group>
         <Image name={'moveToTop'}
-          ref={node => this.moveToTop = node}
           x={positions.moveToTop.x - 12} y={positions.moveToTop.y - 12} width={24} height={24}
           image={moveToTop}
           onClick={ event => {
@@ -210,7 +223,6 @@ class PopupMenu extends Component {
           }}
         />
         <Image name={'moveUp'}
-          ref={node => this.moveUp = node}
           x={positions.moveUp.x - 12} y={positions.moveUp.y - 12} width={24} height={24}
           image={moveUp}
           onClick={event => {
@@ -229,7 +241,6 @@ class PopupMenu extends Component {
           }}
         />
         <Image name={'deleteButton'}
-          ref={ node => this.deleteButton = node }
           x={positions.deleteButton.x - 12} y={positions.deleteButton.y - 12} width={24} height={24}
           image={deleteButton}
           onClick={event => {
@@ -250,7 +261,6 @@ class PopupMenu extends Component {
           }}
         />
         <Image name={'moveDown'}
-          ref={node => this.moveDown = node}
           x={positions.moveDown.x - 12} y={positions.moveDown.y - 12} width={24} height={24}
           image={moveDown}
           onClick={event => {
@@ -269,7 +279,6 @@ class PopupMenu extends Component {
           }}
         />
         <Image name={'moveToBottom'}
-          ref={node => this.moveToBottom = node}
           x={positions.moveToBottom.x - 12} y={positions.moveToBottom.y - 12} width={24} height={24}
           image={moveToBottom}
           onClick={event => {
@@ -288,7 +297,6 @@ class PopupMenu extends Component {
           }}
         />
         <Image name={'topLeft'}
-          ref={node => this.leftRotationArrow = node }
           x={positions.leftRotationArrow.x - 15} y={positions.leftRotationArrow.y} width={30} height={30}
           image={leftRotationArrow}
           onClick={event => {
@@ -307,7 +315,6 @@ class PopupMenu extends Component {
           }}
         />
         <Image name={'topright'}
-          ref={node => this.rightRotationArrow = node}
           x={positions.rightRotationArrow.x - 15} y={positions.rightRotationArrow.y} width={30} height={30}
           image={rightRotationArrow}
           onClick={event => {
@@ -324,6 +331,12 @@ class PopupMenu extends Component {
           onMouseOut={event => {
             document.body.style.cursor = 'default'
           }}
+        />
+        <Line 
+          ref={ node => this.borderBox = node}
+          points={positions.borderBox.points}
+          dash={[10, 5, 0.001, 5]}
+          stroke={'black'} strokeWidth={1}
         />
       </Group>
     )
