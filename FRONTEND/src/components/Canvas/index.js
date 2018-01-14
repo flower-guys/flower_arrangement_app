@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Stage, Layer, Group, Image, Circle, Rect, Text } from 'react-konva'
+import { Stage, Layer, Group, Image, Rect } from 'react-konva'
 import { connect } from "react-redux";
 import { actionCreators as imagesActions } from 'redux/modules/images'
 
@@ -72,35 +72,44 @@ class Canvas extends Component {
 
 class RenderImage extends Component {
   state = {
-    needMenu: false
+    needMenu: false,
   }
-
+  imageX
+  imageY
+  imageWidth
+  imageHeight
+  
   render() {
       const image = new window.Image()
       image.src = require(`images/${this.props.renderImage.name}.png`)
-
       const hash = Math.random()
-      const nodeName = `imageNode-${hash}`
+      const imageNodeName = `imageNode-${hash}`
       image.onload = () => {
-        this.refs[nodeName].offsetX(this.refs[nodeName].width() / 2)
-        this.refs[nodeName].offsetY(this.refs[nodeName].height() / 2)
-        this.refs[nodeName].cache()
-        this.refs[nodeName].drawHitFromCache()
+        this.imageWidth = this.refs[imageNodeName].width()
+        this.imageHeight = this.refs[imageNodeName].height()
+        this.imageX = this.refs[imageNodeName].x()
+        this.imageY = this.refs[imageNodeName].y()
+        this.refs[imageNodeName].offsetX(this.refs[imageNodeName].width() / 2)
+        this.refs[imageNodeName].offsetY(this.refs[imageNodeName].height() / 2)
+        this.refs[imageNodeName].cache()
+        this.refs[imageNodeName].drawHitFromCache()
         this.props.refresh()
+ 
+
       }
-      const groupName = `groupNod-${hash}`
 
       return (
-        <Group ref={groupName} draggable={true} >
+        <Group ref={ node => this.wholeGroup = node } draggable={true} >
           <Image
             id={this.props.renderImage.id}
             x={100} y={100}
             image={image}
-            ref={nodeName}
+            ref={imageNodeName}
             scale={{ x: 0.5, y: 0.5 }}
             onClick={ event => {
+              console.log(this.refs[imageNodeName].attrs)
               this.props.disactiveMenu()
-              this.refs[groupName].moveToTop()
+              this.wholeGroup.moveToTop()
               this.setState({ needMenu: true })
               if (this.state.needMenu === true && event.target.parent.children.length > 0) {
                 event.target.getParent().getChildren()[1].show()
@@ -117,65 +126,121 @@ class RenderImage extends Component {
             }}
             onTap={event => {
               this.props.disactiveMenu()
-              this.refs[groupName].moveToTop()
-              !this.state.needMenu &&
-              event.target.getParent().getChildren()[0].show()
-              event.target.getParent().getChildren()[1].show()
-              event.target.getParent().getChildren()[2].show()
-              event.target.getParent().getChildren()[3].show()
+              this.wholeGroup.moveToTop()
               this.setState({ needMenu: true })
+              if (this.state.needMenu === true && event.target.parent.children.length > 0) {
+                event.target.getParent().getChildren()[1].show()
+                event.target.getLayer().batchDraw()
+              }
               event.target.getLayer().batchDraw()
             }}
           />
           {this.state.needMenu && 
-          <PopupMenu {...this.props} />}
+          <PopupMenu {...this.props} mainImageX={this.imageX} mainImageY={this.imageY} mainImageWidth={this.imageWidth} mainImageHeight={this.imageHeight} />}
         </Group>
       )
     }
   }
 
-const PopupMenu = props => {
+class PopupMenu extends Component {
+  render() {
+    const leftRotationArrow = new window.Image()
+    leftRotationArrow.src = require('images/leftRotationArrow.svg')
+    leftRotationArrow.onload = () => {
+      this.leftRotationArrow.offsetX(this.leftRotationArrow.width() / 2)
+      this.leftRotationArrow.offsetY(this.leftRotationArrow.height() / 2)
+      // this.leftRotationArrow.cache()
+      // this.leftRotationArrow.drawHitFromCache()
+      this.props.refresh()
+    }
+    const rightRotationArrow = new window.Image()
+    rightRotationArrow.src = require('images/rightRotationArrow.svg')
+    rightRotationArrow.onload = () => {
+      this.rightRotationArrow.offsetX(this.rightRotationArrow.width() / 2)
+      this.rightRotationArrow.offsetY(this.rightRotationArrow.height() / 2)
+      // this.rightRotationArrow.cache()
+      // this.rightRotationArrow.drawHitFromCache()
+      this.props.refresh()
+    }
+    const deleteButton = new window.Image()
+    deleteButton.src = require('images/deleteButton.svg')
+    deleteButton.onload = () => {
+      this.deleteButton.offsetX(this.deleteButton.width() / 2)
+      this.deleteButton.offsetY(this.deleteButton.height() / 2)
+      this.deleteButton.cache()
+      this.deleteButton.drawHitFromCache()
+      this.props.refresh()
+    }
+    const positions = {
+      deleteButton: { x: this.props.mainImageX, y: this.props.mainImageY - (this.props.mainImageHeight * 0.3) },
+      leftRotationArrow: { x: this.props.mainImageX - (this.props.mainImageWidth * 0.3), y: this.props.mainImageY - (this.props.mainImageHeight * 0.25)},
+      rightRotationArrow: { x: this.props.mainImageX + (this.props.mainImageWidth * 0.3), y: this.props.mainImageY - (this.props.mainImageHeight * 0.25)}
+    }
+    return (
+      <Group>
+        <Image name={'deleteButton'}
+          ref={ node => this.deleteButton = node }
+          x={positions.deleteButton.x} y={positions.deleteButton.y} width={25} height={25}
+          image={deleteButton}
+          onClick={event => {
+            this.props.deselectImage(event.target.getParent().getParent().getChildren()[0].attrs.id)
+            event.target.getParent().getParent().destroy()
+            this.props.refresh()
+          }}
+          onMouseOver={event => {
+            document.body.style.cursor = 'pointer'
+          }}
+          onMouseOut={event => {
+            document.body.style.cursor = 'default'
+          }}
+          onTap={event => {
+            this.props.deselectImage(event.target.getParent().getParent().getChildren()[0].attrs.id)
+            event.target.getParent().getParent().destroy()
+            this.props.refresh()
+          }}
+        />
+        <Image name={'topLeft'}
+          ref={node => this.leftRotationArrow = node }
+          x={positions.leftRotationArrow.x} y={positions.leftRotationArrow.y} width={30} height={30}
+          image={leftRotationArrow}
+          onClick={event => {
+            event.target.getParent().getParent().getChildren()[0].rotate(-10)
+            event.target.getLayer().batchDraw()
+          }}
+          onTap={ event => {
+            event.target.getParent().getParent().getChildren()[0].rotate(-10)
+            event.target.getLayer().batchDraw()
+          }}
+          onMouseOver={event => {
+            document.body.style.cursor = 'pointer'
+          }}
+          onMouseOut={event => {
+            document.body.style.cursor = 'default'
+          }}
+        />
+        <Image name={'topright'}
+          ref={node => this.rightRotationArrow = node}
+          x={positions.rightRotationArrow.x} y={positions.rightRotationArrow.y} width={30} height={30}
+          image={rightRotationArrow}
+          onClick={event => {
+            event.target.getParent().getParent().getChildren()[0].rotate(10)
+            event.target.getLayer().batchDraw()
+          }}
+          onTap={event => {
+            event.target.getParent().getParent().getChildren()[0].rotate(10)
+            event.target.getLayer().batchDraw()
+          }}
+          onMouseOver={event => {
+            document.body.style.cursor = 'pointer'
+          }}
+          onMouseOut={event => {
+            document.body.style.cursor = 'default'
+          }}
+        />
+      </Group>
+    )
+  }
   
-  return (
-    <Group>
-      <Text name={'deleteButton'}
-        x={75} y={-50}
-        text={'X'} fontSize={20} fill={'tomato'}
-        onClick={event => {
-          props.deselectImage(event.target.getParent().getParent().getChildren()[0].attrs.id)
-          event.target.getParent().getParent().destroy()
-          props.refresh()
-        }}
-        onMouseOver={ event => {
-          document.body.style.cursor = 'pointer'
-        }}
-        onMouseOut={ event => {
-          document.body.style.cursor = 'default'
-        }}
-        onTap={ event => {
-          props.deselectImage(event.target.getParent().getParent().getChildren()[0].attrs.id)
-          event.target.getParent().getParent().destroy()
-          props.refresh()
-        }}
-      />
-      <Circle name={'topLeft'}
-        x={0} y={0}
-        fill={'tomato'} strokeWidth={2} radius={8}
-        onClick={ event => {
-          event.target.getParent().getParent().getChildren()[0].rotate(-10)
-          event.target.getLayer().batchDraw()
-        }}
-      />
-      <Circle name={'topRight'}
-        x={150} y={0}
-        fill={'tomato'} strokeWidth={2} radius={8}
-        onClick={event => {
-          event.target.getParent().getParent().getChildren()[0].rotate(10)
-          event.target.getLayer().batchDraw()
-        }}
-      />
-    </Group>
-  )
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
