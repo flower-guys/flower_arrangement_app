@@ -4,10 +4,8 @@ import styles from './styles.scss'
 const Footer = props => {
     return (
         <footer className={styles.footer}>
-            {props.refinedList 
-                ? <span>꽃바구니: {props.refinedList.map(image => `${image.name} x ${image.count} `)}</span> 
-                : <span>here is a Footer</span> 
-            }          
+            <span>꽃바구니</span>
+            <span className={styles.flowerBasket}>{props.refinedList.map((image, key) => <span key={key}>{image.name} x {image.count} </span>)}</span>
         </footer>
     )
 }

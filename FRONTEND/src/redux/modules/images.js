@@ -37,15 +37,14 @@ function refineList (currentSelectedImages) {
     }
 }
 // API actions
-function fetchFirebaseImages () {
+function fetchFirebaseImages (term) {
     return dispatch => {
-        database.ref('flowers/').on('value', snapshot => {
-            dispatch(fetchImages(snapshot.val()))
-        })
+        database.ref('flowers/')
+            .orderByChild('name')
+            .startAt(term)
+            .once('value', snapshot => dispatch(fetchImages(snapshot.val())))
     }
 }
-
-
 
 // initial state
 const initialState = {

@@ -38,11 +38,11 @@ class Canvas extends Component {
       <div className={styles.canvas}>
         <Stage
           width={window.innerWidth}
-          height={window.innerHeight * 0.8}
+          height={window.innerHeight * 0.75}
           ref={node => this.stageRef = node}
         >
           <Layer>
-            <Rect width={window.innerWidth} height={window.innerHeight} 
+            <Rect width={window.innerWidth} height={window.innerHeight} fill={'white'}
               onClick={ () => {
                 this.disactiveMenu()
               }}
@@ -192,11 +192,11 @@ class PopupMenu extends Component {
     const { mainImageX, mainImageY, mainImageWidth, mainImageHeight } = this.props
     const positions = {
       moveToTop: { 
-        x: mainImageX - 70,
+        x: mainImageX - 80,
         y: mainImageY + mainImageHeight * 0.3
       },
       moveUp: { 
-        x: mainImageX - 35, 
+        x: mainImageX - 40, 
         y: mainImageY + mainImageHeight * 0.3
       },
       deleteButton: { 
@@ -204,20 +204,20 @@ class PopupMenu extends Component {
         y: mainImageY + mainImageHeight * 0.3 
       },
       moveDown: { 
-        x: mainImageX + 35, 
+        x: mainImageX + 40, 
         y: mainImageY + mainImageHeight * 0.3 
       },
       moveToBottom: {
-        x: mainImageX + 70, 
+        x: mainImageX + 80, 
         y: mainImageY + mainImageHeight * 0.3
       },
       leftRotationArrow: { 
-        x: mainImageX - (mainImageWidth * 0.5), 
-        y: mainImageY - (mainImageHeight * 0.25)
+        x: mainImageX - (mainImageWidth * 0.4), 
+        y: mainImageY + (mainImageHeight * 0.2)
       },
       rightRotationArrow: { 
-        x: mainImageX + (mainImageWidth * 0.5), 
-        y: mainImageY - (mainImageHeight * 0.25)
+        x: mainImageX + (mainImageWidth * 0.4), 
+        y: mainImageY + (mainImageHeight * 0.2)
       },
       borderBox: { 
         points: [
@@ -324,14 +324,14 @@ class PopupMenu extends Component {
           }}
         />
         <Image name={'topLeft'}
-          x={positions.leftRotationArrow.x - 15} y={positions.leftRotationArrow.y} width={30} height={30}
+          x={positions.leftRotationArrow.x - 12} y={positions.leftRotationArrow.y} width={24} height={24}
           image={leftRotationArrow}
           onClick={event => {
-            event.target.getParent().getParent().getChildren()[0].rotate(-10)
+            event.target.getParent().getParent().getChildren()[0].rotate(-5)
             event.target.getLayer().batchDraw()
           }}
           onTap={ event => {
-            event.target.getParent().getParent().getChildren()[0].rotate(-10)
+            event.target.getParent().getParent().getChildren()[0].rotate(-5)
             event.target.getLayer().batchDraw()
           }}
           onMouseOver={event => {
@@ -342,7 +342,7 @@ class PopupMenu extends Component {
           }}
         />
         <Image name={'topright'}
-          x={positions.rightRotationArrow.x - 15} y={positions.rightRotationArrow.y} width={30} height={30}
+          x={positions.rightRotationArrow.x - 12} y={positions.rightRotationArrow.y} width={24} height={24}
           image={rightRotationArrow}
           onClick={event => {
             event.target.getParent().getParent().getChildren()[0].rotate(10)
