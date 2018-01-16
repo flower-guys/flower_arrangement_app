@@ -1,6 +1,6 @@
 {
   "name": "flower_arrangement_app",
-  "homepage" : "https://fit-flower.firebaseapp.com",
+  "homepage": "https://fit-flower.firebaseapp.com",
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
@@ -40,8 +40,10 @@
     "promise": "8.0.1",
     "raf": "3.4.0",
     "react": "~16.1.0",
+    "react-autosuggest": "^9.3.2",
     "react-dev-utils": "^4.2.1",
     "react-dom": "~16.1.0",
+    "react-ionicons": "^2.1.6",
     "react-konva": "^1.6.4",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",

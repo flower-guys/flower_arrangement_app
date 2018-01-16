@@ -1,20 +1,65 @@
 @import '../../config/_variables.scss';
 
 .header {
-    height: 7vh;
+    height: 10vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: $font-color;
-    color: $bg-color;
-    button {
+    background-color: $bg-color;
+    color: $font-color;
+}
+
+.searchBar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    input {
+        color: $font-color;
+        box-sizing: border-box;
+        width: 200px;
+        margin: 0;
+        font-size: .8rem;
+        padding: .5rem;
+        background-color: $bg-color;
+        border-radius: 3px;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-bottom: 1px solid $font-color;
+        text-align: center;
+        &::placeholder {
+            color: $font-color;
+        }
         &:hover {
-            cursor: pointer;
+            &::placeholder {
+                color: lighten($font-color, 15%);
+            }
+        }
+        &:focus {
+            outline: none;
+            color: lighten($font-color, 15%);
+            border-color: lighten($font-color, 15%);
         }
     }
-    ul {
-        display: flex;
-        flex-direction: row;
+    .searchList {
+        position: absolute;
+        top: 30px;
+        left: 0;
+        width: 200px;
+        z-index: 100;
+        border: 1px solid #343434;
+        border-radius: 3px;
+        background-color: white;
+        padding: .6rem;
+        line-height: 1.7rem;
+        li {
+            width: 100%;
+            text-align: center;
+            &:hover {
+                cursor: pointer;
+                color: $bg-color;
+            }
+        }
     }
 }

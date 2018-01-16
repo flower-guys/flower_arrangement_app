@@ -4,8 +4,8 @@ import { actionCreators as imagesActions } from 'redux/modules/images'
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        fetchFirebaseImages: () => {
-            dispatch(imagesActions.fetchFirebaseImages())
+        fetchFirebaseImages: (term) => {
+            dispatch(imagesActions.fetchFirebaseImages(term))
         },
         selectImage: (selectedImage) => {
             dispatch(imagesActions.selectImage(selectedImage))
