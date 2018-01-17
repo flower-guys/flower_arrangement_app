@@ -3,12 +3,12 @@ import Footer from './presenter'
 
 class Container extends Component {
     componentDidMount() {
-        this.props.refineList(this.props.currentSelectedImages)
+        this.props.refineList(this.props.currentSelectedFlowers)
     }
 
     componentWillUpdate(nextProps) {
-        if (this.props.currentSelectedImages !== nextProps.currentSelectedImages) {
-            this.props.refineList(nextProps.currentSelectedImages)
+        if (this.props.currentSelectedFlowers !== nextProps.currentSelectedFlowers) {
+            this.props.refineList(nextProps.currentSelectedFlowers)
         }
     }
     render() {

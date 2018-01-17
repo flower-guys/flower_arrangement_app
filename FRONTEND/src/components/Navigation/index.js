@@ -1,26 +1,26 @@
 import { connect } from 'react-redux'
 import Container from './container'
-import { actionCreators as imagesActions } from 'redux/modules/images'
+import { actionCreators as flowersActions } from 'redux/modules/flowers'
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        fetchFirebaseImages: (term) => {
-            dispatch(imagesActions.fetchFirebaseImages(term))
+        fetchFirebaseFlowers: (term) => {
+            dispatch(flowersActions.fetchFirebaseFlowers(term))
         },
-        selectImage: (selectedImage) => {
-            dispatch(imagesActions.selectImage(selectedImage))
+        selectImage: (selectedFlower) => {
+            dispatch(flowersActions.selectImage(selectedFlower))
         },
-        refineList: (currentSelectedImages) => {
-            dispatch(imagesActions.refineList(currentSelectedImages))
+        refineList: (currentSelectedFlowers) => {
+            dispatch(flowersActions.refineList(currentSelectedFlowers))
         }
     }
 }
 
 const mapStateToProps = (state, ownProps) => {
-    const { images } = state
+    const { flowers } = state
     return { 
-        fetchedImageList: images.fetchedImageList,
-        currentSelectedImages: images.currentSelectedImages,
+        fetchedFlowerList: flowers.fetchedFlowerList,
+        currentSelectedFlowers: flowers.currentSelectedFlowers,
     }
 }
 

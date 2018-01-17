@@ -5,8 +5,7 @@ import styles from './styles.scss'
 const Navigation = props => {
     return (
         <header className={styles.header}>
-        <SearchBar {...props} />
-
+            <SearchBar {...props} />
         </header>
     )
 }
@@ -37,7 +36,7 @@ class SearchBar extends Component {
     }
 
     searchHandler (term) {
-        this.props.imageSearch(term)
+        this.props.searchFlower(term)
     }
     render() {
         const searchHandler = _.debounce(term => { this.searchHandler(term) }, 500)
@@ -49,7 +48,7 @@ class SearchBar extends Component {
                         searchHandler(event.target.value)
                     }}
                 />
-                {this.props.fetchedImageList && this.state.isDropdownOpen === true &&
+                {this.props.fetchedFlowerList && this.state.isDropdownOpen === true &&
                 <div className={styles.searchList}>
                     <ul>
                         <DropdownList {...this.props} dropdownCloser={this.dropdownCloser} />
@@ -63,16 +62,13 @@ class SearchBar extends Component {
 
 const DropdownList = props => {
     return (
-        _.map(props.fetchedImageList, (image, key) => {
+        _.map(props.fetchedFlowerList, (flower, key) => {
             return (
                 <li
                     className={styles.searchItem}
                     key={key}
-                    onClick={() => {
-                        props.selectItem(image)
-                    }}
                 >
-                    <span>{image.name}</span>
+                    <span>{flower.name}</span>
                 </li>
             )
         })

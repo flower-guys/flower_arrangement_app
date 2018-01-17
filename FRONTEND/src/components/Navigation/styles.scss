@@ -6,8 +6,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: $bg-color;
     color: $font-color;
+    border-bottom: 1px solid lighten($font-color, 35%);
 }
 
 .searchBar {
@@ -21,7 +21,6 @@
         margin: 0;
         font-size: .8rem;
         padding: .5rem;
-        background-color: $bg-color;
         border-radius: 3px;
         border-top: none;
         border-left: none;
@@ -33,7 +32,7 @@
         }
         &:hover {
             &::placeholder {
-                color: lighten($font-color, 15%);
+                color: $green;
             }
         }
         &:focus {
@@ -43,14 +42,15 @@
         }
     }
     .searchList {
+        box-sizing: border-box;
         position: absolute;
-        top: 30px;
+        top: 35px;
         left: 0;
         width: 200px;
         z-index: 100;
         border: 1px solid #343434;
         border-radius: 3px;
-        background-color: white;
+        background-color: rgba(255, 255, 255, 0.85);
         padding: .6rem;
         line-height: 1.7rem;
         li {
@@ -58,7 +58,7 @@
             text-align: center;
             &:hover {
                 cursor: pointer;
-                color: $bg-color;
+                color: $green;
             }
         }
     }

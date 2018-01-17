@@ -2,65 +2,65 @@ import { database } from 'redux/firebase'
 
 // imports
 
-const FETCH_IMAGES = 'FETCH_IMAGES'
-const SELECT_IMAGE = 'SELECT_IMAGE'
-const DESELECT_IMAGE = 'DESELECT_IMAGE'
+const FETCH_FLOWERS = 'FETCH_FLOWERS'
+const SELECT_FLOWER = 'SELECT_FLOWER'
+const DESELECT_FLOWER = 'DESELECT_FLOWER'
 const REFINE_LIST = 'REFINE_LIST'
 // actions
 
 // action creators
-function fetchImages (snapshot) {
+function fetchFlowers (snapshot) {
     return {
-        type: FETCH_IMAGES,
-        images: snapshot
+        type: FETCH_FLOWERS,
+        flowers: snapshot
     }
 }
 
-function selectImage (selectedImage) {
+function selectFlower (selectedFlower) {
     return {
-        type: SELECT_IMAGE,
-        selectedImage
+        type: SELECT_FLOWER,
+        selectedFlower
     }
 }
 
-function deselectImage (deselectedId) {
+function deselectFlower (deselectedId) {
     return {
-        type: DESELECT_IMAGE,
+        type: DESELECT_FLOWER,
         deselectedId
     }
 }
 
-function refineList (currentSelectedImages) {
+function refineList (currentSelectedFlowers) {
     return {
         type: REFINE_LIST,
-        currentSelectedImages
+        currentSelectedFlowers
     }
 }
 // API actions
-function fetchFirebaseImages (term) {
+function fetchFirebaseFlowers (term) {
     return dispatch => {
         database.ref('flowers/')
             .orderByChild('name')
             .startAt(term)
-            .once('value', snapshot => dispatch(fetchImages(snapshot.val())))
+            .once('value', snapshot => dispatch(fetchFlowers(snapshot.val())))
     }
 }
 
 // initial state
 const initialState = {
-    wholeSelectedImages: [],
-    currentSelectedImages: [],
+    wholeSelectedFlowers: [],
+    currentSelectedFlowers: [],
     refinedList: [],
 }
 // reducer
 function reducer(state = initialState, action) {
     switch(action.type) {
-        case FETCH_IMAGES:
-            return applyFetchImages(state, action)
-        case SELECT_IMAGE:
-            return applySelectImage(state, action)
-        case DESELECT_IMAGE:
-            return applyDeselectImage(state, action)
+        case FETCH_FLOWERS:
+            return applyFetchFlowers(state, action)
+        case SELECT_FLOWER:
+            return applySelectFlower(state, action)
+        case DESELECT_FLOWER:
+            return applyDeselectFlower(state, action)
         case REFINE_LIST:
             return applyRefineList(state, action)
         default:
@@ -68,38 +68,38 @@ function reducer(state = initialState, action) {
     }
 }
 // reducer functions
-function applyFetchImages(state, action) {
-    const { images } = action
+function applyFetchFlowers(state, action) {
+    const { flowers } = action
     return {
         ...state,
-        fetchedImageList: images
+        fetchedFlowerList: flowers
     }
 }
 
-function applySelectImage(state, action) {
-    const { selectedImage } = action
+function applySelectFlower(state, action) {
+    const { selectedFlower } = action
     
     return {
         ...state,
-        wholeSelectedImages: [...state.wholeSelectedImages, selectedImage],
-        currentSelectedImages: [...state.currentSelectedImages, selectedImage],
+        wholeSelectedFlowers: [...state.wholeSelectedFlowers, selectedFlower],
+        currentSelectedFlowers: [...state.currentSelectedFlowers, selectedFlower],
     }
 }
 
-function applyDeselectImage(state, action) {
+function applyDeselectFlower(state, action) {
     const { deselectedId } = action
-    const actionIndex = state.currentSelectedImages.findIndex( x => x.id === deselectedId)
+    const actionIndex = state.currentSelectedFlowers.findIndex( x => x.id === deselectedId)
     return {
         ...state,
-        currentSelectedImages: [
-            ...state.currentSelectedImages.slice(0, actionIndex),
-            ...state.currentSelectedImages.slice(actionIndex + 1)
+        currentSelectedFlowers: [
+            ...state.currentSelectedFlowers.slice(0, actionIndex),
+            ...state.currentSelectedFlowers.slice(actionIndex + 1)
         ],
     }
 }
 
 function applyRefineList(state, action) {
-    const { currentSelectedImages } = action
+    const { currentSelectedFlowers } = action
     const comparison = (a, b) => {
         const [idA, idB] = [a.id, b.id];
         let type = 0;
@@ -110,7 +110,7 @@ function applyRefineList(state, action) {
         }
         return type;
     };
-    const arrangedArray = currentSelectedImages.slice().sort(comparison)
+    const arrangedArray = currentSelectedFlowers.slice().sort(comparison)
     const refinedList = []
     var tempCount = 1
     for (let i = 0; i < arrangedArray.length; i++) {       
@@ -135,9 +135,9 @@ function applyRefineList(state, action) {
 
 // exports
 const actionCreators = {
-    fetchFirebaseImages,
-    selectImage,
-    deselectImage,
+    fetchFirebaseFlowers,
+    selectFlower,
+    deselectFlower,
     refineList
 }
 

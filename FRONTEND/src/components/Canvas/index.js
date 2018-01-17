@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Stage, Layer, Group, Image, Rect, Line } from 'react-konva'
 import { connect } from "react-redux";
-import { actionCreators as imagesActions } from 'redux/modules/images'
+import { actionCreators as flowerssActions } from 'redux/modules/flowers'
 import styles from './styles.scss'
 
 class Canvas extends Component {
@@ -38,7 +38,7 @@ class Canvas extends Component {
       <div className={styles.canvas}>
         <Stage
           width={window.innerWidth}
-          height={window.innerHeight * 0.75}
+          height={window.innerHeight * 0.8}
           ref={node => this.stageRef = node}
         >
           <Layer>
@@ -50,12 +50,12 @@ class Canvas extends Component {
             />
           </Layer>
           <Layer ref={node => this.layerRef = node}>
-            {this.props.wholeSelectedImages.map( (image, key) => {
+            {this.props.wholeSelectedFlowers.map( (image, key) => {
               return (
                 <RenderImage
                   key={key}
                   renderImage={image}
-                  deselectImage={this.props.deselectImage}
+                  deselectFlower={this.props.deselectFlower}
                   refresh={this.refresh}
                   disactiveMenu={this.disactiveMenu}
                 />
@@ -90,7 +90,7 @@ class RenderImage extends Component {
   
   render() {
     const image = new window.Image()
-    image.src = require(`images/${this.props.renderImage.name}.png`)
+    image.src = require(`images/flowers/${this.props.renderImage.name}.png`)
     const hash = Math.random()
     const imageNodeName = `imageNode-${hash}`
     image.onload = () => {
@@ -271,7 +271,7 @@ class PopupMenu extends Component {
           x={positions.deleteButton.x - 12} y={positions.deleteButton.y - 12} width={24} height={24}
           image={deleteButton}
           onClick={event => {
-            this.props.deselectImage(event.target.getParent().getParent().getChildren()[0].attrs.id)
+            this.props.deselectFlower(event.target.getParent().getParent().getChildren()[0].attrs.id)
             event.target.getParent().getParent().destroy()
             this.props.refresh()
           }}
@@ -282,7 +282,7 @@ class PopupMenu extends Component {
             document.body.style.cursor = 'default'
           }}
           onTap={event => {
-            this.props.deselectImage(event.target.getParent().getParent().getChildren()[0].attrs.id)
+            this.props.deselectFlower(event.target.getParent().getParent().getChildren()[0].attrs.id)
             event.target.getParent().getParent().destroy()
             this.props.refresh()
           }}
@@ -372,18 +372,18 @@ class PopupMenu extends Component {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    deselectImage: deselectImage => {
-      dispatch(imagesActions.deselectImage(deselectImage))
+    deselectFlower: deselectedFlower => {
+      dispatch(flowerssActions.deselectFlower(deselectedFlower))
     }
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { images } = state
+  const { flowers } = state
   return {
-    wholeSelectedImages: images.wholeSelectedImages,
-    selectedImage: images.selectedImage,
-    deselectedImage: images.deselectedImage
+    wholeSelectedFlowers: flowers.wholeSelectedFlowers,
+    selectedFlower: flowers.selectedFlower,
+    deselectedFlower: flowers.deselectedFlower
   }
 }
 

@@ -1,30 +1,25 @@
 import React, { Component } from 'react'
-import _ from 'lodash'
 import Navigation from './presenter'
 
 class Container extends Component {
-
-  imageSearch = term => {
-    console.log(term)
-    const { fetchFirebaseImages } = this.props
-    fetchFirebaseImages(term)
+  searchFlower = term => {
+    const { fetchFirebaseFlowers } = this.props
+    fetchFirebaseFlowers(term)
   }
-
-  selectItem = image => {
-    const { selectImage } = this.props;
-    selectImage(image);
+  selectFlower = flower => {
+    const { selectFlower } = this.props
+    selectFlower(flower)
   }
 
   render() {
     return (
       <Navigation
-        fetchedImageList={this.props.fetchedImageList}
-        imageSearch={this.imageSearch}
-        selectItem={this.selectItem}
+        fetchedFlowerList={this.props.fetchedFlowerList}
+        searchFlower={this.searchFlower}
+        selectFlower={this.selectFlower}
       />
-    );
+    )
   }
-
 }
 
 export default Container
