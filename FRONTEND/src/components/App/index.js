@@ -12,7 +12,7 @@ class App extends Component {
       <Navigation />
       <FlowerList />
       {/* <FlowerArrangement /> */}
-      <Footer />
+      {/* <Footer /> */}
     </div>
     )
   }

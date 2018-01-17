@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './styles.scss'
 import Loading from 'components/Loading'
 import _ from 'lodash'
+import Ionicon from 'react-ionicons'
 
 const FlowerList = props => {
     if(props.loading) {
@@ -11,19 +12,42 @@ const FlowerList = props => {
     }
 }
 
-const LoadingFlowers = props => <div className={styles.list}><Loading /></div>
+const LoadingFlowers = props => <div className={styles.container}><Loading /></div>
 
 const RenderList = props => (
-    <div className={styles.list}>{_.map(props.fetchedFlowerList, (image, key) => {
-        return ( 
-            <li
-                className={styles.flower}
-                key={key}
-            >
-                <span>{image.name}</span>
-            </li>
-        )
-    })}</div>
+    <div className={styles.container}>
+    <div className={styles.wrapper}>
+        <div className={styles.counter}><span className={styles.number}>10</span> Flowers for you</div>
+        <div className={styles.list}>{_.map(props.fetchedFlowerList, (item, key) => {
+            return (
+                <li key={key}>
+                    <div className={styles.item}>
+                        <div className={styles.columnLeft}>
+                            <img src={require(`images/flowers/${item.name}.png`)} alt={item.name}/>
+                        </div>
+                        <div className={styles.columnRight}>
+                            <div className={styles.rowTop}>
+                                <div className={styles.rowTopLeft}>
+                                    <span className={styles.nameKr}>{item.name_kr}</span>
+                                    <span className={styles.nameEn}>{capitalizeFirstLetter(item.name)}</span>
+                                </div>
+                                <div className={styles.rowTopRight}>
+                                    <Ionicon icon="ios-add-circle" fontSize="25px" color="#635f5c" />
+                                    <Ionicon icon="ios-close-circle" fontSize="25px" color="#635f5c" />
+                                </div>
+                            </div>
+                            <div className={styles.rowBottom}>
+                                <span>"{item.flowerlanguage}"</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            )
+        })}</div>
+        </div>
+    </div>
 )
-
+const capitalizeFirstLetter = string => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 export default FlowerList
