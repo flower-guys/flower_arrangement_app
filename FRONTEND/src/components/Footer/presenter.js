@@ -1,5 +1,6 @@
 import React from 'react'
 import Ionicon from 'react-ionicons'
+import { Link } from 'react-router-dom'
 import styles from './styles.scss'
 
 const Footer = props => {
@@ -25,20 +26,27 @@ const Footer = props => {
                             <span className={styles.selectedFlowerCount}>
                                 {image.count}&nbsp;
                             </span>
+                            {props.pathname == '/' &&
                             <Ionicon className={styles.deselectFlower} icon='ios-remove-circle' fontSize='17px' color='#635f5c'
                                 onClick={() => props.deselectFlower(image.id)} />
+                            }
                         </div>
                     )
                 })}
             </div>
             <div className={styles.rowBottom}>
-                <div className={styles.forward}>
+                {props.pathname !== '/arrange' && 
+                <Link className={styles.forward} to='/arrange'>
                     꽃 놓기
                     <Ionicon className={styles.fowardIcon} icon='ios-arrow-dropright-circle' color='#635f5c' />
-                </div>
+                </Link>}
             </div>
         </footer>
     )
+}
+
+const Export = props => {
+    
 }
 
 const capitalizeFirstLetter = string => {

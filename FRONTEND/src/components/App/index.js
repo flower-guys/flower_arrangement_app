@@ -1,21 +1,12 @@
-import React, { Component } from "react"
-import Navigation from 'components/Navigation'
-// import FlowerArrangement from 'components/FlowerArrangement'
-import FlowerList from 'components/FlowerList'
-import Footer from 'components/Footer'
-import styles from "./styles.scss"
+import { connect } from 'react-redux'
+import Container from './container'
 
-class App extends Component {
-  render() {
-    return (
-    <div className={styles.App} >
-      <Navigation />
-      <FlowerList />
-      {/* <FlowerArrangement /> */}
-      <Footer />
-    </div>
-    )
+const mapStateToProps = (state, ownProps) => {
+  const { routing: { location } } = state
+  return {
+    pathname: location.pathname
   }
 }
 
-export default App;
+export default connect(mapStateToProps)(Container)
+

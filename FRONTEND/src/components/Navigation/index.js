@@ -7,8 +7,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         fetchFirebaseFlowers: (term) => {
             dispatch(flowersActions.fetchFirebaseFlowers(term))
         },
-        selectImage: (selectedFlower) => {
-            dispatch(flowersActions.selectImage(selectedFlower))
+        selectFlower: (selectedFlower) => {
+            dispatch(flowersActions.selectFlower(selectedFlower))
         },
         refineList: (currentSelectedFlowers) => {
             dispatch(flowersActions.refineList(currentSelectedFlowers))
@@ -17,8 +17,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    const { flowers } = state
-    return { 
+    const { flowers, routing: { location } } = state
+    return {
+        pathname: location.pathname,
         fetchedFlowerList: flowers.fetchedFlowerList,
         currentSelectedFlowers: flowers.currentSelectedFlowers,
     }

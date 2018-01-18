@@ -50,7 +50,7 @@ class Canvas extends Component {
             />
           </Layer>
           <Layer ref={node => this.layerRef = node}>
-            {this.props.wholeSelectedFlowers.map( (image, key) => {
+            {this.props.canvasImageList.map( (image, key) => {
               return (
                 <RenderImage
                   key={key}
@@ -271,7 +271,7 @@ class PopupMenu extends Component {
           x={positions.deleteButton.x - 12} y={positions.deleteButton.y - 12} width={24} height={24}
           image={deleteButton}
           onClick={event => {
-            this.props.deselectFlower(event.target.getParent().getParent().getChildren()[0].attrs.id)
+            this.props.deselectFlower(event.target.getParent().getParent().getChildren()[0].attrs.imageId)
             event.target.getParent().getParent().destroy()
             this.props.refresh()
           }}
@@ -282,7 +282,7 @@ class PopupMenu extends Component {
             document.body.style.cursor = 'default'
           }}
           onTap={event => {
-            this.props.deselectFlower(event.target.getParent().getParent().getChildren()[0].attrs.id)
+            this.props.deselectFlower(event.target.getParent().getParent().getChildren()[0].attrs.imageId)
             event.target.getParent().getParent().destroy()
             this.props.refresh()
           }}
@@ -379,9 +379,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { flowers } = state
+  const { flowers, routing: { location } } = state
   return {
-    wholeSelectedFlowers: flowers.wholeSelectedFlowers,
+    pathname: location.pathname,
+    canvasImageList: flowers.canvasImageList,
     selectedFlower: flowers.selectedFlower,
     deselectedFlower: flowers.deselectedFlower
   }

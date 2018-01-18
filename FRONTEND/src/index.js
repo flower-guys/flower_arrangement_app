@@ -9,11 +9,11 @@ import { translations } from 'translations'
 
 ReactDOM.render(
     <Provider store={store}>
-        <ConnectedRouter history={history}>
-            <I18n translations={translations} initialLang='kr' fallbackLang='kr'>
+        <I18n translations={translations} initialLang='kr' fallbackLang='kr'>
+            <ConnectedRouter history={history}>
                 <App />
-            </I18n>
-        </ConnectedRouter>
+            </ConnectedRouter>
+        </I18n>
     </Provider>
 , document.getElementById('root'));
 

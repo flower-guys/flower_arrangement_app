@@ -17,7 +17,7 @@
         margin-bottom: 20px;
         font-size: .8rem;
         .number {
-            color: tomato;
+            color: $point-color;
         }
     }
     .list {
@@ -31,7 +31,7 @@
             display: flex;
             justify-content: space-between;
             width: 400px;
-            border-top: 1px solid lighten($font-color, 10%);
+            border-top: 1px solid $default-color;
             padding-top: 30px;
             .columnLeft{
                 width: 150px;
@@ -77,7 +77,7 @@
                 .rowBottom {
                     font-size: 1.1rem;
                     font-style: italic;
-                    color: lighten($font-color, 10%);
+                    color: $default-color;
                 }
             }
         }       

@@ -7,7 +7,7 @@
     justify-content: center;
     align-items: center;
     color: $font-color;
-    border-bottom: 1px solid lighten($font-color, 35%);
+    border-bottom: 1px solid $default-color;
 }
 
 .searchBar {
@@ -25,20 +25,20 @@
         border-top: none;
         border-left: none;
         border-right: none;
-        border-bottom: 1px solid $font-color;
+        border-bottom: 1px solid $default-color;
         text-align: center;
         &::placeholder {
-            color: $font-color;
+            color: $point-color;
         }
         &:hover {
             &::placeholder {
-                color: $green;
+                color: $point-color;
             }
         }
         &:focus {
             outline: none;
             color: lighten($font-color, 15%);
-            border-color: lighten($font-color, 15%);
+            border-color: $default-color;
         }
     }
     .searchList {
@@ -48,7 +48,7 @@
         left: 0;
         width: 200px;
         z-index: 100;
-        border: 1px solid #343434;
+        border: 1px solid $default-color;
         border-radius: 3px;
         background-color: rgba(255, 255, 255, 0.85);
         padding: .6rem;
@@ -58,7 +58,7 @@
             text-align: center;
             &:hover {
                 cursor: pointer;
-                color: $green;
+                color: $point-color;
             }
         }
     }

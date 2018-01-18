@@ -3,7 +3,7 @@ import Footer from './presenter'
 
 class Container extends Component {
     componentDidMount() {
-        this.props.refineList(this.props.currentSelectedFlowers)
+            this.props.refineList(this.props.currentSelectedFlowers)
     }
 
     componentWillUpdate(nextProps) {

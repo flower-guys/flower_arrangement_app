@@ -1,9 +1,10 @@
 @import '../../config/_variables.scss';
 .footer {
+    background-color: white;
     position: fixed;
     bottom: -5px;
     right: 0;
-    border: 1px solid lighten($font-color, 35%);
+    border: 1px solid $default-color;
     border-radius: 5px;
     color: $font-color;
     padding: 10px;
@@ -16,7 +17,7 @@
     .rowTop {
         display: flex;
         width: 90%;
-        border-bottom: 1px solid lighten($font-color, 35%);
+        border-bottom: 1px solid $default-color;
         justify-content: space-between;
         padding-bottom: 5px;
         margin-bottom: 10px;
@@ -26,8 +27,8 @@
             .titleCounter{
                 margin-left: .5rem;
                 .titleCount {
-                    color: tomato;
-                }
+                    color: $point-color;
+          }
             }
         }
         .minify {
@@ -48,7 +49,7 @@
             display: flex;
             align-items: flex-end;
             .selectedFlowerCount {
-                color: tomato;
+                color: $point-color;
             }
             .deselectFlower {
                 &:hover {
@@ -60,7 +61,7 @@
     .rowBottom {
         display: flex;
         justify-content: flex-end;
-        border-top: 1px solid lighten($font-color, 35%);
+        border-top: 1px solid $default-color;
         width: 90%;
         padding-top: 10px;
         margin-top: 10px;

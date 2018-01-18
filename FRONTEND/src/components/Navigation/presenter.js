@@ -22,14 +22,14 @@ class SearchBar extends Component {
     dropdownOpener = () => this.setState({ isDropdownOpen: true })
     dropdownCloser = () => this.setState({ isDropdownOpen: false })
 
-    componentDidMount() {
-        window.addEventListener('click', event => {
-            if (this.searchBar.contains(event.target)) {
-                return
-            }
-            this.dropdownCloser()
-       })
-    }
+    // componentDidMount() {
+    //     window.addEventListener('click', event => {
+    //         if (this.searchBar.contains(event.target)) {
+    //             return
+    //         }
+    //         this.dropdownCloser()
+    //    })
+    // }
     componentWillUnmount() {
         window.removeEventListener('click', this.dropdownCloser)
         console.log(this.state.isDropdownOpen, 'unmount')
@@ -67,6 +67,7 @@ const DropdownList = props => {
                 <li
                     className={styles.searchItem}
                     key={key}
+                    onClick={ () => props.selectFlower(flower)}
                 >
                     <span>{flower.name}</span>
                 </li>

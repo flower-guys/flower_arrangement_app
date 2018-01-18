@@ -12,13 +12,17 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         },
         deselectFlower: deselectedFlower => {
             dispatch(flowersActions.deselectFlower(deselectedFlower))
+        },
+        deselectImage: deselectedCanvasImage => {
+            dispatch(flowersActions.deselectImage(deselectedCanvasImage))
         }
     }
 }
 
 const mapStateToProps = (state, ownProps) => {
-    const { flowers } = state
+    const { flowers, routing: { location } } = state
     return {
+        pathname: location.pathname,
         fetchedFlowerList: flowers.fetchedFlowerList,
         currentSelectedFlowers: flowers.currentSelectedFlowers
     }
