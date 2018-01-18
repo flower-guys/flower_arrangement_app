@@ -41,10 +41,7 @@ const RenderList = props => (
                                         <div>
                                             <Ionicon 
                                                 icon="ios-close-circle" fontSize="25px" color="#635f5c"
-                                                onClick={ () => {
-                                                    props.deselectImage(item.id)
-                                                    props.deselectFlower(item.id)
-                                                }}
+                                                onClick={ () => props.deselectFlower(item.id)}
                                             />
                                             <Ionicon
                                                 icon="ios-add-circle" fontSize="25px" color="#635f5c"

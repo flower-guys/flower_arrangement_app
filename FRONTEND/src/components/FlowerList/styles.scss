@@ -11,7 +11,7 @@
 }
 
 .wrapper {
-    max-width: 900px;
+    max-width: $max-page-width;
     .counter {
         margin-top: 20px;
         margin-bottom: 20px;

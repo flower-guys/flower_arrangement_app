@@ -5,9 +5,9 @@ import { actionCreators as flowersActions } from 'redux/modules/flowers'
 const mapStateToProps = (state, ownProps) => {
     const { flowers, routing: { location } } = state
     return {
+        pathname: location.pathname,
         refinedList: flowers.refinedList,
-        currentSelectedFlowers: flowers.currentSelectedFlowers,
-        pathname: location.pathname
+        currentSelectedFlowers: flowers.currentSelectedFlowers
     }
 }
 
@@ -18,6 +18,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         },
         deselectFlower: deselectedFlower => {
             dispatch(flowersActions.deselectFlower(deselectedFlower))
+        },
+        deselectImage: deselectedCanvasImage => {
+            dispatch(flowersActions.deselectImage(deselectedCanvasImage))
         }
     }
 }

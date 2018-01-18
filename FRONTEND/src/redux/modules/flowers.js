@@ -1,12 +1,11 @@
 import { database } from 'redux/firebase'
-import _ from 'lodash'
 
 // imports
 
 const FETCH_FLOWERS = 'FETCH_FLOWERS'
 const SELECT_FLOWER = 'SELECT_FLOWER'
 const DESELECT_FLOWER = 'DESELECT_FLOWER'
-const DESELECT_IMAGE = 'DESELCET_IMAGE'
+const SYNC_LIST = 'SYNC_LIST'
 const REFINE_LIST = 'REFINE_LIST'
 // actions
 
@@ -32,10 +31,10 @@ function deselectFlower (deselectedId) {
     }
 }
 
-function deselectImage (deselectedId) {
+function syncList (currentSelectedFlowers) {
     return {
-        type: DESELECT_IMAGE,
-        deselectedId
+        type: SYNC_LIST,
+        canvasImageList: currentSelectedFlowers
     }
 }
 
@@ -70,8 +69,8 @@ function reducer(state = initialState, action) {
             return applySelectFlower(state, action)
         case DESELECT_FLOWER:
             return applyDeselectFlower(state, action)
-        case DESELECT_IMAGE:
-            return applyDeselectImage(state, action)
+        case SYNC_LIST:
+            return applySyncList(state, action)
         case REFINE_LIST:
             return applyRefineList(state, action)
         default:
@@ -92,7 +91,6 @@ function applySelectFlower(state, action) {
     
     return {
         ...state,
-        canvasImageList: [...state.canvasImageList, selectedFlower],
         currentSelectedFlowers: [...state.currentSelectedFlowers, selectedFlower],
     }
 }
@@ -109,15 +107,11 @@ function applyDeselectFlower(state, action) {
     }
 }
 
-function applyDeselectImage(state, action) {
-    const { deselectedId } = action
-    const actionIndex = state.canvasImageList.findIndex( x => x.id === deselectedId)
+function applySyncList(state, action) {
+    const { canvasImageList } = action
     return {
         ...state,
-        canvasImageList: [
-            ...state.canvasImageList.slice(0, actionIndex),
-            ...state.canvasImageList.slice(actionIndex + 1)
-        ]
+        canvasImageList
     }
 }
 
@@ -152,13 +146,10 @@ function applyRefineList(state, action) {
         }
         var count = 1
         for (let i = 0; i < arrangedArray.length; i++) {
-            debugger
             if (arrangedArray.length > 1) {
                 if (JSON.stringify(arrangedArray[i]) === JSON.stringify(arrangedArray[i+1])) {
-                    console.log(true)
                     count += 1
                 } else {
-                    console.log(arrangedArray[i], arrangedArray[i+1])
                     arrangedArray[i].count = count
                     refinedList.push(arrangedArray[i])
                     count = 1
@@ -185,7 +176,7 @@ const actionCreators = {
     fetchFirebaseFlowers,
     selectFlower,
     deselectFlower,
-    deselectImage,
+    syncList,
     refineList
 }
 

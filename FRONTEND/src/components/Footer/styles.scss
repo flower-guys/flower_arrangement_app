@@ -3,7 +3,7 @@
     background-color: white;
     position: fixed;
     bottom: -5px;
-    right: 0;
+    right: 10%;
     border: 1px solid $default-color;
     border-radius: 5px;
     color: $font-color;
@@ -60,7 +60,7 @@
     }
     .rowBottom {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
         border-top: 1px solid $default-color;
         width: 90%;
         padding-top: 10px;

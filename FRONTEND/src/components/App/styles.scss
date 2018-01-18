@@ -5,10 +5,7 @@ body {
     color: $font-color;
 }
 
-header {
-    display: flex;
-    li {
-        list-style: none;
-        margin-right: 1rem;
-    }
+a {
+    text-decoration: none;
+    color: $font-color;
 }

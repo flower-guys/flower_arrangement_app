@@ -26,7 +26,7 @@ const Footer = props => {
                             <span className={styles.selectedFlowerCount}>
                                 {image.count}&nbsp;
                             </span>
-                            {props.pathname == '/' &&
+                            {props.pathname === '/' &&
                             <Ionicon className={styles.deselectFlower} icon='ios-remove-circle' fontSize='17px' color='#635f5c'
                                 onClick={() => props.deselectFlower(image.id)} />
                             }
@@ -35,11 +35,20 @@ const Footer = props => {
                 })}
             </div>
             <div className={styles.rowBottom}>
-                {props.pathname !== '/arrange' && 
-                <Link className={styles.forward} to='/arrange'>
-                    꽃 놓기
-                    <Ionicon className={styles.fowardIcon} icon='ios-arrow-dropright-circle' color='#635f5c' />
-                </Link>}
+                <div className={styles.bottomLeft}>
+                    {props.pathname !== '/' && 
+                    <Link className={styles.forward} to='/'>
+                        뒤로가기
+                        <Ionicon className={styles.fowardIcon} icon='ios-arrow-dropleft-circle' color='#635f5c' />
+                    </Link>}
+                </div>
+                <div className={styles.bottomRight}>
+                    {props.pathname !== '/arrange' && 
+                    <Link className={styles.forward} to='/arrange'>
+                        꽃 놓기
+                        <Ionicon className={styles.fowardIcon} icon='ios-arrow-dropright-circle' color='#635f5c' />
+                    </Link>}
+                </div>
             </div>
         </footer>
     )

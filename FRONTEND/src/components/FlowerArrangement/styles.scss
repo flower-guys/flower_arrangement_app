@@ -1,6 +1,8 @@
-.flowerArrangement {
-    .body {
-        height: 80vh;
-        display: flex;
-    }
+@import '../../config/_variables.scss';
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
 }

@@ -4,10 +4,8 @@ import styles from './styles.scss'
 
 const FlowerArrangement = props => {
     return (
-        <div className={styles.flowerArrangement}>
-            <div className={styles.body}>
-            <Canvas />
-            </div>
+        <div className={styles.container}>
+                <Canvas />
         </div>
     )
 }

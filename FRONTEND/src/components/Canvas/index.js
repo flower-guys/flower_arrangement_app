@@ -2,9 +2,37 @@ import React, { Component } from 'react'
 import { Stage, Layer, Group, Image, Rect, Line } from 'react-konva'
 import { connect } from "react-redux";
 import { actionCreators as flowersActions } from 'redux/modules/flowers'
+import Loading from 'components/Loading'
 import styles from './styles.scss'
 
 class Canvas extends Component {
+  constructor(props) {
+    super(props)
+    this.props.syncList(this.props.currentSelectedFlowers)
+    this.state = {
+      loading: true
+    }
+  }
+  componentDidMount() {
+    const { canvasImageList } = this.props
+    if (!canvasImageList) {
+      this.setState({
+        loading: true
+      })
+    } else {
+      this.setState({
+        loading: false
+      })
+    }
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.canvasImageList) {
+      this.setState({
+        loading: false
+      })
+    }
+  }
+
   disactiveMenu = () => {
     if (this.layerRef.getChildren().length > 0) {
       if (this.layerRef.getChildren()[0].children.length > 0) {
@@ -36,8 +64,9 @@ class Canvas extends Component {
   render() {
     return (
       <div className={styles.canvas}>
-        <Stage
-          width={window.innerWidth}
+      {this.state.loading ? <Loading />
+        :<Stage
+          width={1000}
           height={window.innerHeight * 0.8}
           ref={node => this.stageRef = node}
         >
@@ -62,7 +91,7 @@ class Canvas extends Component {
               )
             })}
           </Layer>
-        </Stage>
+        </Stage>}
         <div className={styles.tools}>
           <button className={styles.saveButton}
             onClick={() => { // 비동기 공부해서 코드 수정할 것!!!!  
@@ -77,6 +106,7 @@ class Canvas extends Component {
     )
   } 
 }
+
 
 class RenderImage extends Component {
   state = {
@@ -374,6 +404,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     deselectFlower: deselectedFlower => {
       dispatch(flowersActions.deselectFlower(deselectedFlower))
+    },
+    syncList: currentSelectedFlowers => {
+      dispatch(flowersActions.syncList(currentSelectedFlowers))
     }
   }
 }
@@ -384,7 +417,8 @@ const mapStateToProps = (state, ownProps) => {
     pathname: location.pathname,
     canvasImageList: flowers.canvasImageList,
     selectedFlower: flowers.selectedFlower,
-    deselectedFlower: flowers.deselectedFlower
+    deselectedFlower: flowers.deselectedFlower,
+    currentSelectedFlowers: flowers.currentSelectedFlowers
   }
 }
 

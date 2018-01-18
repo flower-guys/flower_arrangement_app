@@ -8,14 +8,14 @@ import Footer from 'components/Footer'
 
 const App = props => [
     <Navigation key={1} />,
-    <Routes key={2} />,
+    <Routes key={2} {...props} />,
     <Footer key={3} />
 ]
             
 const Routes = props => (
     <Switch>
         <Route exact path='/' component={FlowerList} />
-        <Route exact path='/arrange' component={FlowerArrangement} />
+        <Route path='/arrange' component={FlowerArrangement} />
     </Switch>
 )
 
