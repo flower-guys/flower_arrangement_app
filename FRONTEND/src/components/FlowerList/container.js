@@ -26,8 +26,8 @@ class Container extends Component {
         return (
             <div>
                 <FlowerList 
+                    {...this.props}
                     loading={this.state.loading}
-                    fetchedFlowerList={this.props.fetchedFlowerList} 
                 />
             </div>
         )

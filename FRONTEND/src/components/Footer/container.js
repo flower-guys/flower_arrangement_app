@@ -12,7 +12,12 @@ class Container extends Component {
         }
     }
     render() {
-        return <Footer refinedList={this.props.refinedList} />
+        return (
+            <div>
+            {this.props.refinedList.length > 0 ? <Footer {...this.props} />
+            : <div /> 
+        }</div>
+        )
     }
 }
 

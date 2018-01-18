@@ -15,6 +15,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         refineList: (currentSelectedFlowers) => {
             dispatch(flowersActions.refineList(currentSelectedFlowers))
+        },
+        deselectFlower: deselectedFlower => {
+            dispatch(flowersActions.deselectFlower(deselectedFlower))
         }
     }
 }

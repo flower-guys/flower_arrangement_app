@@ -9,6 +9,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         },
         selectFlower: (selectedFlower) => {
             dispatch(flowersActions.selectFlower(selectedFlower))
+        },
+        deselectFlower: deselectedFlower => {
+            dispatch(flowersActions.deselectFlower(deselectedFlower))
         }
     }
 }
@@ -17,6 +20,7 @@ const mapStateToProps = (state, ownProps) => {
     const { flowers } = state
     return {
         fetchedFlowerList: flowers.fetchedFlowerList,
+        currentSelectedFlowers: flowers.currentSelectedFlowers
     }
 }
 

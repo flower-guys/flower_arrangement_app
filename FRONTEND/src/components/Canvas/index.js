@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Stage, Layer, Group, Image, Rect, Line } from 'react-konva'
 import { connect } from "react-redux";
-import { actionCreators as flowerssActions } from 'redux/modules/flowers'
+import { actionCreators as flowersActions } from 'redux/modules/flowers'
 import styles from './styles.scss'
 
 class Canvas extends Component {
@@ -373,7 +373,7 @@ class PopupMenu extends Component {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     deselectFlower: deselectedFlower => {
-      dispatch(flowerssActions.deselectFlower(deselectedFlower))
+      dispatch(flowersActions.deselectFlower(deselectedFlower))
     }
   }
 }

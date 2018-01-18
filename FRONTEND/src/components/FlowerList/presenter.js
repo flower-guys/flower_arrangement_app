@@ -8,7 +8,7 @@ const FlowerList = props => {
     if(props.loading) {
         return <LoadingFlowers />
     } else if (props.fetchedFlowerList) {
-        return <RenderList fetchedFlowerList={props.fetchedFlowerList}/>
+        return <RenderList {...props}/>
     }
 }
 
@@ -17,7 +17,7 @@ const LoadingFlowers = props => <div className={styles.container}><Loading /></d
 const RenderList = props => (
     <div className={styles.container}>
     <div className={styles.wrapper}>
-        <div className={styles.counter}><span className={styles.number}>10</span> Flowers for you</div>
+        <div className={styles.counter}><span className={styles.number}>10</span> Flowers for her, him, and you</div>
         <div className={styles.list}>{_.map(props.fetchedFlowerList, (item, key) => {
             return (
                 <li key={key}>
@@ -32,8 +32,23 @@ const RenderList = props => (
                                     <span className={styles.nameEn}>{capitalizeFirstLetter(item.name)}</span>
                                 </div>
                                 <div className={styles.rowTopRight}>
-                                    <Ionicon icon="ios-add-circle" fontSize="25px" color="#635f5c" />
-                                    <Ionicon icon="ios-close-circle" fontSize="25px" color="#635f5c" />
+                                    {!props.currentSelectedFlowers.includes(item) 
+                                        ? <Ionicon 
+                                            icon="ios-add-circle" fontSize="25px" color="#635f5c"
+                                            onClick={ () => props.selectFlower(item)}
+                                        />
+                                        :
+                                        <div>
+                                            <Ionicon 
+                                                icon="ios-close-circle" fontSize="25px" color="tomato"
+                                                onClick={ () => props.deselectFlower(item.id)}
+                                            />
+                                            <Ionicon
+                                                icon="ios-add-circle" fontSize="25px" color="#635f5c"
+                                                onClick={() => props.selectFlower(item)}
+                                            />
+                                        </div>
+                                    }
                                 </div>
                             </div>
                             <div className={styles.rowBottom}>
