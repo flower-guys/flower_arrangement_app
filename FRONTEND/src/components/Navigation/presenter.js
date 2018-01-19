@@ -44,20 +44,16 @@ class SearchBar extends Component {
         console.log(this.state.isDropdownOpen, 'unmount')
     }
 
-    searchHandler (term) {
-        this.props.searchFlower(term)
-    }
     render() {
-        const searchHandler = _.debounce(term => { this.searchHandler(term) }, 500)
         return (
             <div className={styles.searchBar} ref={node => this.searchBar = node} onClick={event => this.dropdownOpener()}>
                 <input placeholder='Search' value={this.state.term} 
                     onChange={ event => {
                         this.setState({ term: event.target.value })
-                        searchHandler(event.target.value)
+                        this.props._searchFlower(event.target.value)
                     }}
                 />
-                {this.props.fetchedFlowerList && this.state.isDropdownOpen === true &&
+                {this.props.searchedList && this.state.isDropdownOpen === true &&
                 <div className={styles.searchList}>
                     <ul>
                         <DropdownList {...this.props} dropdownCloser={this.dropdownCloser} />
@@ -71,7 +67,7 @@ class SearchBar extends Component {
 
 const DropdownList = props => {
     return (
-        _.map(props.fetchedFlowerList, (flower, key) => {
+        _.map(props.searchedList, (flower, key) => {
             return (
                 <li key={key} onClick={ () => props.selectFlower(flower)}>
                     <div className={styles.searchItem}>

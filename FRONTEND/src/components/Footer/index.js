@@ -6,7 +6,7 @@ const mapStateToProps = (state, ownProps) => {
     const { flowers, routing: { location } } = state
     return {
         pathname: location.pathname,
-        refinedList: flowers.refinedList,
+        exportingList: flowers.exportingList,
         currentSelectedFlowers: flowers.currentSelectedFlowers
     }
 }

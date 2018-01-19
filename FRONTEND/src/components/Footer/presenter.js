@@ -19,7 +19,7 @@ const Footer = props => {
                 </div>
             </div>
             <div className={styles.flowerBasket}>
-                {props.refinedList.map( (image, key) => {
+                {props.exportingList.map( (image, key) => {
                     return (
                         <div className={styles.selectedFlower} key={key}>
                             {`${image.name_kr}(${capitalizeFirstLetter(image.name)}) x`}&nbsp;
@@ -52,10 +52,6 @@ const Footer = props => {
             </div>
         </footer>
     )
-}
-
-const Export = props => {
-    
 }
 
 const capitalizeFirstLetter = string => {

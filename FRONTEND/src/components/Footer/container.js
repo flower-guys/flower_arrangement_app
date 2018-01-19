@@ -14,7 +14,7 @@ class Container extends Component {
     render() {
         return (
             <div>
-            {this.props.refinedList.length > 0 ? <Footer {...this.props} />
+            {this.props.exportingList.length > 0 ? <Footer {...this.props} />
             : <div /> 
         }</div>
         )

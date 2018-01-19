@@ -4,10 +4,11 @@ import Loading from 'components/Loading'
 import _ from 'lodash'
 import Ionicon from 'react-ionicons'
 
+
 const FlowerList = props => {
     if(props.loading) {
         return <LoadingFlowers />
-    } else if (props.fetchedFlowerList) {
+    } else if (props.searchedList) {
         return <RenderList {...props}/>
     }
 }
@@ -18,7 +19,8 @@ const RenderList = props => (
     <div className={styles.container}>
     <div className={styles.wrapper}>
         <div className={styles.counter}><span className={styles.number}>10</span> Flowers for her, him, and you</div>
-        <div className={styles.list}>{_.map(props.fetchedFlowerList, (item, key) => {
+        <div className={styles.list}>
+        {Object.keys(props.searchedList).length > 0 ? _.map(props.searchedList, (item, key) => {
             return (
                 <li key={key}>
                     <div className={styles.item}>
@@ -58,7 +60,9 @@ const RenderList = props => (
                     </div>
                 </li>
             )
-        })}</div>
+        })
+        : <div> Nothing to be found :( </div>
+        }</div>
         </div>
     </div>
 )

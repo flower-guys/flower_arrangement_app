@@ -1,10 +1,11 @@
 import { database } from 'redux/firebase'
-
+import _ from 'lodash'
 // imports
 
 const FETCH_FLOWERS = 'FETCH_FLOWERS'
 const SELECT_FLOWER = 'SELECT_FLOWER'
 const DESELECT_FLOWER = 'DESELECT_FLOWER'
+const SEARCH_FLOWER = 'SEARCH_FLOWER'
 const SYNC_LIST = 'SYNC_LIST'
 const REFINE_LIST = 'REFINE_LIST'
 // actions
@@ -31,6 +32,13 @@ function deselectFlower (deselectedId) {
     }
 }
 
+function searchFlower (term) {
+    return {
+        type: SEARCH_FLOWER,
+        term
+    }
+}
+
 function syncList (currentSelectedFlowers) {
     return {
         type: SYNC_LIST,
@@ -45,12 +53,10 @@ function refineList (currentSelectedFlowers) {
     }
 }
 // API actions
-function fetchFirebaseFlowers (term) {
+function fetchFirebaseFlowers () {
     return dispatch => {
         database.ref('flowers/')
-            .orderByChild('name')
-            .startAt(term)
-            .once('value', snapshot => dispatch(fetchFlowers(snapshot.val())))
+            .on('value', snapshot => dispatch(fetchFlowers(snapshot.val()),error => console.log(error)))
     }
 }
 
@@ -58,7 +64,7 @@ function fetchFirebaseFlowers (term) {
 const initialState = {
     canvasImageList: [],
     currentSelectedFlowers: [],
-    refinedList: [],
+    exportingList: [],
 }
 // reducer
 function reducer(state = initialState, action) {
@@ -69,6 +75,8 @@ function reducer(state = initialState, action) {
             return applySelectFlower(state, action)
         case DESELECT_FLOWER:
             return applyDeselectFlower(state, action)
+        case SEARCH_FLOWER:
+            return applySearchFlower(state, action)
         case SYNC_LIST:
             return applySyncList(state, action)
         case REFINE_LIST:
@@ -82,7 +90,8 @@ function applyFetchFlowers(state, action) {
     const { flowers } = action
     return {
         ...state,
-        fetchedFlowerList: flowers
+        fetchedFlowerList: flowers,
+        searchedList: flowers
     }
 }
 
@@ -107,6 +116,18 @@ function applyDeselectFlower(state, action) {
     }
 }
 
+function applySearchFlower(state, action) {
+    const { term } = action
+    const searchedList = _.filter(state.fetchedFlowerList, obj => {
+        return term.length > 0 ? _.includes(obj.name.replace(/(\s*)/g, ""), term) || _.includes(obj.name_kr.replace(/(\s*)/g, ""), term)
+        : true
+    })
+    return {
+        ...state,
+        searchedList
+    }
+}
+
 function applySyncList(state, action) {
     const { canvasImageList } = action
     return {
@@ -127,7 +148,7 @@ function applyRefineList(state, action) {
         }
         return type
     }
-    var refinedList = []
+    var exportingList = []
 
     if (currentSelectedFlowers.length > 0) {
         const copiedArray = []
@@ -151,22 +172,22 @@ function applyRefineList(state, action) {
                     count += 1
                 } else {
                     arrangedArray[i].count = count
-                    refinedList.push(arrangedArray[i])
+                    exportingList.push(arrangedArray[i])
                     count = 1
                 }
             } else {
                 arrangedArray[0].count = 1
-                refinedList.push(arrangedArray[0])
+                exportingList.push(arrangedArray[0])
             }
         }
         return {
             ...state,
-            refinedList
+            exportingList
         }
     } else {
         return {
             ...state,
-            refinedList
+            exportingList
         }   
     }
 }
@@ -177,7 +198,8 @@ const actionCreators = {
     selectFlower,
     deselectFlower,
     syncList,
-    refineList
+    refineList,
+    searchFlower
 }
 
 export { actionCreators }

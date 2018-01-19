@@ -1,6 +1,6 @@
 import React from "react"
 import { Route, Switch } from 'react-router-dom'
-import styles from "./styles.scss"
+import "./styles.scss"
 import Navigation from 'components/Navigation'
 import FlowerArrangement from 'components/FlowerArrangement'
 import FlowerList from 'components/FlowerList'

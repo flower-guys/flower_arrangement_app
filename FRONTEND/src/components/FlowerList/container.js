@@ -7,8 +7,8 @@ class Container extends Component {
     }
     componentDidMount() {
         const { fetchFirebaseFlowers } = this.props
-        if (!this.props.fetchedFlowerList) {
-            fetchFirebaseFlowers(' ')
+        if (!this.props.searchedList) {
+            fetchFirebaseFlowers()
         } else {
             this.setState({
                 loading: false
@@ -16,7 +16,7 @@ class Container extends Component {
         }
     }
     componentWillReceiveProps(nextProps) {
-        if (nextProps.fetchedFlowerList) {
+        if (nextProps.searchedList) {
             this.setState({
                 loading: false
             })
