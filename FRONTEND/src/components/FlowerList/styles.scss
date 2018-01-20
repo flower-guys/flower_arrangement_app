@@ -11,8 +11,8 @@
 }
 
 .wrapper {
-    max-width: $max-page-width;
     .counter {
+        margin-left: 10px;
         margin-top: 20px;
         margin-bottom: 20px;
         font-size: .8rem;
@@ -27,10 +27,13 @@
         justify-content: space-between;
 
         .item {
+            margin-right: 10px;
+            margin-left: 10px;
             margin-bottom: 120px;
             display: flex;
             justify-content: space-between;
-            width: 400px;
+            flex-grow: 1;
+            // min-width: 350px;
             border-top: 1px solid $default-color;
             padding-top: 30px;
             .columnLeft{
@@ -66,9 +69,23 @@
                         }
                     }
                     .rowTopRight {
+                        width: 100%;
                         margin: 0;
                         padding: 0;
-                        text-align: right;
+                        display: flex;
+                        justify-content: flex-end;
+                        .addButton {
+                            img {
+                                width: 30px;
+                                height: 30px;
+                            }
+                        }
+                        .removeButton {
+                            img {
+                                width: 30px;
+                                height: 30px;
+                            }
+                        }
                         &:hover {
                             cursor: pointer;
                         }

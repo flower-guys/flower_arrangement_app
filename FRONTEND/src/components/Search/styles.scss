@@ -1,20 +1,18 @@
 @import '../../config/_variables.scss';
 
 .header {
+    position: relative;
     height: 10vh;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     border-bottom: 1px solid $default-color;
     max-width: $max-page-width;
-    margin-right: auto;
-    margin-left: auto;
     margin-bottom: 50px;
     padding-bottom: 20px;
 }
 
 .searchBar {
-    position: relative;
     display: flex;
     align-items: center;
     input {
@@ -46,7 +44,7 @@
     .searchList {
         box-sizing: border-box;
         position: absolute;
-        top: 35px;
+        top: calc(10vh + 20px);
         right: 0;
         width: 220px;
         z-index: 100;

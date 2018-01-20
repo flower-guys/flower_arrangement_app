@@ -3,7 +3,7 @@ import FlowerList from './presenter'
 
 class Container extends Component {
     state = {
-        loading: true
+        loading: true,
     }
     componentDidMount() {
         const { fetchFirebaseFlowers } = this.props
@@ -22,6 +22,7 @@ class Container extends Component {
             })
         }
     }
+
     render() {
         return (
             <div>

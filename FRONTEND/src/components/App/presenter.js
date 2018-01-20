@@ -1,16 +1,25 @@
 import React from "react"
 import { Route, Switch } from 'react-router-dom'
-import "./styles.scss"
-import Navigation from 'components/Navigation'
+import styles from './styles.scss'
+import Header from 'components/Header'
 import FlowerArrangement from 'components/FlowerArrangement'
 import FlowerList from 'components/FlowerList'
 import Footer from 'components/Footer'
+import Search from 'components/Search'
 
-const App = props => [
-    <Navigation key={1} />,
-    <Routes key={2} {...props} />,
-    <Footer key={3} />
-]
+const App = props => (
+    <div className={styles.container}>
+        <div className={styles.main}>
+            <Header />
+            <Routes />
+            <Footer />
+        </div>
+        <div className={styles.side}>
+            {/* <Search /> */}
+        </div>
+    </div>
+)
+
             
 const Routes = props => (
     <Switch>

@@ -1,24 +1,16 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
-import { Link } from 'react-router-dom'
 import Ionicon from 'react-ionicons'
 import styles from './styles.scss'
 
-const Navigation = props => {
+const Search = props => {
     return (
         <header className={styles.header}>
-            <Logo />
             <SearchBar {...props} />
         </header>
     )
 }
-const Logo = props => {
-    return (
-        <div className={styles.logo}>
-            <Link to='/' >LOGO PLACEHOLDER</Link>
-        </div>
-    )
-}
+
 class SearchBar extends Component {
     constructor() {
         super()
@@ -53,7 +45,7 @@ class SearchBar extends Component {
                         this.props._searchFlower(event.target.value)
                     }}
                 />
-                {this.props.searchedList && this.state.isDropdownOpen === true &&
+                {this.props.pathname === '/arrange' && this.props.searchedList && this.state.isDropdownOpen === true &&
                 <div className={styles.searchList}>
                     <ul>
                         <DropdownList {...this.props} dropdownCloser={this.dropdownCloser} />
@@ -84,4 +76,4 @@ const capitalizeFirstLetter = string => {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-export default Navigation
+export default Search

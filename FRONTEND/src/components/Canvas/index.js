@@ -183,38 +183,38 @@ class RenderImage extends Component {
 class PopupMenu extends Component {
   render() {
     const leftRotationArrow = new window.Image()
-    leftRotationArrow.src = require('images/leftRotationArrow.svg')
+    leftRotationArrow.src = require('images/leftRotationArrow.png')
     leftRotationArrow.onload = () => {
       this.props.refresh()
     }
 
     const rightRotationArrow = new window.Image()
-    rightRotationArrow.src = require('images/rightRotationArrow.svg')
+    rightRotationArrow.src = require('images/rightRotationArrow.png')
     rightRotationArrow.onload = () => {
       this.props.refresh()
     }
     const deleteButton = new window.Image()
-    deleteButton.src = require('images/deleteButton.svg')
+    deleteButton.src = require('images/remove.png')
     deleteButton.onload = () => {
       this.props.refresh()
     }
     const moveToTop = new window.Image()
-    moveToTop.src = require('images/moveToTop.jpg')
+    moveToTop.src = require('images/moveToTop.png')
     moveToTop.onload = () => {
       this.props.refresh()
     }
     const moveToBottom = new window.Image()
-    moveToBottom.src = require('images/moveToBottom.jpg')
+    moveToBottom.src = require('images/moveToBottom.png')
     moveToBottom.onload = () => {
       this.props.refresh()
     }
     const moveUp = new window.Image()
-    moveUp.src = require('images/moveUp.jpg')
+    moveUp.src = require('images/moveUp.png')
     moveUp.onload = () => {
       this.props.refresh()
     }
     const moveDown = new window.Image()
-    moveDown.src = require('images/moveDown.jpg')
+    moveDown.src = require('images/moveDown.png')
     moveDown.onload = () => {
       this.props.refresh()
     }
@@ -393,7 +393,7 @@ class PopupMenu extends Component {
           ref={ node => this.borderBox = node}
           points={positions.borderBox.points}
           dash={[10, 5, 0.001, 5]}
-          stroke={'black'} strokeWidth={1}
+          stroke={'#BBB8B6'} strokeWidth={1}
         />
       </Group>
     )

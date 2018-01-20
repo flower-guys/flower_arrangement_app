@@ -3,9 +3,28 @@
 
 body {
     color: $font-color;
+    .container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        overflow-x: hidden;
+        .main {
+            width: $max-page-width;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: auto;
+            margin-left: auto;
+        }
+        .side {
+            width: 0;
+        }
+    }
 }
 
 a {
     text-decoration: none;
     color: $font-color;
 }
+
+

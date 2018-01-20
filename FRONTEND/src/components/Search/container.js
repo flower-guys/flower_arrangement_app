@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Navigation from './presenter'
+import Search from './presenter'
 
 class Container extends Component {
   _searchFlower = term => {
@@ -10,7 +10,7 @@ class Container extends Component {
 
   render() {
     return (
-      <Navigation {...this.props} _searchFlower={this._searchFlower} />
+      <Search {...this.props} _searchFlower={this._searchFlower} />
     )
   }
 }

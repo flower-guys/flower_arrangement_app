@@ -3,6 +3,11 @@ import styles from './styles.scss'
 import Loading from 'components/Loading'
 import _ from 'lodash'
 import Ionicon from 'react-ionicons'
+import addButton from 'images/add.png'
+import addButtonHover from 'images/addHover.png'
+import removeButton from 'images/remove.png'
+import removeButtonHover from 'images/removeHover.png'
+import HoverImage from 'react-hover-image'
 
 
 const FlowerList = props => {
@@ -20,7 +25,8 @@ const RenderList = props => (
     <div className={styles.wrapper}>
         <div className={styles.counter}><span className={styles.number}>10</span> Flowers for her, him, and you</div>
         <div className={styles.list}>
-        {Object.keys(props.searchedList).length > 0 ? _.map(props.searchedList, (item, key) => {
+        {Object.keys(props.searchedList).length > 0 
+        ? _.map(props.searchedList, (item, key) => {
             return (
                 <li key={key}>
                     <div className={styles.item}>
@@ -33,29 +39,30 @@ const RenderList = props => (
                                     <span className={styles.nameKr}>{item.name_kr}</span>
                                     <span className={styles.nameEn}>{capitalizeFirstLetter(item.name)}</span>
                                 </div>
-                                <div className={styles.rowTopRight}>
-                                    {!props.currentSelectedFlowers.includes(item) 
-                                        ? <Ionicon 
-                                            icon="ios-add-circle" fontSize="25px" color="#635f5c"
-                                            onClick={ () => props.selectFlower(item)}
-                                        />
-                                        :
-                                        <div>
-                                            <Ionicon 
-                                                icon="ios-close-circle" fontSize="25px" color="#635f5c"
-                                                onClick={ () => props.deselectFlower(item.id)}
-                                            />
-                                            <Ionicon
-                                                icon="ios-add-circle" fontSize="25px" color="#635f5c"
-                                                onClick={() => props.selectFlower(item)}
-                                            />
-                                        </div>
-                                    }
+                                {!props.currentSelectedFlowers.includes(item) 
+                                ? <div className={styles.rowTopRight}>
+                                    <div className={styles.addButton}
+                                        onClick={() => props.selectFlower(item)}
+                                    >
+                                        <HoverImage src={addButton} hoverSrc={addButtonHover} />
+                                    </div>
                                 </div>
+                                : <div className={styles.rowTopRight}>
+                                    <div className={styles.removeButton}
+                                        onClick={ () => props.deselectFlower(item.id)}
+                                    >
+                                        <HoverImage src={removeButton} hoverSrc={removeButtonHover} />
+                                    </div>
+                                    <div className={styles.addButton}
+                                        onClick={ () => props.selectFlower(item)}
+                                    >
+                                        <HoverImage src={addButton} hoverSrc={addButtonHover} />
+                                    </div>
+                                </div>}
                             </div>
-                            <div className={styles.rowBottom}>
-                                <span>"{item.flowerlanguage}"</span>
-                            </div>
+                        <div className={styles.rowBottom}>
+                            <span>"{item.flowerlanguage}"</span>
+                        </div>
                         </div>
                     </div>
                 </li>

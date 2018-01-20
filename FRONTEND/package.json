@@ -42,6 +42,7 @@
     "react": "~16.1.0",
     "react-dev-utils": "^4.2.1",
     "react-dom": "~16.1.0",
+    "react-hover-image": "^1.0.0",
     "react-ionicons": "^2.1.6",
     "react-konva": "^1.6.4",
     "react-redux": "^5.0.6",

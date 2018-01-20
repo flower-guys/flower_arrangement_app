@@ -100,6 +100,7 @@ function applySelectFlower(state, action) {
     
     return {
         ...state,
+        canvasImageList: [...state.canvasImageList, selectedFlower],
         currentSelectedFlowers: [...state.currentSelectedFlowers, selectedFlower],
     }
 }
