@@ -26,9 +26,7 @@ class Bouquet(TimeStampedModel):
     """ Bouquet Model """
     
     file = models.ImageField()
-    location = models.CharField(max_length=140)
-    caption = models.TextField()
-    creator = models.ForeignKey(user_models.User, null=True)
+    user = models.ForeignKey(user_models.User, null=True)
     flowers = models.ManyToManyField(Flowers)
 
     def __str__(self):

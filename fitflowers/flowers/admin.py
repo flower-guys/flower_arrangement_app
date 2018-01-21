@@ -3,18 +3,42 @@ from . import models
 
 # Register your models here.
 
+
+@admin.register(models.Flowers)
+class FlowersAdmin(admin.ModelAdmin):
+
+    list_display_links = (
+        'krname',
+        'enname',
+    )
+
+    search_fields = (
+        'krname',
+        'enname',
+    )
+
+    list_display = (
+        'krname',
+        'enname',
+        'file',
+    )
+
+
 @admin.register(models.Bouquet)
 class BouquetAdmin(admin.ModelAdmin):
-    pass
 
-@admin.register(models.Like)
-class LikeAdmin(admin.ModelAdmin):
-    pass
+    list_display_links = (
+        'file',
+    )
 
-@admin.register(models.Comment)
-class CommentAdmin(admin.ModelAdmin):
-    pass
+    search_fields = (
+        'user',
+    )
 
-@admin.register(models.Bunch)
-class BunchAdmin(admin.ModelAdmin):
-    pass
+
+    list_display = (
+        'file',
+        'user',
+        'flowers',
+    )
+     
