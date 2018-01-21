@@ -2,7 +2,6 @@ import React from 'react'
 import styles from './styles.scss'
 import Loading from 'components/Loading'
 import _ from 'lodash'
-import Ionicon from 'react-ionicons'
 import addButton from 'images/add.png'
 import addButtonHover from 'images/addHover.png'
 import removeButton from 'images/remove.png'
@@ -23,7 +22,7 @@ const LoadingFlowers = props => <div className={styles.container}><Loading /></d
 const RenderList = props => (
     <div className={styles.container}>
     <div className={styles.wrapper}>
-        <div className={styles.counter}><span className={styles.number}>10</span> Flowers for her, him, and you</div>
+            <div className={styles.counter}><span className={styles.number}>{Object.keys(props.fetchedFlowerList).length}</span> Flowers for you</div>
         <div className={styles.list}>
         {Object.keys(props.searchedList).length > 0 
         ? _.map(props.searchedList, (item, key) => {

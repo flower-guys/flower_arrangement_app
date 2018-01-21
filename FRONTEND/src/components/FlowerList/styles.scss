@@ -1,5 +1,8 @@
 @import '../../config/_variables.scss';
 .container {
+    margin-top: 10vh;
+    width: 100%;
+    max-width: $max-page-width;
     min-height: 500px;
     display: flex;
     flex-direction: column;
@@ -11,9 +14,10 @@
 }
 
 .wrapper {
+    width: 100%;
     .counter {
         margin-left: 10px;
-        margin-top: 20px;
+        margin-top: 50px;
         margin-bottom: 20px;
         font-size: .8rem;
         .number {
@@ -24,7 +28,7 @@
         margin: 0 auto;
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
+        justify-content: space-around;
 
         .item {
             margin-right: 10px;
@@ -69,21 +73,20 @@
                         }
                     }
                     .rowTopRight {
-                        width: 100%;
                         margin: 0;
                         padding: 0;
                         display: flex;
                         justify-content: flex-end;
                         .addButton {
                             img {
-                                width: 30px;
-                                height: 30px;
+                                width: 25px;
+                                height: 25px;
                             }
                         }
                         .removeButton {
                             img {
-                                width: 30px;
-                                height: 30px;
+                                width: 25px;
+                                height: 25px;
                             }
                         }
                         &:hover {

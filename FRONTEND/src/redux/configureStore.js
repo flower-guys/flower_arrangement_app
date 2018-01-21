@@ -6,6 +6,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { i18nState } from 'redux-i18n'
 import user from 'redux/modules/user'
 import flowers from 'redux/modules/flowers'
+import layout from 'redux/modules/layout'
 
 const env = process.env.NODE_ENV
 
@@ -26,7 +27,8 @@ const reducer = combineReducers({
     user,
     flowers,
     routing: routerReducer,
-    i18nState
+    i18nState,
+    layout
 })
  
 export { history } 

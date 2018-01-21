@@ -1,10 +1,12 @@
 import { connect } from 'react-redux'
+import { actionCreators as layoutActions } from 'redux/modules/layout'
 import Container from './container'
 
 const mapStateToProps = (state, ownProps) => {
-  const { routing: { location } } = state
+  const { layout, routing: { location } } = state
   return {
-    pathname: location.pathname
+    pathname: location.pathname,
+    needSearch: layout.needSearch
   }
 }
 

@@ -1,20 +1,23 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import styles from './styles.scss'
+import { connect } from 'react-redux'
+import { actionCreators as layoutActions } from 'redux/modules/layout'
+import Container from './container'
 
-const Logo = props => {
-    return (
-        <header>
-            <div className={styles.left}>
-                <div className={styles.logo}>
-                    <Link to='/' >LOGO PLACEHOLDER</Link>
-                </div>
-            </div>
-            <div className={styles.right}>
-            SEARCH WILL BE HERE
-            </div>
-        </header>
-    )
+const mapStateToProps = (state, ownProps) => {
+    const { layout } = state
+    return {
+        needSearch: layout.needSearch
+    }
 }
 
-export default Logo
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        openSearch: () => {
+            dispatch(layoutActions.openSearch())
+        },
+        closeSearch: () => {
+            dispatch(layoutActions.closeSearch())
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Container)

@@ -1,72 +1,73 @@
 @import '../../config/_variables.scss';
 
-.header {
-    position: relative;
-    height: 10vh;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    border-bottom: 1px solid $default-color;
-    max-width: $max-page-width;
-    margin-bottom: 50px;
-    padding-bottom: 20px;
-}
-
-.searchBar {
-    display: flex;
-    align-items: center;
-    input {
-        color: $font-color;
-        box-sizing: border-box;
-        width: 100px;
-        margin: 0;
-        font-size: .8rem;
-        padding: .5rem;
-        border-radius: 3px;
-        border-top: none;
-        border-left: none;
-        border-right: none;
-        text-align: center;
-        &::placeholder {
-            color: $point-color;
-        }
-        &:hover {
+.container {
+    border-left: 1px solid $default-color;
+    width: 300px;
+    height: 100vh;
+    background-color: white;
+    .header {
+        height: 7vh;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        border-bottom: 1px solid $default-color;
+        max-width: $max-page-width;
+        margin-bottom: 50px;
+        padding-bottom: 20px;
+    }
+    
+    .searchBar {
+        display: flex;
+        align-items: center;
+        input {
+            color: $font-color;
+            box-sizing: border-box;
+            width: 100px;
+            margin: 0;
+            font-size: .8rem;
+            padding: .5rem;
+            border-radius: 3px;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            text-align: center;
             &::placeholder {
                 color: $point-color;
             }
-        }
-        &:focus {
-            outline: none;
-            color: lighten($font-color, 15%);
-            border-bottom: 1px solid $default-color;
-        }
-    }
-    .searchList {
-        box-sizing: border-box;
-        position: absolute;
-        top: calc(10vh + 20px);
-        right: 0;
-        width: 220px;
-        z-index: 100;
-        border: 1px solid $default-color;
-        border-radius: 7px;
-        background-color: rgba(255, 255, 255, 0.85);
-        padding: .6rem;
-        line-height: 1.7rem;
-        .searchItem {
-            display: flex;
-            align-items: center;
-            font-size: .8rem;
-            background-color: lighten($font-color, 55%);
-            color: darken($font-color, 10%);
-            border-radius: 7px;
-            padding: 5px 15px;
-            margin: 5px;
             &:hover {
-                cursor: pointer;
-                color: $point-color;
+                &::placeholder {
+                    color: $point-color;
+                }
+            }
+            &:focus {
+                outline: none;
+                color: lighten($font-color, 15%);
+                border-bottom: 1px solid $default-color;
             }
         }
-        
+        .searchList {
+            box-sizing: border-box;
+            width: 220px;
+            border: 1px solid $default-color;
+            border-radius: 7px;
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: .6rem;
+            line-height: 1.7rem;
+            .searchItem {
+                display: flex;
+                align-items: center;
+                font-size: .8rem;
+                background-color: lighten($font-color, 55%);
+                color: darken($font-color, 10%);
+                border-radius: 7px;
+                padding: 5px 15px;
+                margin: 5px;
+                &:hover {
+                    cursor: pointer;
+                    color: $point-color;
+                }
+            }
+            
+        }
     }
 }

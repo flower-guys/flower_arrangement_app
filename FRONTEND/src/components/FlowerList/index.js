@@ -21,7 +21,8 @@ const mapStateToProps = (state, ownProps) => {
     return {
         pathname: location.pathname,
         currentSelectedFlowers: flowers.currentSelectedFlowers,
-        searchedList: flowers.searchedList
+        searchedList: flowers.searchedList,
+        fetchedFlowerList: flowers.fetchedFlowerList
     }
 }
 
