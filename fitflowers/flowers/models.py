@@ -9,16 +9,27 @@ class TimeStampedModel(models.Model):
         abstract = True
 
 
-class Flowers(models.Model):
+class Flower(models.Model):
     
-    """ Flowers Model """
+    """ Flower Model """
     
     enname = models.CharField(max_length=140)
-    krname = models.CharFiled(max_length=140)
+    krname = models.CharField(max_length=140)
     file = models.ImageField()
 
     def __str__(self):
-        return {}({}).format(self.krname, self.enname)
+        return '{}({})'.format(self.krname, self.enname)
+
+
+# class Bunch(TimeStampedModel):
+    
+#     """ Bunch Model """
+
+#     flower = models.ForeignKey(Flower, null=True, related_name='bunches')
+#     user = models.ForeignKey(user_models.User, null=True)
+
+#     def __str__(self):
+#         return '{} - {}'.format(self.bouquet, self.flower)
 
 
 class Bouquet(TimeStampedModel):
@@ -27,11 +38,12 @@ class Bouquet(TimeStampedModel):
     
     file = models.ImageField()
     user = models.ForeignKey(user_models.User, null=True)
-    flowers = models.ManyToManyField(Flowers)
+    flowers = models.ForeignKey(Flower, blank=True, null=True)
 
     def __str__(self):
-        return '{} - {}'.format(self.caption, self.creator)
+        return '{} - {}'.format(self.file, self.user)
     
     class Meta:
         ordering = ['-created_at']
+
 

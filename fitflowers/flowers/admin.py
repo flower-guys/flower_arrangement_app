@@ -4,8 +4,8 @@ from . import models
 # Register your models here.
 
 
-@admin.register(models.Flowers)
-class FlowersAdmin(admin.ModelAdmin):
+@admin.register(models.Flower)
+class FlowerAdmin(admin.ModelAdmin):
 
     list_display_links = (
         'krname',
@@ -41,4 +41,21 @@ class BouquetAdmin(admin.ModelAdmin):
         'user',
         'flowers',
     )
+
+# @admin.register(models.Bunch)
+# class BunchAdmin(admin.ModelAdmin):
+
+#     list_display_links = (
+#         'flower',
+#     )
+
+#     search_fields = (
+#         'user',
+#     )
+
+
+#     list_display = (
+#         'flower',
+#         'user',
+#     )
      
