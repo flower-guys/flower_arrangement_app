@@ -1,6 +1,5 @@
 from django.db import models
 from fitflowers.users import models as user_models
-
 class TimeStampedModel(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -10,27 +9,31 @@ class TimeStampedModel(models.Model):
         abstract = True
 
 
+class Flowers(models.Model):
+    
+    """ Flowers Model """
+    
+    enname = models.CharField(max_length=140)
+    krname = models.CharFiled(max_length=140)
+    file = models.ImageField()
+
+    def __str__(self):
+        return {}({}).format(self.krname, self.enname)
+
+
 class Bouquet(TimeStampedModel):
-    """ Bouquet """
+    
+    """ Bouquet Model """
+    
     file = models.ImageField()
     location = models.CharField(max_length=140)
     caption = models.TextField()
     creator = models.ForeignKey(user_models.User, null=True)
+    flowers = models.ManyToManyField(Flowers)
 
-class Like(TimeStampedModel):
-    """ Like Model """
-    creator = models.ForeignKey(user_models.User, null=True)
-    bouquet = models.ForeignKey(Bouquet, null=True)
-
-
-class Comment(TimeStampedModel):
-    """ Comment Model """
-    message = models.TextField()
-    creator = models.ForeignKey(user_models.User, null=True)
-    bouquet = models.ForeignKey(Bouquet, null=True)
-
-
-class Bunch(TimeStampedModel):
-    creator = models.ForeignKey(user_models.User, null=True)
-    bouquet = models.ForeignKey(Bouquet, null=True)
+    def __str__(self):
+        return '{} - {}'.format(self.caption, self.creator)
+    
+    class Meta:
+        ordering = ['-created_at']
 
