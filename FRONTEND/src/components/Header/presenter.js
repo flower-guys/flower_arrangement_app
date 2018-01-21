@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Ionicon from 'react-ionicons'
 import styles from './styles.scss'
 import classNames from 'classnames'
 
@@ -8,13 +9,31 @@ const Header = (props) => {
         <header className={styles.header}>
             <div className={styles.left}>
                 <div className={styles.logo}>
-                    <Link to='/' >LOGO PLACEHOLDER</Link>
+                    <Link className={styles.link} to='/' >
+                        <Ionicon
+                            icon='ios-flower-outline'
+                            className={styles.closeSearch}
+                            color='#635f5c'
+                            fontSize='30px'
+                            rotate={true}
+                        /> LOGO PLACEHOLDER
+                    </Link>
                 </div>
             </div>
             <div className={props.needSearch ? classNames(styles.right, styles.rightSearch) : styles.right}>
                     {props.needSearch === true
-                        ? <button className={styles.closeSearch} onClick={() => props.handleClose()}>CLOSE</button>
-                        : <button className={styles.openSearch} onClick={() => props.handleOpen()}>SEARCH BUTTON</button>
+                    ? <Ionicon 
+                        icon='ios-play-outline'
+                        className={styles.closeSearch}
+                        color='#635f5c'
+                        fontSize='25px'
+                        onClick={() => props.handleClose()}/>
+                    : <Ionicon
+                        icon='ios-search'
+                        className={styles.openSearch}
+                        color='#635f5c'
+                        fontSize='25px'
+                        onClick={() => props.handleOpen()} />
                     }
             </div>
         </header>

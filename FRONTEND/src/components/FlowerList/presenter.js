@@ -27,8 +27,7 @@ const RenderList = props => (
         {Object.keys(props.searchedList).length > 0 
         ? _.map(props.searchedList, (item, key) => {
             return (
-                <li key={key}>
-                    <div className={styles.item}>
+                      <div className={styles.item} key={key}>
                         <div className={styles.columnLeft}>
                             <img src={require(`images/flowers/${item.name}.png`)} alt={item.name}/>
                         </div>
@@ -64,7 +63,6 @@ const RenderList = props => (
                         </div>
                         </div>
                     </div>
-                </li>
             )
         })
         : <div> Nothing to be found :( </div>

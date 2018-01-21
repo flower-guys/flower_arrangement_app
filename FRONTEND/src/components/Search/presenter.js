@@ -9,7 +9,9 @@ const Search = props => {
             <header className={styles.header}>
                 <SearchBar {...props} />
             </header>
-            <SearchList {...props}/>
+            <div className={styles.searchList}>
+                <SearchList {...props} />
+            </div>
         </div>
     )
 }
@@ -17,6 +19,12 @@ const Search = props => {
 const SearchBar = props => {
         return (
             <div className={styles.searchBar} ref={node => this.searchBar = node} >
+                <Ionicon
+                    icon='ios-search'
+                    className={styles.openSearch}
+                    color='#635f5c'
+                    fontSize='25px'
+                />
                 <input placeholder='Search' value={props.term} 
                     onChange={ event => {
                         props.handleInput(event.target.value)
@@ -30,7 +38,7 @@ const SearchBar = props => {
 const SearchList = props => {
     return (
         _.map(props.searchedList, (flower, key) => {
-            return (
+            return (                
                 <li key={key} onClick={ () => props.selectFlower(flower)}>
                     <div className={styles.searchItem}>
                         {flower.name_kr}({capitalizeFirstLetter(flower.name)})
