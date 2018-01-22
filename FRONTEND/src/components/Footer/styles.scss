@@ -3,7 +3,7 @@
     background-color: white;
     position: fixed;
     bottom: -5px;
-    right: 300px;
+    left: 50%;
     border: 1px solid $default-color;
     border-radius: 5px;
     color: $font-color;
@@ -14,13 +14,15 @@
     justify-content: center;
     align-items: center;
     font-size: .9rem;
+    transform: translate3d( -50%, 100%, 0);
+    transition: all .5s ease-out;
     .rowTop {
         display: flex;
         width: 90%;
+        height: 30px;
         border-bottom: 1px solid $default-color;
         justify-content: space-between;
         padding-bottom: 5px;
-        margin-bottom: 10px;
         .title {
             display: flex;
             align-items: center;
@@ -31,7 +33,7 @@
           }
             }
         }
-        .minify {
+        .upDownButton {
             &:hover {
                 cursor: pointer;
             }
@@ -40,6 +42,8 @@
     .flowerBasket {
         display: flex;
         flex-wrap: wrap;
+        margin-top: 10px;
+        margin-bottom: 10px;
         .selectedFlower {
             padding: 5px;
             margin: 5px;
@@ -64,7 +68,6 @@
         border-top: 1px solid $default-color;
         width: 90%;
         padding-top: 10px;
-        margin-top: 10px;
         .forward {
             display: flex;
             align-items: center;
@@ -78,4 +81,12 @@
             }
         }
     }
+}
+
+.footerActive {
+    transform: translate3d(-50%, 0, 0);
+}
+
+.footerMinified {
+    transform: translate3d(-50%, calc(100% - 50px), 0);
 }

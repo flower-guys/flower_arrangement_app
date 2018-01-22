@@ -14,7 +14,7 @@
 .wrapper {
     width: 100%;
     .counter {
-        margin-left: 10px;
+        margin-left: 20px;
         margin-top: 50px;
         margin-bottom: 20px;
         font-size: .8rem;
@@ -76,14 +76,16 @@
                         justify-content: flex-end;
                         .addButton {
                             img {
-                                width: 25px;
-                                height: 25px;
+                                padding: 2px;
+                                width: 20px;
+                                height: 20px;
                             }
                         }
                         .removeButton {
                             img {
-                                width: 25px;
-                                height: 25px;
+                                padding: 2px;
+                                width: 20px;
+                                height: 20px;
                             }
                         }
                         &:hover {

@@ -1,11 +1,19 @@
 import React from 'react'
 import Ionicon from 'react-ionicons'
 import { Link } from 'react-router-dom'
+import classNames from 'classnames'
 import styles from './styles.scss'
 
 const Footer = props => {
     return (
-        <footer className={styles.footer}>
+        <footer 
+            className={props.currentSelectedFlowers.length > 0
+                ? props.isMinified === false 
+                    ? classNames(styles.footer, styles.footerActive)
+                    : classNames(styles.footer, styles.footerMinified) 
+                : styles.footer
+            }
+        >
             <div className={styles.rowTop}>
                 <div className={styles.title}>
                     <Ionicon icon='ios-basket-outline' />
@@ -14,8 +22,11 @@ const Footer = props => {
                         {' '}송이의 꽃이 담겼어요.
                     </span>
                 </div>
-                <div className={styles.minify}>
-                <Ionicon icon='ios-arrow-down' />
+                <div className={styles.upDownButton}>
+                {props.isMinified === true
+                    ? <Ionicon icon='ios-arrow-up' onClick={ () => props.handleMaximize()} />
+                    : <Ionicon icon='ios-arrow-down' onClick={ () => props.handleMinify() } />
+                }
                 </div>
             </div>
             <div className={styles.flowerBasket}>
