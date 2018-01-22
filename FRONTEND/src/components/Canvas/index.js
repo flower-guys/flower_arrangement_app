@@ -64,11 +64,11 @@ class Canvas extends Component {
   canvasSize = () => {
     const width = window.innerWidth
     if (width > 300 && width <= 320) return 300
-    else if (width > 320 && width <= 375) return 355
-    else if (width > 375 && width <= 450) return 390
-    else if (width > 450 && width <= 768) return 500
-    else if (width > 768 && width <= 1024) return 740
-    else return 800 
+    else if (width > 320 && width <= 375) return 320
+    else if (width > 375 && width <= 450) return 375
+    else if (width > 450 && width <= 600) return 450
+    else if (width > 600 && width <= 768) return 600
+    else return 740 
   }
 
   

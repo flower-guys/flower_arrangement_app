@@ -3,7 +3,7 @@
     background-color: white;
     position: fixed;
     bottom: -5px;
-    left: 50%;
+    left: 5px;
     border: 1px solid $default-color;
     border-radius: 5px;
     color: $font-color;
@@ -14,9 +14,11 @@
     justify-content: center;
     align-items: center;
     font-size: .9rem;
-    transform: translate3d( -50%, 100%, 0);
+    transform: translate3d( 0, 100%, 0);
     @include breakpoint('phone') {
+        left: 50%;
         width: 90%;
+        transform: translate3d( -50%, 100%, 0);
     }
     @include breakpoint('tablet-landscape') {
         width: 387px;
@@ -90,9 +92,12 @@
 }
 
 .footerActive {
-    transform: translate3d(-50%, 0, 0);
+    transform: translate3d(0, 0, 0);
+    @include breakpoint('phone') {
+        transform: translate3d(-50%, 0, 0);
+    }
 }
 
 .footerMinified {
-    transform: translate3d(-50%, calc(100% - 50px), 0);
+    transform: translate3d(0, calc(100% - 50px), 0);
 }

@@ -19,6 +19,9 @@ class Container extends Component {
         if (this.props.currentSelectedFlowers !== nextProps.currentSelectedFlowers) {
             this.props.refineList(nextProps.currentSelectedFlowers)
         }
+        if (this.props.pathname !== nextProps.pathname) {
+            this.setState({isMinified: true})
+        }
     }
     handleMinify () {
         this.setState({

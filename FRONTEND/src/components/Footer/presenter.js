@@ -16,7 +16,7 @@ const Footer = props => {
         >
             <div className={styles.rowTop}>
                 <div className={styles.title}>
-                    <Ionicon icon='ios-basket-outline' />
+                    <Ionicon icon='ios-basket-outline'/>
                     <span className={styles.titleCounter}>
                         <span className={styles.titleCount}>{props.currentSelectedFlowers.length}</span>
                         {' '}송이의 꽃이 담겼어요.
@@ -24,7 +24,7 @@ const Footer = props => {
                 </div>
                 <div className={styles.upDownButton}>
                 {props.isMinified === true
-                    ? <Ionicon icon='ios-arrow-up' onClick={ () => props.handleMaximize()} />
+                        ? <Ionicon icon='ios-arrow-up' onClick={() => props.handleMaximize()} beat={true} />
                     : <Ionicon icon='ios-arrow-down' onClick={ () => props.handleMinify() } />
                 }
                 </div>
@@ -57,12 +57,12 @@ const Footer = props => {
                     {props.pathname !== '/arrange' && 
                     <Link className={styles.forward} to='/arrange'>
                         꽃 놓기
-                        <Ionicon className={styles.fowardIcon} icon='ios-arrow-dropright-circle' color='#635f5c' />
+                        <Ionicon className={styles.fowardIcon} icon='ios-arrow-dropright-circle' color='#635f5c' beat={true} />
                     </Link>}
                     {props.pathname === '/arrange' &&
                     <Link className={styles.forward} to='/card'>
                         마음 담기
-                        <Ionicon className={styles.fowardIcon} icon='ios-arrow-dropright-circle' color='#635f5c' />
+                        <Ionicon className={styles.fowardIcon} icon='ios-arrow-dropright-circle' color='#635f5c' beat={true} />
                     </Link>}
                 </div>
             </div>
