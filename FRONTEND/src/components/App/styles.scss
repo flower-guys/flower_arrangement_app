@@ -12,6 +12,10 @@ body {
             display: flex;
             justify-content: center;
             overflow-x: hidden;
+            @include breakpoint('phone') {
+                padding-left: 5px;
+                padding-right: 5px;
+            }
             .main {
                 position: relative;
                 display: flex;
@@ -25,16 +29,39 @@ body {
                 width: 0;
                 position: fixed;
                 right: 0;
-                transform: translate3d(100%, 0, 0)
+                transform: translate3d(100%, 0, 0);
+                z-index: 100;
+            }
+            .mask {
+                position: fixed;
+                background-color: black;
+                opacity: 0;
+                z-index: 50;
+                transition: all 1s;
             }
         }
         .containerSearch {
             .main {
                 margin-right: 300px;
+                @include breakpoint('phone') {
+                    margin-right: 0;
+                }
             }
             .side {
                 width: 300px;
-                transform: translate3d(0, 0, 0)
+                transform: translate3d(0, 0, 0);
+                @include breakpoint('phone') {
+                    width: 280px;
+                }
+            }
+            .mask {
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                opacity: .7;
+                transition: all .5s;
+
             }
         }
 }

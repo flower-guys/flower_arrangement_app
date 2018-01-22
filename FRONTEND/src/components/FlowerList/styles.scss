@@ -31,27 +31,38 @@
             margin-left: 20px;
             margin-right: 20px;
             display: flex;
-            max-width: 470px;
+            max-width: 750px;
             width: 350px;
-            justify-content: space-between;
             border-top: 1px solid $default-color;
             padding-top: 30px;
             flex-grow: 1;
+            @include breakpoint('phone') {
+                width: 280px;
+                max-width: 350px;
+            }
+            @include breakpoint('phone-landscape') {
+                width: 500px;
+            }
+            @include breakpoint('tablet') {
+                width: 280px;
+            }
             .columnLeft{
-                min-width: 130px;
-                height: 100%;
+                width: 150px;
                 padding: 7px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                @include breakpoint('phone-landscape') {
+                    width: 280px;
+                }
                 img {
                     display: block;
-                    max-width: 120px;
                     height: 220px;
                 }
             }
             .columnRight{
-                min-width: 170px;
+                width: 100%;
+                padding: 10px;
                 .rowTop {
                     display: flex;
                     justify-content: space-between;

@@ -10,5 +10,13 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps)(Container)
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    closeSearch: () => {
+      dispatch(layoutActions.closeSearch())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Container)
 

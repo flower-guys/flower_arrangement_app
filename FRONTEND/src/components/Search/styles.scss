@@ -68,4 +68,14 @@
             }
         }        
     }
+    .mask {
+        position: fixed;
+        width: 100px;
+        top: 0;
+        left: 0;
+
+        bottom: 0;
+        z-index: 1;
+        background-color: black;
+    }
 }

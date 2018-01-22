@@ -8,14 +8,16 @@
     border-radius: 5px;
     color: $font-color;
     padding: 10px;
-    width: 20vw;
+    width: 400px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     font-size: .9rem;
     transform: translate3d( -50%, 100%, 0);
-    transition: all .5s ease-out;
+    @include breakpoint('phone') {
+        width: 280px;
+    }
     .rowTop {
         display: flex;
         width: 90%;
@@ -42,6 +44,7 @@
     .flowerBasket {
         display: flex;
         flex-wrap: wrap;
+        padding-left: 10px;
         margin-top: 10px;
         margin-bottom: 10px;
         .selectedFlower {

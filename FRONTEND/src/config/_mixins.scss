@@ -1,7 +1,7 @@
 $tablet-width: 768px;
 $desktop-width: 875px;
 $xl-desktop-width: 1351px;
-$phone-width: 320px;
+$phone-width: 300px;
 $iphone6-width: 375px;
 $iphone6plus-width: 450px;
 
@@ -14,7 +14,7 @@ $iphone6plus-width: 450px;
         @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width}) and (orientation: landscape) {
             @content;
         }
-    } @else if $breakpoint == "table-portrait" {
+    } @else if $breakpoint == "tablet-portrait" {
         @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width}) and (orientation: portrait) {
             @content;
         }

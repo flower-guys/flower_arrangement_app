@@ -20,6 +20,7 @@ const App = props => (
             <div className={styles.side}>
                 <Search />
             </div>
+            <div className={styles.mask} onClick={() => props.closeSearch()}/>
         </div>          
 )
             
