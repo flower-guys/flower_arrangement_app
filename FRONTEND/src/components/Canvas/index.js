@@ -101,21 +101,12 @@ class Canvas extends Component {
                   deselectFlower={this.props.deselectFlower}
                   refresh={this.refresh}
                   disactiveMenu={this.disactiveMenu}
+                  canvasSize={this.canvasSize}
                 />
               )
             })}
           </Layer>
         </Stage>}
-        <div className={styles.tools}>
-          <button className={styles.saveButton}
-            onClick={() => { // 비동기 공부해서 코드 수정할 것!!!!  
-              this.disactiveMenu()
-              setTimeout(() => { this.handleExport() }, 100);
-            }}
-          >
-            이미지로 저장
-            </button>
-        </div>
       </div>
     )
   } 
@@ -131,7 +122,7 @@ class RenderImage extends Component {
   imageY
   imageWidth
   imageHeight
-  
+  scale = this.props.canvasSize() / 740
   render() {
     const image = new window.Image()
     image.src = require(`images/flowers/${this.props.renderImage.name}.png`)
@@ -149,11 +140,10 @@ class RenderImage extends Component {
       this.props.refresh()
       }
     return (
-      <Group ref={ node => this.wholeGroup = node } draggable={true} >
+      <Group ref={ node => this.wholeGroup = node } draggable={true} scale={{x: this.scale, y: this.scale}}>
         <Image image={image}
           imageId={this.props.renderImage.id} ref={imageNodeName}
           x={100} y={300} scale={{ x: 0.5, y: 0.5 }}
-
           onClick={ event => {
             this.props.disactiveMenu()
             this.setState({ needMenu: true })
