@@ -16,7 +16,10 @@
     font-size: .9rem;
     transform: translate3d( -50%, 100%, 0);
     @include breakpoint('phone') {
-        width: 280px;
+        width: 90%;
+    }
+    @include breakpoint('tablet-landscape') {
+        width: 387px;
     }
     .rowTop {
         display: flex;

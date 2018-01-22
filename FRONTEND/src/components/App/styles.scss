@@ -46,22 +46,41 @@ body {
                 @include breakpoint('phone') {
                     margin-right: 0;
                 }
+                @include breakpoint('phone-landscape') {
+                    margin-right: 0;
+                }
             }
             .side {
                 width: 300px;
                 transform: translate3d(0, 0, 0);
                 @include breakpoint('phone') {
-                    width: 280px;
+                    width: 250px;
+                }
+                @include breakpoint('phone-landscape') {
+                    width: 300px;
                 }
             }
-            .mask {
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                opacity: .7;
-                transition: all .5s;
-
+            @include breakpoint('phone') {
+                .mask {
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    opacity: .65;
+                    transition: all .5s;
+    
+                }
+            }
+            @include breakpoint('phone-landscape') {
+                .mask {
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    opacity: .65;
+                    transition: all .5s;
+    
+                }
             }
         }
 }

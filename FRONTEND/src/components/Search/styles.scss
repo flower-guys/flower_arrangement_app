@@ -47,7 +47,7 @@
     }
     .searchList {
         box-sizing: border-box;
-        width: 220px;
+        width: 230px;
         border-radius: 7px;
         background-color: rgba(255, 255, 255, 0.85);
         padding-top: 20px;
@@ -67,15 +67,5 @@
                 color: $point-color;
             }
         }        
-    }
-    .mask {
-        position: fixed;
-        width: 100px;
-        top: 0;
-        left: 0;
-
-        bottom: 0;
-        z-index: 1;
-        background-color: black;
     }
 }

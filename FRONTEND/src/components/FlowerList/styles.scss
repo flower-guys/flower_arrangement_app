@@ -31,21 +31,28 @@
             margin-left: 20px;
             margin-right: 20px;
             display: flex;
-            max-width: 750px;
-            width: 350px;
+            width: 360px;
+            max-width: 450px;
             border-top: 1px solid $default-color;
             padding-top: 30px;
             flex-grow: 1;
             @include breakpoint('phone') {
                 width: 280px;
                 max-width: 350px;
+                max-width: 750px;
             }
             @include breakpoint('phone-landscape') {
                 width: 500px;
+                max-width: 750px;
             }
             @include breakpoint('tablet') {
                 width: 280px;
+                max-width: 750px;
             }
+            @include breakpoint('tablet-landscape') {
+                width: 280px;
+                max-width: 750px;
+            } 
             .columnLeft{
                 width: 150px;
                 padding: 7px;
