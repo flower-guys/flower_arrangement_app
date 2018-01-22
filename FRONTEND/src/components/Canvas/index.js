@@ -61,17 +61,31 @@ class Canvas extends Component {
     this.stageRef.getStage().batchDraw()
   }
 
+  canvasSize = () => {
+    const width = window.innerWidth
+    if (width > 300 && width <= 320) return 300
+    else if (width > 320 && width <= 375) return 355
+    else if (width > 375 && width <= 450) return 390
+    else if (width > 450 && width <= 768) return 500
+    else if (width > 768 && width <= 1024) return 740
+    else return 800 
+  }
+
+  
   render() {
     return (
-      <div className={styles.canvas}>
+      <div className={styles.canvas} ref={ node => this.canvasRef = node }>
       {this.state.loading ? <Loading />
         :<Stage
-          width={1000}
-          height={window.innerHeight * 0.8}
+          width={this.canvasSize()}
+          height={this.canvasSize()}
           ref={node => this.stageRef = node}
         >
           <Layer>
-            <Rect width={window.innerWidth} height={window.innerHeight} fill={'white'}
+            <Rect 
+              width={this.canvasSize()}
+              height={this.canvasSize()}
+              fill={'white'}
               onClick={ () => {
                 this.disactiveMenu()
               }}

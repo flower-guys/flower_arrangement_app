@@ -1,11 +1,24 @@
 import { connect } from "react-redux";
 import Container from "./container";
+import { actionCreators as layoutActions } from 'redux/modules/layout'
 
 const mapStateToProps = (state, ownProps) => {
-    const { routing: { location } } = state
+    const { layout, routing: { location } } = state
     return {
-        pathname: location.pathname
+        pathname: location.pathname,
+        needSearch: layout.needSearch
     }
 }
 
-export default connect(mapStateToProps)(Container);
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        openSearch: () => {
+            dispatch(layoutActions.openSearch())
+        },
+        closeSearch: () => {
+            dispatch(layoutActions.closeSearch())
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Container)

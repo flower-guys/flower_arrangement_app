@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React from 'react'
 import _ from 'lodash'
 import Ionicon from 'react-ionicons'
 import styles from './styles.scss'
 
 const Search = props => {
     return (
-        <div className={styles.container}>
+        <div className={styles.container} ref={ node => this.search = node}>
             <header className={styles.header}>
                 <SearchBar {...props} />
             </header>
