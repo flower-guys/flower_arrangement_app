@@ -7,6 +7,7 @@ import { i18nState } from 'redux-i18n'
 import user from 'redux/modules/user'
 import flowers from 'redux/modules/flowers'
 import layout from 'redux/modules/layout'
+import message from 'redux/modules/message'
 
 const env = process.env.NODE_ENV
 
@@ -28,7 +29,8 @@ const reducer = combineReducers({
     flowers,
     routing: routerReducer,
     i18nState,
-    layout
+    layout,
+    message
 })
  
 export { history } 

@@ -47,8 +47,13 @@ const Footer = props => {
             </div>
             <div className={styles.rowBottom}>
                 <div className={styles.bottomLeft}>
-                    {props.pathname !== '/' && 
+                    {props.pathname === '/arrange' && 
                     <Link className={styles.backward} to='/'>
+                        <Ionicon className={styles.fowardIcon} icon='ios-arrow-dropleft-circle' color='#635f5c' />
+                        뒤로가기
+                    </Link>}
+                    {props.pathname === '/card' &&
+                    <Link className={styles.backward} to='/arrange'>
                         <Ionicon className={styles.fowardIcon} icon='ios-arrow-dropleft-circle' color='#635f5c' />
                         뒤로가기
                     </Link>}
@@ -61,7 +66,7 @@ const Footer = props => {
                     </Link>}
                     {props.pathname === '/arrange' &&
                     <Link className={styles.forward} to='/card'>
-                        마음 담기
+                        글 담기
                         <Ionicon className={styles.fowardIcon} icon='ios-arrow-dropright-circle' color='#635f5c' beat={true} />
                     </Link>}
                 </div>

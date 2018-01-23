@@ -7,6 +7,9 @@ class Container extends Component {
             this.props.openSearch()
         }
     }
+    componentWillUnmount() {
+        this.props.closeSearch()
+    }
     render() {
         return <FlowerArrangement />
     }

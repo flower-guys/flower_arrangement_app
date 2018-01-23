@@ -1,6 +1,7 @@
 @import '../../config/_variables.scss';
 
 .canvas {
-    border: 1px solid $default-color;
-    border-radius: 5px;
+    border: 20px solid transparent;
+  padding: 20px;
+  border-image: url("https://mdn.mozillademos.org/files/4127/border.png") 27;
 }

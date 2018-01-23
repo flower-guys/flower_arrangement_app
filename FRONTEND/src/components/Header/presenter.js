@@ -16,7 +16,7 @@ const Header = (props) => {
                             color='#635f5c'
                             fontSize='30px'
                             rotate={true}
-                        /> 당신과 꽃이랑 잘 어울릴 것 같아서...
+                        /> 이 꽃이 당신과 잘 어울릴 것 같아서
                     </Link>
                 </div>
             </div>

@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import { actionCreators as flowersActions } from 'redux/modules/flowers'
 import Loading from 'components/Loading'
 import RenderImage from './RenderImage'
+import Message from './Message'
+import Share from './Share'
 import styles from './styles.scss'
 
 class Canvas extends Component {
@@ -11,12 +13,12 @@ class Canvas extends Component {
     super(props)
     this.props.syncList(this.props.currentSelectedFlowers)
     this.state = {
-      loading: true
+      loading: true,
     }
     this.disactiveMenu = this.disactiveMenu.bind(this)
-    this.handleExport = this.handleExport.bind(this)
     this.refresh = this.refresh.bind(this)
     this.canvasSize = this.canvasSize.bind(this)
+    this.downloadDataURL = this.downloadDataURL.bind(this)
   }
   componentDidMount() {
     const { canvasImageList } = this.props
@@ -38,6 +40,19 @@ class Canvas extends Component {
     }
   }
 
+  downloadDataURL = name => {
+    this.disactiveMenu()
+    setTimeout(() => {
+      const uri = this.stageRef.getStage().toDataURL()
+      const link = document.createElement("a")
+      link.download = name
+      link.href = uri
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link);
+    }, 100);
+  }
+
   disactiveMenu = () => {
     if (this.layerRef.getChildren().length > 0) {
       if (this.layerRef.getChildren()[0].children.length > 0) {
@@ -51,17 +66,6 @@ class Canvas extends Component {
     this.layerRef.batchDraw()
   }
 
-  handleExport = () => {
-    const uri = this.stageRef.getStage().toDataURL()
-    const name = "temp.jpg"
-    let link = document.createElement("a")
-    link.download = name
-    link.href = uri
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-  }
-
   refresh = () => {
     this.stageRef.getStage().batchDraw()
   }
@@ -73,12 +77,13 @@ class Canvas extends Component {
     else if (width > 375 && width <= 450) return 375
     else if (width > 450 && width <= 600) return 450
     else if (width > 600 && width <= 768) return 600
-    else return 740 
+    else return 700 
   }
 
   
   render() {
     return (
+      <div className={styles.container}>
       <div className={styles.canvas} ref={ node => this.canvasRef = node }>
       {this.state.loading
       ? <Loading />
@@ -110,8 +115,13 @@ class Canvas extends Component {
               )
             })}
           </Layer>
+            <Layer>
+              <Message {...this.props} canvasSize={this.canvasSize} />
+            </Layer>
         </Stage>}
       </div>
+        <Share downloadDataURL={this.downloadDataURL}/>
+        </div>
     )
   } 
 }
@@ -123,18 +133,25 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     syncList: currentSelectedFlowers => {
       dispatch(flowersActions.syncList(currentSelectedFlowers))
+    },
+    exportCanvas: canvasDataURL => {
+      dispatch(flowersActions.exportCanvas(canvasDataURL))
     }
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { flowers, routing: { location } } = state
+  const { message, flowers, routing: { location } } = state
   return {
     pathname: location.pathname,
     canvasImageList: flowers.canvasImageList,
     selectedFlower: flowers.selectedFlower,
     deselectedFlower: flowers.deselectedFlower,
-    currentSelectedFlowers: flowers.currentSelectedFlowers
+    currentSelectedFlowers: flowers.currentSelectedFlowers,
+    canvasDataURL: flowers.canvasDataURL,
+    messageInput: message.messageInput,
+    fontSize: message.fontSize,
+    fontStyle: message.fontStyle
   }
 }
 

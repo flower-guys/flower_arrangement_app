@@ -3,11 +3,12 @@ import Container from './container'
 import { actionCreators as flowersActions } from 'redux/modules/flowers'
 
 const mapStateToProps = (state, ownProps) => {
-    const { flowers, routing: { location } } = state
+    const { layout, flowers, routing: { location } } = state
     return {
         pathname: location.pathname,
         exportingList: flowers.exportingList,
-        currentSelectedFlowers: flowers.currentSelectedFlowers
+        currentSelectedFlowers: flowers.currentSelectedFlowers,
+        needSearch: layout.needSearch
     }
 }
 

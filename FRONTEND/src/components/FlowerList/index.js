@@ -22,7 +22,8 @@ const mapStateToProps = (state, ownProps) => {
         pathname: location.pathname,
         currentSelectedFlowers: flowers.currentSelectedFlowers,
         searchedList: flowers.searchedList,
-        fetchedFlowerList: flowers.fetchedFlowerList
+        fetchedFlowerList: flowers.fetchedFlowerList,
+        canvasDataURL: flowers.canvasDataURL
     }
 }
 

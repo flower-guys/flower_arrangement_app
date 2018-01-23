@@ -8,6 +8,8 @@ const DESELECT_FLOWER = 'DESELECT_FLOWER'
 const SEARCH_FLOWER = 'SEARCH_FLOWER'
 const SYNC_LIST = 'SYNC_LIST'
 const REFINE_LIST = 'REFINE_LIST'
+const EXPORT_CANVAS = 'EXPORT_CANVAS'
+
 // actions
 
 // action creators
@@ -52,6 +54,16 @@ function refineList (currentSelectedFlowers) {
         currentSelectedFlowers
     }
 }
+
+function exportCanvas (canvasDataURL) {
+    return {
+        type: EXPORT_CANVAS,
+        canvasDataURL
+    }
+}
+
+
+
 // API actions
 function fetchFirebaseFlowers () {
     return dispatch => {
@@ -81,6 +93,8 @@ function reducer(state = initialState, action) {
             return applySyncList(state, action)
         case REFINE_LIST:
             return applyRefineList(state, action)
+        case EXPORT_CANVAS:
+            return applyExportCanvas(state, action)
         default:
             return state
     }
@@ -193,6 +207,14 @@ function applyRefineList(state, action) {
     }
 }
 
+function applyExportCanvas(state, action) {
+    const { canvasDataURL } = action
+    return {
+        ...state,
+        canvasDataURL: canvasDataURL
+    }
+}
+
 // exports
 const actionCreators = {
     fetchFirebaseFlowers,
@@ -200,7 +222,8 @@ const actionCreators = {
     deselectFlower,
     syncList,
     refineList,
-    searchFlower
+    searchFlower,
+    exportCanvas,
 }
 
 export { actionCreators }
