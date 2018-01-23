@@ -1,14 +1,88 @@
 @import '../../config/_variables.scss';
 
 .container {
+    width: 100%;
     margin-top: 20px;
-    background-color: white;
+
+    border-radius: 10px;
     color: $font-color;
     display: flex;
     flex-direction: column;
     align-items: center;
-    img {
-        width: 500px;
-        height: 500px;
+    .menu {
+        font-size: .8rem;
+        width: 300px;
+        display: flex;
+        justify-content: space-around;
+        .smaller{
+            display: flex;
+            align-items: center;
+            font-size: .8rem;
+            background-color: lighten($font-color, 55%);
+            color: darken($font-color, 10%);
+            border-radius: 7px;
+            padding: 5px 20px;
+            margin: 5px;
+            &:hover {
+                cursor: pointer;
+                color: $point-color;
+            }
+        }
+        .bigger {
+            display: flex;
+            align-items: center;
+            font-size: .8rem;
+            background-color: lighten($font-color, 55%);
+            color: darken($font-color, 10%);
+            border-radius: 7px;
+            padding: 5px 20px;
+            margin: 5px;
+            &:hover {
+                cursor: pointer;
+                color: $point-color;
+            }
+        }
+        .bold {
+            display: flex;
+            align-items: center;
+            font-size: .8rem;
+            background-color: lighten($font-color, 55%);
+            color: darken($font-color, 10%);
+            border-radius: 7px;
+            padding: 5px 20px;
+            margin: 5px;
+            &:hover {
+                cursor: pointer;
+                color: $point-color;
+            }
+        }
+        .light {
+            display: flex;
+            align-items: center;
+            font-size: .8rem;
+            background-color: lighten($font-color, 55%);
+            color: darken($font-color, 10%);
+            border-radius: 7px;
+            padding: 5px 20px;
+            margin: 5px;
+            &:hover {
+                cursor: pointer;
+                color: $point-color;
+            }
+        }
+        
+    }
+    .message {
+        width: 90%;
+        textarea {
+            padding: 7px;
+            border-radius: 10px;
+            border: 1px solid $default-color;
+            height: 150px;
+            width: 100%;
+            &:focus {
+               outline: none; 
+            }
+        }
     }
 }

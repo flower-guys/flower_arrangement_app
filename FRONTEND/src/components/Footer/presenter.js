@@ -5,6 +5,7 @@ import classNames from 'classnames'
 import styles from './styles.scss'
 
 const Footer = props => {
+
     return (
         <footer 
             className={props.currentSelectedFlowers.length > 0
@@ -65,9 +66,9 @@ const Footer = props => {
                         <Ionicon className={styles.fowardIcon} icon='ios-arrow-dropright-circle' color='#635f5c' beat={true} />
                     </Link>}
                     {props.pathname === '/arrange' &&
-                    <Link className={styles.forward} to='/card'>
-                        글 담기
-                        <Ionicon className={styles.fowardIcon} icon='ios-arrow-dropright-circle' color='#635f5c' beat={true} />
+                    <Link className={styles.forward} to='/'>
+                        coming soon
+                        <Ionicon className={styles.fowardIcon} icon='md-heart-outline' color='salmon' beat={true} />
                     </Link>}
                 </div>
             </div>

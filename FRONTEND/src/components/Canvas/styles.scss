@@ -1,7 +1,40 @@
 @import '../../config/_variables.scss';
 
-.canvas {
-    border: 20px solid transparent;
-  padding: 20px;
-  border-image: url("https://mdn.mozillademos.org/files/4127/border.png") 27;
+.container {
+  .canvas {
+    margin-top: 20px;
+    border: 50px solid transparent;
+    padding: 20px;
+  }
+  .shareButtons {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+    color: $font-color;
+    font-size: .8rem;
+    .download {
+      margin: 5px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    .instagram {
+      margin: 5px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    .facebook {
+      margin: 5px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    .mail {
+      margin: 5px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
 }

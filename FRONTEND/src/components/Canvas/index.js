@@ -76,15 +76,14 @@ class Canvas extends Component {
     else if (width > 320 && width <= 375) return 320
     else if (width > 375 && width <= 450) return 375
     else if (width > 450 && width <= 600) return 450
-    else if (width > 600 && width <= 768) return 600
-    else return 700 
+    else return 500 
   }
 
   
   render() {
     return (
       <div className={styles.container}>
-      <div className={styles.canvas} ref={ node => this.canvasRef = node }>
+        <div className={styles.canvas} ref={node => this.canvasRef = node} style={{ borderImage: `url(${require('images/border.png')}) 250`}}>
       {this.state.loading
       ? <Loading />
       : <Stage

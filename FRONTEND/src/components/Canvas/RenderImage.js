@@ -56,7 +56,6 @@ class RenderImage extends Component {
                     }}
                     onTap={ event => {
                         this.props.disactiveMenu()
-                        this.wholeGroup.moveToTop()
                         this.setState({ needMenu: true })
                         if (this.state.needMenu === true && event.target.parent.children.length > 0) {
                             event.target.getParent().getChildren()[1].show()
