@@ -1,9 +1,8 @@
 @import '../../config/_variables.scss';
 
 .container {
-    margin-top: 7vh;
+    margin-top: calc(7vh + 20px);
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 93vh;
 }

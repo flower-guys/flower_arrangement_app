@@ -48,7 +48,7 @@ const Footer = props => {
             <div className={styles.rowBottom}>
                 <div className={styles.bottomLeft}>
                     {props.pathname !== '/' && 
-                    <Link className={styles.forward} to='/'>
+                    <Link className={styles.backward} to='/'>
                         <Ionicon className={styles.fowardIcon} icon='ios-arrow-dropleft-circle' color='#635f5c' />
                         뒤로가기
                     </Link>}

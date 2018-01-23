@@ -22,7 +22,7 @@ const LoadingFlowers = props => <div className={styles.container}><Loading /></d
 const RenderList = props => (
     <div className={styles.container}>
     <div className={styles.wrapper}>
-            <div className={styles.counter}><span className={styles.number}>{Object.keys(props.fetchedFlowerList).length}</span> Flowers for you</div>
+            <div className={styles.counter}>그녀, 그와 어울릴 <span className={styles.number}>{Object.keys(props.fetchedFlowerList).length}</span> 가지의 꽃들</div>
         <div className={styles.list}>
         {Object.keys(props.searchedList).length > 0 
         ? _.map(props.searchedList, (item, key) => {

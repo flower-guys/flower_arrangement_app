@@ -80,12 +80,24 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: lighten(#b9cf69, 20%);
+            background-color: lighten(#b9cf69, 25%);
             padding: 7px 10px;
             border-radius: 5px;
             &:hover {
                 cursor: pointer;
                 background-color: lighten(#b9cf69, 15%);
+            }
+        }
+        .backward {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: lighten($font-color, 55%);
+            padding: 7px 10px;
+            border-radius: 5px;
+            &:hover {
+                cursor: pointer;
+                background-color: lighten($font-color, 50%);
             }
         }
     }

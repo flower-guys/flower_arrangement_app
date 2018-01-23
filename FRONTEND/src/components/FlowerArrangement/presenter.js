@@ -3,9 +3,10 @@ import Canvas from 'components/Canvas'
 import styles from './styles.scss'
 
 const FlowerArrangement = props => {
+
     return (
         <div className={styles.container}>
-                <Canvas />
+            <Canvas className={styles.canvas} />
         </div>
     )
 }
