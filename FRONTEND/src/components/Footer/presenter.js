@@ -65,11 +65,21 @@ const Footer = props => {
                         꽃 놓기
                         <Ionicon className={styles.fowardIcon} icon='ios-arrow-dropright-circle' color='#635f5c' beat={true} />
                     </Link>}
-                    {props.pathname === '/arrange' &&
-                    <Link className={styles.forward} to='/'>
-                        coming soon
-                        <Ionicon className={styles.fowardIcon} icon='md-heart-outline' color='salmon' beat={true} />
-                    </Link>}
+                    {props.pathname === '/arrange'
+                    ? 
+                        props.downloadURL 
+                        ?
+                            <Link className={styles.forward} to='/share'>
+                                마음 전하기
+                                <Ionicon className={styles.forwardIcon} icon='md-heart-outline' color='salmon' beat={true} />
+                            </Link>
+                        :
+                            <div className={classNames(styles.forward, styles.needPack)}>
+                                먼저 포장을 해주세요    
+                                <Ionicon className={styles.fowardIcon} icon='ios-archive-outline' color='#635f5c' fontSize='25px' />
+                            </div>
+                    :   null
+                    }
                 </div>
             </div>
         </footer>

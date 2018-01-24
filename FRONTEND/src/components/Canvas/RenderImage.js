@@ -10,7 +10,7 @@ class RenderImage extends Component {
     imageY
     imageWidth
     imageHeight
-    scale = this.props.canvasSize() > 414 ? this.props.canvasSize() / 740 : this.props.canvasSize() / 740 * 1.5
+    scale = this.props.canvasSize() > 414 ? this.props.canvasSize() / 740 : this.props.canvasSize() / 740 * 1.7
     render() {
         const image = new window.Image()
         image.src = require(`images/flowers/${this.props.renderImage.name}.png`)

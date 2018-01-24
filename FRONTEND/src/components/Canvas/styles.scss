@@ -1,38 +1,36 @@
 @import '../../config/_variables.scss';
 
 .container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   .canvas {
     margin-top: 20px;
-    border: 50px solid transparent;
+    border-style: solid;
+    border-width: 50px;
     padding: 20px;
+    @include breakpoint('phone') {
+      border-width: 20px;
+    }
   }
-  .shareButtons {
-    margin-top: 10px;
+  
+  .messageAndUpload {
+    margin-left: 20px;
     display: flex;
-    justify-content: flex-end;
-    color: $font-color;
-    font-size: .8rem;
-    .download {
-      margin: 5px;
+    flex-direction: column;
+    align-items: center;
+    .package {
+      margin-top: 15px;
+      border: 1.5px solid lighten($point-color, 15%);
+      background-color: lighten($font-color, 55%);
+      color: darken($font-color, 10%);
+      border-radius: 7px;
+      padding: 5px 10px;
+      display: flex;
+      align-items: center;
+      font-size: .9rem;
       &:hover {
-        cursor: pointer;
-      }
-    }
-    .instagram {
-      margin: 5px;
-      &:hover {
-        cursor: pointer;
-      }
-    }
-    .facebook {
-      margin: 5px;
-      &:hover {
-        cursor: pointer;
-      }
-    }
-    .mail {
-      margin: 5px;
-      &:hover {
+        background-color: lighten($point-color, 15%);
         cursor: pointer;
       }
     }

@@ -1,0 +1,47 @@
+@import '../../config/_variables.scss';
+
+.container {
+    margin-top: calc(10vh + 20px);
+    border: 1.2px solid $default-color;
+    border-radius: 7px;
+    .image {
+        width: 400px;
+        height: 400px;
+    }
+    .share {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: $background-color;
+        padding-top: 10px;
+        .letsShare {
+            font-size: .8rem;
+            color: $font-color;
+        }
+        .shareButtons {
+            margin-top: 10px;
+            display: flex;
+            justify-content: flex-end;
+            color: $font-color;
+            font-size: .8rem;
+            .download {
+                margin: 5px;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+            .twitter {
+                margin: 5px;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+            .facebook {
+                margin: 5px;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

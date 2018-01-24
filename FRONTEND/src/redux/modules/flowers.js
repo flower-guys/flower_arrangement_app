@@ -1,4 +1,4 @@
-import { database } from 'redux/firebase'
+import { database, upload } from 'redux/firebase'
 import _ from 'lodash'
 // imports
 
@@ -9,7 +9,7 @@ const SEARCH_FLOWER = 'SEARCH_FLOWER'
 const SYNC_LIST = 'SYNC_LIST'
 const REFINE_LIST = 'REFINE_LIST'
 const EXPORT_CANVAS = 'EXPORT_CANVAS'
-
+const GET_DOWNLOAD_URL = 'GET_DOWNLOAD_URL'
 // actions
 
 // action creators
@@ -61,14 +61,27 @@ function exportCanvas (canvasDataURL) {
         canvasDataURL
     }
 }
-
-
-
+function getDownloadURL (downloadURL) {
+    return {
+        type: GET_DOWNLOAD_URL,
+        downloadURL
+    }
+}
 // API actions
 function fetchFirebaseFlowers () {
     return dispatch => {
         database.ref('flowers/')
             .on('value', snapshot => dispatch(fetchFlowers(snapshot.val()),error => console.log(error)))
+    }
+}
+
+function uploadFirebase (imageData) {
+    return dispatch => {
+        const ref = upload.ref();
+        const date = new Date()
+        var imageRef = ref.child(`fitflowers_${date.getTime()}.jpg`)
+        var message = imageData
+        imageRef.putString(message, 'data_url').then( snapshot => dispatch(getDownloadURL(snapshot.downloadURL)))
     }
 }
 
@@ -95,6 +108,8 @@ function reducer(state = initialState, action) {
             return applyRefineList(state, action)
         case EXPORT_CANVAS:
             return applyExportCanvas(state, action)
+        case GET_DOWNLOAD_URL:
+            return applyGetDownloadURL(state, action)
         default:
             return state
     }
@@ -215,6 +230,14 @@ function applyExportCanvas(state, action) {
     }
 }
 
+function applyGetDownloadURL(state, action) {
+    const { downloadURL } = action
+    return {
+        ...state,
+        downloadURL: downloadURL
+    }
+}
+
 // exports
 const actionCreators = {
     fetchFirebaseFlowers,
@@ -224,6 +247,7 @@ const actionCreators = {
     refineList,
     searchFlower,
     exportCanvas,
+    uploadFirebase
 }
 
 export { actionCreators }

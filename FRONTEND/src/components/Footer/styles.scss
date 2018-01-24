@@ -85,13 +85,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: lighten(#b9cf69, 25%);
+            background-color: lighten($font-color, 55%);
+            border: 1.2px solid lighten($point-color, 15%);
             padding: 7px 10px;
             border-radius: 5px;
             &:hover {
                 cursor: pointer;
-                background-color: lighten(#b9cf69, 15%);
+                background-color: lighten($point-color, 15%);
             }
+        }
+        .forward.needPack {
+            cursor: default;
         }
         .backward {
             display: flex;

@@ -2,10 +2,12 @@ import React, { Component } from 'react'
 import { Stage, Layer, Rect } from 'react-konva'
 import { connect } from "react-redux";
 import { actionCreators as flowersActions } from 'redux/modules/flowers'
+import { Link } from 'react-router-dom'
+import Ionicon from 'react-ionicons'
 import Loading from 'components/Loading'
 import RenderImage from './RenderImage'
 import Message from './Message'
-import Share from './Share'
+import Card from 'components/Card'
 import styles from './styles.scss'
 
 class Canvas extends Component {
@@ -18,7 +20,6 @@ class Canvas extends Component {
     this.disactiveMenu = this.disactiveMenu.bind(this)
     this.refresh = this.refresh.bind(this)
     this.canvasSize = this.canvasSize.bind(this)
-    this.downloadDataURL = this.downloadDataURL.bind(this)
   }
   componentDidMount() {
     const { canvasImageList } = this.props
@@ -39,17 +40,12 @@ class Canvas extends Component {
       })
     }
   }
-
-  downloadDataURL = name => {
+  exportDataURL = () => {
     this.disactiveMenu()
     setTimeout(() => {
       const uri = this.stageRef.getStage().toDataURL()
-      const link = document.createElement("a")
-      link.download = name
-      link.href = uri
-      document.body.appendChild(link)
-      link.click()
-      document.body.removeChild(link);
+      this.props.exportCanvas(uri)
+      this.props.uploadFirebase(uri)
     }, 100);
   }
 
@@ -72,18 +68,22 @@ class Canvas extends Component {
 
   canvasSize = () => {
     const width = window.innerWidth
-    if (width > 300 && width <= 320) return 300
-    else if (width > 320 && width <= 375) return 320
-    else if (width > 375 && width <= 450) return 375
-    else if (width > 450 && width <= 600) return 450
-    else return 500 
+    if (width > 300 && width <= 325) return 220
+    else if (width > 325 && width <= 375) return 250
+    else if (width > 375 && width <= 450) return 300
+    else if (width > 450 && width <= 600) return 350
+    else return 400 
   }
 
   
   render() {
     return (
       <div className={styles.container}>
-        <div className={styles.canvas} ref={node => this.canvasRef = node} style={{ borderImage: `url(${require('images/border.png')}) 250`}}>
+        <div 
+          className={styles.canvas}
+          ref={node => this.canvasRef = node} 
+          style={{ borderImage: `url(${require('images/border.png')}) 250`}}
+        >
       {this.state.loading
       ? <Loading />
       : <Stage
@@ -119,8 +119,28 @@ class Canvas extends Component {
             </Layer>
         </Stage>}
       </div>
-        <Share downloadDataURL={this.downloadDataURL}/>
+      <div className={styles.messageAndUpload}>
+        <Card />
+        {!this.props.downloadURL
+        ?
+        <div 
+          className={styles.package}
+          onClick={()=>this.exportDataURL()}
+        >
+          <Ionicon className={styles.fowardIcon} icon='ios-archive-outline' color='#635f5c' fontSize='25px' />
+          포장하기
         </div>
+        :
+        <Link
+          className={styles.package}
+          to={'/share'}
+        >
+          <Ionicon className={styles.fowardIcon} icon='md-heart-outline' color='salmon' fontSize='20px' beat={true}/>
+          마음 전하기
+        </Link>
+        }
+      </div>
+    </div>
     )
   } 
 }
@@ -135,6 +155,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     exportCanvas: canvasDataURL => {
       dispatch(flowersActions.exportCanvas(canvasDataURL))
+    },
+    uploadFirebase: canvasDataURL => {
+      dispatch(flowersActions.uploadFirebase(canvasDataURL))
     }
   }
 }
@@ -148,6 +171,7 @@ const mapStateToProps = (state, ownProps) => {
     deselectedFlower: flowers.deselectedFlower,
     currentSelectedFlowers: flowers.currentSelectedFlowers,
     canvasDataURL: flowers.canvasDataURL,
+    downloadURL: flowers.downloadURL,
     messageInput: message.messageInput,
     fontSize: message.fontSize,
     fontStyle: message.fontStyle

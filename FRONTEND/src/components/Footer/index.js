@@ -8,6 +8,7 @@ const mapStateToProps = (state, ownProps) => {
         pathname: location.pathname,
         exportingList: flowers.exportingList,
         currentSelectedFlowers: flowers.currentSelectedFlowers,
+        downloadURL: flowers.downloadURL,
         needSearch: layout.needSearch
     }
 }
