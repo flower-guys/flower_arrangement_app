@@ -1,14 +1,12 @@
 import React from 'react'
-import Navigation from 'components/Navigation'
 import Canvas from 'components/Canvas'
-import Footer from 'components/Footer'
+import styles from './styles.scss'
 
 const FlowerArrangement = props => {
+
     return (
-        <div>
-            <Navigation />
-            <Canvas />
-            <Footer />
+        <div className={styles.container}>
+            <Canvas ref={ node => this.asdf = node} className={styles.canvas} />
         </div>
     )
 }

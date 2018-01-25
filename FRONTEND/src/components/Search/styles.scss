@@ -1,0 +1,71 @@
+@import '../../config/_variables.scss';
+
+.container {
+    border-left: 1px solid $default-color;
+    width: 300px;
+    height: 100vh;
+    background-color: white;
+    .header {
+        height: 7vh;
+        display: flex;
+        align-items: flex-end;
+        border-bottom: 1px solid $default-color;
+        max-width: $max-page-width;
+        padding-top: 0px;
+        padding-bottom: 15px;
+        .searchBar {
+            display: flex;
+            align-items: flex-end;
+            padding-left: 20px;
+            input {
+                color: $font-color;
+                box-sizing: border-box;
+                width: 150px;
+                margin-left: 5px;
+                font-size: .8rem;
+                padding-left: 15px;
+                padding-bottom: 7px;
+                border-radius: 3px;
+                border-top: none;
+                border-left: none;
+                border-right: none;
+                &::placeholder {
+                    color: $font-color;
+                }
+                &:hover {
+                    &::placeholder {
+                        color: $point-color;
+                    }
+                }
+                &:focus {
+                    outline: none;
+                    color: lighten($font-color, 15%);
+                    border-bottom: 1px solid $default-color;
+                }
+            }
+        }
+    }
+    .searchList {
+        box-sizing: border-box;
+        width: 230px;
+        border-radius: 7px;
+        background-color: rgba(255, 255, 255, 0.85);
+        padding-top: 20px;
+        padding-left: 20px;
+        line-height: 1.7rem;
+        .searchItem {
+            display: flex;
+            align-items: center;
+            font-size: .8rem;
+            background-color: lighten($font-color, 55%);
+            color: darken($font-color, 10%);
+            border-radius: 7px;
+            padding: 5px 20px;
+            margin: 5px;
+            &:hover {
+                cursor: pointer;
+                color: $point-color;
+            }
+        }        
+    }
+}

@@ -1,0 +1,124 @@
+@import '../../config/_variables.scss';
+.container {
+    margin-top: 10vh;
+    width: 100%;
+    max-width: $max-page-width;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.wrapper {
+    width: 100%;
+    .counter {
+        margin-left: 20px;
+        margin-top: 50px;
+        margin-bottom: 20px;
+        font-size: .8rem;
+        .number {
+            color: $point-color;
+        }
+    }
+    .list {
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        .item {
+            margin-bottom: 120px;
+            margin-left: 20px;
+            margin-right: 20px;
+            display: flex;
+            width: 360px;
+            max-width: 450px;
+            border-top: 1px solid $default-color;
+            padding-top: 30px;
+            flex-grow: 1;
+            @include breakpoint('phone') {
+                width: 280px;
+                max-width: 350px;
+                max-width: 750px;
+            }
+            @include breakpoint('phone-landscape') {
+                width: 500px;
+                max-width: 750px;
+            }
+            @include breakpoint('tablet') {
+                width: 280px;
+                max-width: 750px;
+            }
+            @include breakpoint('tablet-landscape') {
+                width: 280px;
+                max-width: 750px;
+            } 
+            .columnLeft{
+                width: 150px;
+                padding: 7px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                @include breakpoint('phone-landscape') {
+                    width: 280px;
+                }
+                img {
+                    display: block;
+                    height: 220px;
+                }
+            }
+            .columnRight{
+                width: 100%;
+                padding: 10px;
+                .rowTop {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-start;
+                    margin-bottom: 20px;
+                    .rowTopLeft {
+                        display: flex;
+                        flex-direction: column;
+                        .nameKr {
+                            font-size: 1.2rem;
+                            font-weight: 500;
+                            margin-bottom: .5rem;
+                        }
+                        .nameEn {
+                            font-size: .9rem;
+                        }
+                    }
+                    .rowTopRight {
+                        margin: 0;
+                        padding: 0;
+                        display: flex;
+                        justify-content: flex-end;
+                        .addButton {
+                            img {
+                                padding: 2px;
+                                width: 20px;
+                                height: 20px;
+                            }
+                        }
+                        .removeButton {
+                            img {
+                                padding: 2px;
+                                width: 20px;
+                                height: 20px;
+                            }
+                        }
+                        &:hover {
+                            cursor: pointer;
+                        }
+                    }
+                }
+                .rowBottom {
+                    font-size: 1.1rem;
+                    font-style: italic;
+                    color: $default-color;
+                }
+            }
+        }       
+    }
+}
+
+

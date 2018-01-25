@@ -1,15 +1,22 @@
-import React, { Component } from "react";
-import styles from "./styles.scss";
-import FlowerArrangement from 'components/FlowerArrangement'
+import { connect } from 'react-redux'
+import { actionCreators as layoutActions } from 'redux/modules/layout'
+import Container from './container'
 
-class App extends Component {
-  render() {
-    return (
-    <div className={styles.App} >
-      <FlowerArrangement />
-    </div>
-    )
+const mapStateToProps = (state, ownProps) => {
+  const { layout, routing: { location } } = state
+  return {
+    pathname: location.pathname,
+    needSearch: layout.needSearch
   }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    closeSearch: () => {
+      dispatch(layoutActions.closeSearch())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Container)
+

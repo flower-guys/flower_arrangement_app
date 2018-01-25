@@ -1,13 +1,133 @@
 @import '../../config/_variables.scss';
 .footer {
+    background-color: white;
     position: fixed;
-    bottom: 0;
-    background-color: $bg-color;
+    bottom: -5px;
+    right: 350px;
+    border: 1px solid $default-color;
+    border-radius: 5px;
     color: $font-color;
-    width: 100%;
-    height: 10vh;
+    padding: 10px;
+    width: 400px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-size: .9rem;
+    transform: translate3d( 0, 100%, 0);
+    @include breakpoint('phone') {
+        right: 50%;
+        width: 90%;
+        transform: translate3d( 50%, 100%, 0);
+    }
+    @include breakpoint('tablet') {
+        right: 50%;
+        width: 387px;
+        transform: translate3d( 50%, 100%, 0);
+    }
+    @include breakpoint('tablet-landscape') {
+        width: 387px;
+    }
+    .rowTop {
+        display: flex;
+        width: 90%;
+        height: 30px;
+        border-bottom: 1px solid $default-color;
+        justify-content: space-between;
+        padding-bottom: 5px;
+        .title {
+            display: flex;
+            align-items: center;
+            .titleCounter{
+                margin-left: .5rem;
+                .titleCount {
+                    color: $point-color;
+          }
+            }
+        }
+        .upDownButton {
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+    .flowerBasket {
+        display: flex;
+        flex-wrap: wrap;
+        padding-left: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        .selectedFlower {
+            padding: 5px;
+            margin: 5px;
+            background-color: lighten($font-color, 55%);
+            color: darken($font-color, 10%);
+            border-radius: 7px;
+            display: flex;
+            align-items: flex-end;
+            .selectedFlowerCount {
+                color: $point-color;
+            }
+            .deselectFlower {
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+    .rowBottom {
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px solid $default-color;
+        width: 90%;
+        padding-top: 10px;
+        .forward {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: lighten($font-color, 55%);
+            border: 1.2px solid lighten($point-color, 15%);
+            padding: 7px 10px;
+            border-radius: 5px;
+            &:hover {
+                cursor: pointer;
+                background-color: lighten($point-color, 15%);
+            }
+        }
+        .forward.needPack {
+            cursor: default;
+        }
+        .backward {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: lighten($font-color, 55%);
+            padding: 7px 10px;
+            border-radius: 5px;
+            &:hover {
+                cursor: pointer;
+                background-color: lighten($font-color, 50%);
+            }
+        }
+    }
+}
+
+.footerActive {
+    transform: translate3d(0, 0, 0);
+    @include breakpoint('phone') {
+        transform: translate3d( 50%, 0, 0);
+    }
+    @include breakpoint('tablet') {
+        transform: translate3d( 50%, 0, 0);
+    }
+}
+
+.footerMinified {
+    transform: translate3d(0, calc(100% - 50px), 0);
+    @include breakpoint ('phone'){
+        transform: translate3d( 50%, calc(100% - 50px), 0);
+    }
+    @include breakpoint('tablet') {
+        transform: translate3d( 50%, calc(100% - 50px), 0);
+    }
 }

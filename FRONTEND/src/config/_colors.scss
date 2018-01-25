@@ -1,2 +1,4 @@
-$bg-color: #b9cf69;
+$point-color: rgb(253, 115, 100);
 $font-color: #635f5c;
+$default-color: lighten($font-color, 35%);
+$background-color: lighten($font-color, 55%);

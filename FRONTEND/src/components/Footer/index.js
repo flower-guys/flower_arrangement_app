@@ -1,20 +1,28 @@
 import { connect } from 'react-redux'
 import Container from './container'
-import { actionCreators as imagesActions } from 'redux/modules/images'
-
+import { actionCreators as flowersActions } from 'redux/modules/flowers'
 
 const mapStateToProps = (state, ownProps) => {
-    const { images } = state
+    const { layout, flowers, routing: { location } } = state
     return {
-        refinedList: images.refinedList,
-        currentSelectedImages: images.currentSelectedImages
+        pathname: location.pathname,
+        exportingList: flowers.exportingList,
+        currentSelectedFlowers: flowers.currentSelectedFlowers,
+        downloadURL: flowers.downloadURL,
+        needSearch: layout.needSearch
     }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        refineList: (currentSelectedImages) => {
-            dispatch(imagesActions.refineList(currentSelectedImages))
+        refineList: (currentSelectedFlowers) => {
+            dispatch(flowersActions.refineList(currentSelectedFlowers))
+        },
+        deselectFlower: deselectedFlower => {
+            dispatch(flowersActions.deselectFlower(deselectedFlower))
+        },
+        deselectImage: deselectedCanvasImage => {
+            dispatch(flowersActions.deselectImage(deselectedCanvasImage))
         }
     }
 }
