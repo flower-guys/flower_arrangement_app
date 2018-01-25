@@ -14,9 +14,9 @@ const Header = (props) => {
                             icon='ios-flower-outline'
                             className={styles.closeSearch}
                             color='#635f5c'
-                            fontSize='30px'
+                            fontSize='25px'
                             rotate={true}
-                        /> 이 꽃이 당신과 잘 어울릴 것 같아서
+                        /> 하루의 꽃
                     </Link>
                 </div>
             </div>

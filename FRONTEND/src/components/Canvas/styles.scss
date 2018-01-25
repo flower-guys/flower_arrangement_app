@@ -5,17 +5,19 @@
   justify-content: center;
   flex-wrap: wrap;
   .canvas {
-    margin-top: 20px;
+    margin: 20px 30px;
     border-style: solid;
-    border-width: 50px;
-    padding: 20px;
+    border-width: 7px;
+    border-radius: 15px;
+    padding: 10px;
+    border-color: darken($default-color, 15%);
     @include breakpoint('phone') {
-      border-width: 20px;
+      margin: 20px 0;
+      border-width: 5px;
     }
   }
   
   .messageAndUpload {
-    margin-left: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;

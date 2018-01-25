@@ -7,7 +7,9 @@ import styles from './styles.scss'
 const Footer = props => {
 
     return (
-        <footer 
+        <div className={styles.container}>
+        {props.pathname !== '/share'
+        ? <footer 
             className={props.currentSelectedFlowers.length > 0
                 ? props.isMinified === false 
                     ? classNames(styles.footer, styles.footerActive)
@@ -83,6 +85,8 @@ const Footer = props => {
                 </div>
             </div>
         </footer>
+        : null }
+        </div>
     )
 }
 

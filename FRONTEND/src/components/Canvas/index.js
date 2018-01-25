@@ -68,8 +68,8 @@ class Canvas extends Component {
 
   canvasSize = () => {
     const width = window.innerWidth
-    if (width > 300 && width <= 325) return 220
-    else if (width > 325 && width <= 375) return 250
+    if (width > 300 && width <= 330) return 275
+    else if (width > 330 && width <= 375) return 300
     else if (width > 375 && width <= 450) return 300
     else if (width > 450 && width <= 600) return 350
     else return 400 
@@ -82,7 +82,6 @@ class Canvas extends Component {
         <div 
           className={styles.canvas}
           ref={node => this.canvasRef = node} 
-          style={{ borderImage: `url(${require('images/border.png')}) 250`}}
         >
       {this.state.loading
       ? <Loading />

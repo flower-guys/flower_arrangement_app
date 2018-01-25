@@ -1,8 +1,7 @@
 @import '../../config/_variables.scss';
 
 .container {
-    width: 350px;
-    margin-top: 20px;
+    width: 100%;
     justify-content: center;
     border-radius: 10px;
     color: $font-color;
@@ -75,7 +74,7 @@
         
     }
     .message {
-        width: 90%;
+        width: 100%;
         display: flex;
         justify-content: center;
         textarea {
