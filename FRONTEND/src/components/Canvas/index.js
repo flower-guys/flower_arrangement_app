@@ -48,7 +48,6 @@ class Canvas extends Component {
       this.props.uploadFirebase(uri)
     }, 100);
   }
-
   disactiveMenu = () => {
     if (this.layerRef.getChildren().length > 0) {
       if (this.layerRef.getChildren()[0].children.length > 0) {
@@ -61,11 +60,9 @@ class Canvas extends Component {
     }
     this.layerRef.batchDraw()
   }
-
   refresh = () => {
     this.stageRef.getStage().batchDraw()
   }
-
   canvasSize = () => {
     const width = window.innerWidth
     if (width > 300 && width <= 330) return 275
@@ -74,7 +71,6 @@ class Canvas extends Component {
     else if (width > 450 && width <= 600) return 350
     else return 400 
   }
-
   
   render() {
     return (
@@ -118,31 +114,36 @@ class Canvas extends Component {
             </Layer>
         </Stage>}
       </div>
-      <div className={styles.messageAndUpload}>
-        <Card />
-        {!this.props.downloadURL
-        ?
-        <div 
-          className={styles.package}
-          onClick={()=>this.exportDataURL()}
-        >
-          <Ionicon className={styles.fowardIcon} icon='ios-archive-outline' color='#635f5c' fontSize='25px' />
-          포장하기
-        </div>
-        :
-        <Link
-          className={styles.package}
-          to={'/share'}
-        >
-          <Ionicon className={styles.fowardIcon} icon='md-heart-outline' color='salmon' fontSize='20px' beat={true}/>
-          마음 전하기
-        </Link>
-        }
-      </div>
+        <MessageAndUpload {...this.props} exportDataURL={this.exportDataURL} />
     </div>
     )
   } 
 }
+
+const MessageAndUpload = props => (
+  <div className={styles.messageAndUpload}>
+    <Card />
+    {!props.downloadURL
+      ?
+      <div
+        className={styles.package}
+        onClick={() => props.exportDataURL()}
+      >
+        <Ionicon className={styles.fowardIcon} icon='ios-archive-outline' color='#635f5c' fontSize='25px' />
+        포장하기
+        </div>
+      :
+      <Link
+        className={styles.package}
+        to={'/share'}
+      >
+        <Ionicon className={styles.fowardIcon} icon='md-heart-outline' color='salmon' fontSize='20px' beat={true} />
+        마음 전하기
+        </Link>
+    }
+  </div>
+)
+
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
