@@ -16,7 +16,7 @@ const App = props => (
                 <article>
                     <Routes />
                 </article>
-                <Footer />
+                <FooterRoutes />
             </div>
             <div className={styles.side}>
                 <Search />
@@ -30,6 +30,14 @@ const Routes = props => (
         <Route exact path='/' component={FlowerList} />
         <Route path='/arrange' component={FlowerArrangement} />
         <Route path='/share' component={Share} />
+    </Switch>
+)
+
+const FooterRoutes = props => (
+    <Switch>
+        <Route exact path='/' component={Footer} />
+        <Route path='/arrange' component={Footer} />
+        <Route exact path='/share' render={null} />
     </Switch>
 )
 
