@@ -35,27 +35,26 @@ class BouquetAdmin(admin.ModelAdmin):
         'user',
     )
 
-
     list_display = (
         'file',
         'user',
         'flowers',
     )
 
-# @admin.register(models.Bunch)
-# class BunchAdmin(admin.ModelAdmin):
 
-#     list_display_links = (
-#         'flower',
-#     )
+@admin.register(models.UserFlower)
+class UserFlowerAdmin(admin.ModelAdmin):
 
-#     search_fields = (
-#         'user',
-#     )
+    list_display_links = (
+        'flower',
+    )
 
+    seartch_fields = (
+        'user',
+    )
 
-#     list_display = (
-#         'flower',
-#         'user',
-#     )
-     
+    list_display = (
+        'flower',
+        'user',
+        'bouquet',
+    )
